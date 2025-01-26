@@ -1,0 +1,266 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "notFound": {
+      "title": "Page Not Found",
+      "subtitle": "Oops! The page you're looking for seems to have drifted into space...",
+      "returnHome": "Return Home",
+      "countdown": "Launching in {seconds} seconds...",
+      "problem": "Houston, we have a problem! This page seems to be lost in space..."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "nxChecker": "NX Checker",
+    "nxDevice": "NX Device",
+    "ps5": "PS5",
+    "partners": "Partners",
+    "roadmap": "Roadmap",
+    "manga": "Manga",
+    "legal": "Legal"
+  },
+  "nxChecker": {
+    "title": "Nintendo Switch Checker",
+    "subtitle": "Check your console's compatibility",
+    "serialNumber": {
+      "label": "Serial Number",
+      "placeholder": "Ex: XAW10012345678"
+    },
+    "help": {
+      "title": "How to find your serial number?",
+      "description": "The serial number is located under your Nintendo Switch. It's a series of characters starting with XAW, XAJ, XKJ, or XKW."
+    },
+    "button": "Check Compatibility",
+    "results": {
+      "title": "Check Result",
+      "compatible": "Unpatched Switch\nYou can install the hack",
+      "incompatible": "Patched Switch\nReason: Post June 2018 Console",
+      "mariko": "Patched Switch\nReason: Mariko Console",
+      "oled": "Not compatible\nReason: OLED Mariko Console",
+      "lite": "Not compatible\nReason: Lite Mariko Console",
+      "unknown": "Error\nReason: Unknown serial number",
+      "indeterminate": "Indeterminate"
+    },
+    "importantInfo": {
+      "title": "Important Information",
+      "preJune2018": "Nintendo Switch consoles released before June 2018 are potentially compatible with modding.",
+      "incompatibleModels": "Mariko, OLED, and Lite models are not compatible with current modding methods.",
+      "disclaimer": "This checker is provided for informational purposes only. If in doubt, please consult our Discord server for more information."
+    }
+  },
+  "nxDevice": {
+    "title": "NX Device ID Checker",
+    "subtitle": "Analyze your PRODINFO.bin file to get your Device ID",
+    "warning": {
+      "local": "Your PRODINFO.bin file is processed locally in your browser.",
+      "noServer": "No data is sent to a remote server."
+    },
+    "upload": {
+      "title": "Drag and drop your PRODINFO.bin file here",
+      "subtitle": "or click to select a file"
+    },
+    "processing": "Analyzing file...",
+    "success": "Device ID successfully extracted!",
+    "fileInfo": {
+      "deviceId": "Device ID",
+      "fileSize": "File Size",
+      "markers": "Marker Indices",
+      "start": "Start",
+      "end": "End",
+      "rawData": "Extracted Data (hex)"
+    },
+    "instructions": {
+      "title": "Instructions",
+      "selectFile": "Select your PRODINFO.bin file",
+      "format": "Make sure the file is in .bin format",
+      "warning": "Never share your complete PRODINFO.bin file"
+    }
+  },
+  "ps5": {
+    "title": "PS5 UART Checker",
+    "subtitle": "Analyze UART error codes from your PlayStation 5",
+    "importantInfo": {
+      "title": "Important Information",
+      "local": "Error code analysis is performed locally",
+      "disclaimer": "This tool is provided for informational purposes only"
+    },
+    "search": {
+      "title": "Error Code Search",
+      "description": "Enter a UART error code to get detailed information about the issue.",
+      "placeholder": "Ex: 80050000",
+      "button": "Search"
+    },
+    "results": {
+      "found": "result found",
+      "found_plural": "results found",
+      "page": "Page",
+      "of": "of",
+      "noResults": "No results found for \"{query}\"",
+      "loading": "Loading results...",
+      "error": "An error occurred while searching",
+      "priority": {
+        "critical": "Critical",
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+      },
+      "status": {
+        "title": "Status",
+        "description": "Description",
+        "solution": "Suggested Solution"
+      }
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "SigHya Discord Server",
+      "subtitle": "Join our passionate console modding community. Share, learn and evolve with us!",
+      "joinDiscord": "Join Discord",
+      "checkSwitch": "Check my Switch"
+    },
+    "features": {
+      "title": "Why join us?",
+      "subtitle": "An active community dedicated to console modding",
+      "items": {
+        "community": {
+          "title": "Active Community",
+          "description": "Join a dynamic community of modding enthusiasts, always ready to share and help. Benefit from constant support and enriching exchanges."
+        },
+        "expertise": {
+          "title": "Technical Expertise",
+          "description": "Benefit from expert advice and detailed guides for all levels. Access comprehensive and up-to-date technical resources."
+        },
+        "projects": {
+          "title": "Community Projects",
+          "description": "Participate in innovative projects and contribute to the evolution of the modding scene. Develop your skills by collaborating on exciting projects."
+        },
+        "events": {
+          "title": "Exclusive Events",
+          "description": "Enjoy special events, contests and live sessions with the community. Take part in unique and enriching moments."
+        }
+      }
+    }
+  },
+  "legal": {
+    "title": "Legal Notice",
+    "subtitle": "Legal information and terms of use",
+    "sections": {
+      "legal": {
+        "title": "Legal Information",
+        "publisher": {
+          "title": "Website Publisher",
+          "description": "SigHya is an open source entity dedicated to console modding.",
+          "director": "Publication Director",
+          "contact": "Contact"
+        }
+      },
+      "privacy": {
+        "title": "Privacy Policy",
+        "dataCollection": {
+          "title": "Data Collection",
+          "description": "We use Cloudflare services only for security and traffic statistics. No IP addresses are stored by SigHya."
+        },
+        "cookies": {
+          "title": "Cookies",
+          "description": "Only one cookie is kept to remember your display preferences (night mode)."
+        },
+        "dataProtection": {
+          "title": "Data Protection",
+          "description": "We are committed to protecting your personal data and respecting your privacy in accordance with GDPR."
+        }
+      },
+      "hosting": {
+        "title": "Hosting",
+        "provider": {
+          "title": "Provider",
+          "description": "Website hosting is provided by LWS, located in FRANCE.",
+          "country": "Hosting Country",
+          "type": "Hosting Type",
+          "shared": "Shared"
+        }
+      },
+      "intellectual": {
+        "title": "Intellectual Property",
+        "license": {
+          "title": "License",
+          "description": "All content present on the site excluding manga (texts, images, graphics, logo, icons, etc.) is under open source license, unless otherwise stated."
+        },
+        "usage": {
+          "title": "Content Usage",
+          "description": "Any reproduction, distribution, modification, adaptation, retransmission or publication, even partial, of these different elements is authorized in compliance with the terms of the applicable open source license."
+        }
+      }
+    },
+    "contact": {
+      "questions": "For any questions regarding this legal notice, please don't hesitate to contact us."
+    }
+  },
+  "planning": {
+    "title": "Manga Schedule",
+    "subtitle": "Discover upcoming manga releases",
+    "empty": "No manga found",
+    "error": "Error loading manga",
+    "loading": "Loading manga...",
+    "actions": {
+      "downloadCalendar": "Download Calendar",
+      "showAll": "Show All",
+      "todayReleases": "Today's Releases",
+      "weekReleases": "This Week's Releases",
+      "buy": "Buy",
+      "downloadIcs": "Download ICS"
+    },
+    "filters": {
+      "search": "Search for a manga...",
+      "publisher": "All publishers",
+      "date": "Date",
+      "viewMode": {
+        "grid": "Grid",
+        "list": "List"
+      },
+      "sort": {
+        "date": "Release Date",
+        "price": "Price",
+        "name": "Name"
+      },
+      "results": "result found",
+      "results_plural": "results found",
+      "page": "Page",
+      "of": "of"
+    }
+  },
+  "roadmap": {
+    "title": "Roadmap 2025",
+    "description": "SigHya is a non-profit project dedicated to computing, retro and modern gaming consoles, and modding. Discover our upcoming projects!",
+    "footer": {
+      "tagline": "Console Modding Expert",
+      "contact": {
+        "title": "Contact",
+        "email": "Contact Us",
+        "support": "Support"
+      },
+      "legal": {
+        "title": "Legal",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy"
+      }
+    },
+    "projects": {
+      "website": {
+        "title": "Website Redesign",
+        "description": "A new, more modern and intuitive user experience to better serve our community.",
+        "status": "In Progress"
+      },
+      "infrastructure": {
+        "title": "Global Infrastructure Overhaul",
+        "description": "Complete modernization of our infrastructure for better performance and security.",
+        "status": "Planned"
+      },
+      "lanplay": {
+        "title": "Switch LAN Play Server",
+        "description": "Setting up a dedicated server for local network gaming on Nintendo Switch.",
+        "status": "Coming Soon"
+      }
+    }
+  }
+}

@@ -1,0 +1,266 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Se produjo un error",
+    "notFound": {
+      "title": "Página No Encontrada",
+      "subtitle": "¡Ups! La página que buscas parece haberse perdido en el espacio...",
+      "returnHome": "Volver al Inicio",
+      "countdown": "Despegando en {seconds} segundos...",
+      "problem": "¡Houston, tenemos un problema! Esta página parece haberse perdido en el espacio..."
+    }
+  },
+  "nav": {
+    "home": "Inicio",
+    "nxChecker": "NX Checker",
+    "nxDevice": "NX Device",
+    "ps5": "PS5",
+    "partners": "Socios",
+    "roadmap": "Roadmap",
+    "manga": "Manga",
+    "legal": "Legal"
+  },
+  "nxChecker": {
+    "title": "Nintendo Switch Checker",
+    "subtitle": "Verifica la compatibilidad de tu consola",
+    "serialNumber": {
+      "label": "Número de serie",
+      "placeholder": "Ej: XAW10012345678"
+    },
+    "help": {
+      "title": "¿Cómo encontrar tu número de serie?",
+      "description": "El número de serie se encuentra debajo de tu Nintendo Switch. Es una serie de caracteres que comienza con XAW, XAJ, XKJ o XKW."
+    },
+    "button": "Verificar Compatibilidad",
+    "results": {
+      "title": "Resultado de la verificación",
+      "compatible": "Switch No Parcheada\nPuedes instalar el hack",
+      "incompatible": "Switch Parcheada\nRazón: Consola posterior a junio 2018",
+      "mariko": "Switch Parcheada\nRazón: Consola Mariko",
+      "oled": "No compatible\nRazón: Consola OLED Mariko",
+      "lite": "No compatible\nRazón: Consola Lite Mariko",
+      "unknown": "Error\nRazón: Número de serie desconocido",
+      "indeterminate": "Indeterminado"
+    },
+    "importantInfo": {
+      "title": "Información Importante",
+      "preJune2018": "Las consolas Nintendo Switch lanzadas antes de junio de 2018 son potencialmente compatibles con el modding.",
+      "incompatibleModels": "Los modelos Mariko, OLED y Lite no son compatibles con los métodos actuales de modding.",
+      "disclaimer": "Este verificador se proporciona solo con fines informativos. En caso de duda, consulte nuestro servidor de Discord para obtener más información."
+    }
+  },
+  "nxDevice": {
+    "title": "NX Device ID Checker",
+    "subtitle": "Analiza tu archivo PRODINFO.bin para obtener tu Device ID",
+    "warning": {
+      "local": "Tu archivo PRODINFO.bin se procesa localmente en tu navegador.",
+      "noServer": "No se envían datos a ningún servidor remoto."
+    },
+    "upload": {
+      "title": "Arrastra y suelta tu archivo PRODINFO.bin aquí",
+      "subtitle": "o haz clic para seleccionar un archivo"
+    },
+    "processing": "Analizando archivo...",
+    "success": "¡Device ID extraído con éxito!",
+    "fileInfo": {
+      "deviceId": "Device ID",
+      "fileSize": "Tamaño del archivo",
+      "markers": "Índices de marcadores",
+      "start": "Inicio",
+      "end": "Fin",
+      "rawData": "Datos extraídos (hex)"
+    },
+    "instructions": {
+      "title": "Instrucciones",
+      "selectFile": "Selecciona tu archivo PRODINFO.bin",
+      "format": "Asegúrate de que el archivo esté en formato .bin",
+      "warning": "Nunca compartas tu archivo PRODINFO.bin completo"
+    }
+  },
+  "ps5": {
+    "title": "PS5 UART Checker",
+    "subtitle": "Analiza códigos de error UART de tu PlayStation 5",
+    "importantInfo": {
+      "title": "Información Importante",
+      "local": "El análisis de códigos de error se realiza localmente",
+      "disclaimer": "Esta herramienta se proporciona solo con fines informativos"
+    },
+    "search": {
+      "title": "Búsqueda de códigos de error",
+      "description": "Ingresa un código de error UART para obtener información detallada sobre el problema.",
+      "placeholder": "Ej: 80050000",
+      "button": "Buscar"
+    },
+    "results": {
+      "found": "resultado encontrado",
+      "found_plural": "resultados encontrados",
+      "page": "Página",
+      "of": "de",
+      "noResults": "No se encontraron resultados para \"{query}\"",
+      "loading": "Cargando resultados...",
+      "error": "Ocurrió un error durante la búsqueda",
+      "priority": {
+        "critical": "Crítico",
+        "high": "Alto",
+        "medium": "Medio",
+        "low": "Bajo"
+      },
+      "status": {
+        "title": "Estado",
+        "description": "Descripción",
+        "solution": "Solución Sugerida"
+      }
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Servidor Discord SigHya",
+      "subtitle": "Únete a nuestra apasionada comunidad de modding de consolas. ¡Comparte, aprende y evoluciona con nosotros!",
+      "joinDiscord": "Unirse a Discord",
+      "checkSwitch": "Verificar mi Switch"
+    },
+    "features": {
+      "title": "¿Por qué unirse?",
+      "subtitle": "Una comunidad activa dedicada al modding de consolas",
+      "items": {
+        "community": {
+          "title": "Comunidad Activa",
+          "description": "Únete a una comunidad dinámica de entusiastas del modding, siempre dispuesta a compartir y ayudar. Disfruta de apoyo constante e intercambios enriquecedores."
+        },
+        "expertise": {
+          "title": "Experiencia Técnica",
+          "description": "Benefíciate de consejos de expertos y guías detalladas para todos los niveles. Accede a recursos técnicos completos y actualizados."
+        },
+        "projects": {
+          "title": "Proyectos Comunitarios",
+          "description": "Participa en proyectos innovadores y contribuye a la evolución de la escena del modding. Desarrolla tus habilidades colaborando en proyectos emocionantes."
+        },
+        "events": {
+          "title": "Eventos Exclusivos",
+          "description": "Disfruta de eventos especiales, concursos y sesiones en vivo con la comunidad. Participa en momentos únicos y enriquecedores."
+        }
+      }
+    }
+  },
+  "legal": {
+    "title": "Aviso Legal",
+    "subtitle": "Información legal y condiciones de uso",
+    "sections": {
+      "legal": {
+        "title": "Información Legal",
+        "publisher": {
+          "title": "Editor del sitio",
+          "description": "SigHya es una entidad de código abierto dedicada al modding de consolas.",
+          "director": "Director de publicación",
+          "contact": "Contacto"
+        }
+      },
+      "privacy": {
+        "title": "Política de Privacidad",
+        "dataCollection": {
+          "title": "Recopilación de datos",
+          "description": "Utilizamos los servicios de Cloudflare únicamente para seguridad y estadísticas de tráfico. SigHya no almacena direcciones IP."
+        },
+        "cookies": {
+          "title": "Cookies",
+          "description": "Solo se guarda una cookie para recordar sus preferencias de visualización (modo nocturno)."
+        },
+        "dataProtection": {
+          "title": "Protección de datos",
+          "description": "Nos comprometemos a proteger sus datos personales y respetar su privacidad de acuerdo con el RGPD."
+        }
+      },
+      "hosting": {
+        "title": "Alojamiento",
+        "provider": {
+          "title": "Proveedor",
+          "description": "El alojamiento del sitio web es proporcionado por LWS, ubicado en FRANCIA.",
+          "country": "País de alojamiento",
+          "type": "Tipo de alojamiento",
+          "shared": "Compartido"
+        }
+      },
+      "intellectual": {
+        "title": "Propiedad Intelectual",
+        "license": {
+          "title": "Licencia",
+          "description": "Todo el contenido presente en el sitio excluyendo manga (textos, imágenes, gráficos, logo, iconos, etc.) está bajo licencia de código abierto, salvo que se indique lo contrario."
+        },
+        "usage": {
+          "title": "Uso del contenido",
+          "description": "Cualquier reproducción, distribución, modificación, adaptación, retransmisión o publicación, incluso parcial, de estos diferentes elementos está autorizada cumpliendo con los términos de la licencia de código abierto aplicable."
+        }
+      }
+    },
+    "contact": {
+      "questions": "Para cualquier pregunta sobre este aviso legal, no dude en contactarnos."
+    }
+  },
+  "planning": {
+    "title": "Calendario Manga",
+    "subtitle": "Descubre los próximos lanzamientos de manga",
+    "empty": "No se encontraron mangas",
+    "error": "Error al cargar los mangas",
+    "loading": "Cargando mangas...",
+    "actions": {
+      "downloadCalendar": "Descargar Calendario",
+      "showAll": "Mostrar Todo",
+      "todayReleases": "Lanzamientos de Hoy",
+      "weekReleases": "Lanzamientos de la Semana",
+      "buy": "Comprar",
+      "downloadIcs": "Descargar ICS"
+    },
+    "filters": {
+      "search": "Buscar un manga...",
+      "publisher": "Todas las editoriales",
+      "date": "Fecha",
+      "viewMode": {
+        "grid": "Cuadrícula",
+        "list": "Lista"
+      },
+      "sort": {
+        "date": "Fecha de lanzamiento",
+        "price": "Precio",
+        "name": "Nombre"
+      },
+      "results": "resultado encontrado",
+      "results_plural": "resultados encontrados",
+      "page": "Página",
+      "of": "de"
+    }
+  },
+  "roadmap": {
+    "title": "Roadmap 2025",
+    "description": "SigHya es un proyecto sin fines de lucro dedicado a la informática, consolas de juegos retro y modernas, y modding. ¡Descubre nuestros próximos proyectos!",
+    "footer": {
+      "tagline": "Experto en Modding de consolas",
+      "contact": {
+        "title": "Contacto",
+        "email": "Contáctanos",
+        "support": "Soporte"
+      },
+      "legal": {
+        "title": "Legal",
+        "terms": "Términos de servicio",
+        "privacy": "Política de privacidad"
+      }
+    },
+    "projects": {
+      "website": {
+        "title": "Rediseño del Sitio Web",
+        "description": "Una experiencia de usuario nueva, más moderna e intuitiva para servir mejor a nuestra comunidad.",
+        "status": "En Progreso"
+      },
+      "infrastructure": {
+        "title": "Renovación Global de Infraestructura",
+        "description": "Modernización completa de nuestra infraestructura para un mejor rendimiento y seguridad.",
+        "status": "Planificado"
+      },
+      "lanplay": {
+        "title": "Servidor LAN Play Switch",
+        "description": "Configuración de un servidor dedicado para juegos en red local en Nintendo Switch.",
+        "status": "Próximamente"
+      }
+    }
+  }
+}
