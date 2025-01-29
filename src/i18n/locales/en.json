@@ -35,7 +35,7 @@
     "results": {
       "title": "Check Result",
       "success": "Unpatched Switch\nYou can install the hack",
-      "warning": "Patched Switch\nReason: Post June 2018 Console",
+      "warning": "Indeterminado Switch\nReason: Número de serie no reconocido",
       "mariko": "Patched Switch\nReason: Mariko Console",
       "oled": "Not compatible\nReason: OLED Mariko Console",
       "lite": "Not compatible\nReason: Lite Mariko Console",
