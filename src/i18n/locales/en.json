@@ -34,8 +34,8 @@
     "button": "Check Compatibility",
     "results": {
       "title": "Check Result",
-      "compatible": "Unpatched Switch\nYou can install the hack",
-      "incompatible": "Patched Switch\nReason: Post June 2018 Console",
+      "success": "Unpatched Switch\nYou can install the hack",
+      "warning": "Patched Switch\nReason: Post June 2018 Console",
       "mariko": "Patched Switch\nReason: Mariko Console",
       "oled": "Not compatible\nReason: OLED Mariko Console",
       "lite": "Not compatible\nReason: Lite Mariko Console",

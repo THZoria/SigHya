@@ -34,8 +34,8 @@
     "button": "Vérifier la compatibilité",
     "results": {
       "title": "Résultat de la vérification",
-      "compatible": "Switch Non-Patchée\nVous pouvez installer le hack",
-      "incompatible": "Switch Patchée\nRaison: Console post Juin 2018",
+      "success": "Switch Non-Patchée\nVous pouvez installer le hack",
+      "warning": "Switch Patchée\nRaison: Console post Juin 2018",
       "mariko": "Switch Patchée\nRaison: Console Mariko",
       "oled": "Non compatible\nRaison: Console OLED Mariko",
       "lite": "Non compatible\nRaison: Console Lite Mariko",
