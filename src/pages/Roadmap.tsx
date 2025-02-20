@@ -17,7 +17,7 @@ const Roadmap = () => {
       title: t('roadmap.projects.website.title'),
       description: t('roadmap.projects.website.description'),
       timeline: "Q1 2025",
-      status: t('roadmap.projects.website.status')
+      status: "Terminé"
     },
     {
       icon: Server,
