@@ -45,7 +45,7 @@ const Partners = () => {
       icon: Globe,
       image: "/partners/homebrew_france.png",
       links: [
-        { label: "Site Web", url: "https://homebrew-france.fr/", icon: Globe }
+        { label: "Site Web", url: "https://homebrewfrance.fr", icon: Globe }
       ],
       features: [
         "Actualités homebrew",
