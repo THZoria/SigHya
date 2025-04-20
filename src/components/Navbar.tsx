@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Menu, Download } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 import { useI18n } from '../i18n/context';
 import MobileMenu from './MobileMenu';
 import LanguageSelector from './LanguageSelector';
@@ -12,6 +13,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const isLargeScreen = useMediaQuery('(min-width: 1536px)');
 
   // Gérer le scroll pour l'effet de fond
   useEffect(() => {
@@ -37,18 +39,15 @@ const Navbar = () => {
       <div className="w-full px-4">
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center space-x-4">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Link to="/" className="flex-shrink-0 group">
-                <img 
-                  className="h-16 w-auto transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3" 
-                  src="/logo.png" 
-                  alt="SigHya" 
-                />
-              </Link>
-            </motion.div>
+            <Link to="/" className="flex-shrink-0 group">
+              <motion.img 
+                whileHover={{ scale: 1.1, rotate: 3 }}
+                whileTap={{ scale: 0.95 }}
+                className="h-16 w-auto" 
+                src="/logo.png" 
+                alt="SigHya" 
+              />
+            </Link>
             
             {/* Pages principales à gauche */}
             <div className="hidden md:flex md:space-x-2">
@@ -66,10 +65,10 @@ const Navbar = () => {
                         : 'text-gray-100 hover:text-blue-400 hover:bg-blue-500/10 border border-transparent'
                     }`}
                   >
-                    <item.icon className={`w-4 h-4 ${
+                    <item.icon className={`w-4 h-4 ${!isLargeScreen ? 'md:w-5 md:h-5' : ''} ${
                       isActive(item.path) ? 'text-blue-400' : 'text-gray-400 group-hover:text-blue-400'
                     }`} />
-                    {t(`nav.${item.key}`)}
+                    {isLargeScreen && <span>{t(`nav.${item.key}`)}</span>}
                   </Link>
                 </motion.div>
               ))}
@@ -93,10 +92,10 @@ const Navbar = () => {
                       : 'text-gray-100 hover:text-blue-400 hover:bg-blue-500/10 border border-transparent'
                   }`}
                 >
-                  <item.icon className={`w-4 h-4 ${
+                  <item.icon className={`w-4 h-4 ${!isLargeScreen ? 'md:w-5 md:h-5' : ''} ${
                     isActive(item.path) ? 'text-blue-400' : 'text-gray-400 group-hover:text-blue-400'
                   }`} />
-                  {t(`nav.${item.key}`)}
+                  {isLargeScreen && <span>{t(`nav.${item.key}`)}</span>}
                 </Link>
               </motion.div>
             ))}
@@ -110,7 +109,7 @@ const Navbar = () => {
               className="ml-4 px-6 py-3 rounded-xl text-base font-medium bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 transition-all duration-300 flex items-center gap-2.5 shadow-lg shadow-blue-500/20 border border-blue-400/20"
             >
               <Download className="w-5 h-5" />
-              AtmoPack
+              {isLargeScreen && <span>AtmoPack</span>}
             </motion.a>
           </div>
 

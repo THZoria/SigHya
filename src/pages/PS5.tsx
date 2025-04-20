@@ -213,7 +213,7 @@ const PS5 = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 pt-32 pb-16 relative">
+      <div className="min-h-screen pt-32 pb-16 relative">
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
         

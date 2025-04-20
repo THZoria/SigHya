@@ -9,9 +9,7 @@ interface NavItem {
 // Pages principales du site
 export const mainNavItems = [
   { path: '/', key: 'home', icon: Home },
-  { path: '/nxchecker', key: 'nxChecker', icon: Gamepad2 },
-  { path: '/nxdevice', key: 'nxDevice', icon: Terminal },
-  { path: '/ps5', key: 'ps5', icon: Terminal },
+  { path: '/tools', key: 'tools', icon: Gamepad2 },
   { path: '/partners', key: 'partners', icon: Users },
 ];
 

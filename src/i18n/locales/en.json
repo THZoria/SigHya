@@ -12,13 +12,30 @@
   },
   "nav": {
     "home": "Home",
-    "nxChecker": "NX Checker",
-    "nxDevice": "NX Device",
-    "ps5": "PS5",
+    "tools": "Tools",
     "partners": "Partners",
     "roadmap": "Roadmap",
     "manga": "Manga",
     "legal": "Legal"
+  },
+  "tools": {
+    "title": "Modding Tools",
+    "subtitle": "Discover our tools to help you with your modding projects",
+    "items": {
+      "nxChecker": {
+        "title": "Nintendo Switch Checker",
+        "description": "Check your Nintendo Switch compatibility with modding."
+      },
+      "nxDevice": {
+        "title": "Device ID Extractor",
+        "description": "Extract your Device ID from your PRODINFO.bin file."
+      },
+      "ps5": {
+        "title": "PS5 UART Checker",
+        "description": "Analyze UART error codes from your PlayStation 5."
+      },
+      "action": "Access Tool"
+    }
   },
   "nxChecker": {
     "title": "Nintendo Switch Checker",

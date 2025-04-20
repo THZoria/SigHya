@@ -133,7 +133,7 @@ const Planning = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-6 sm:mb-8 md:mb-12"
           >
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text mb-2 sm:mb-3 md:mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text mb-2 sm:mb-3 md:mb-4 pb-2.5">
               {t('planning.title')}
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-blue-200/80 mb-4 sm:mb-6 md:mb-8">
