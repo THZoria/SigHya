@@ -11,13 +11,27 @@ const Roadmap = () => {
   const backgroundY = useTransform(scrollY, [0, 1000], ['0%', '50%']);
   const backgroundOpacity = useTransform(scrollY, [0, 300], [0.03, 0.05]);
 
-  const projects = [
+    const projects = [
     {
       icon: RefreshCw,
       title: t('roadmap.projects.website.title'),
       description: t('roadmap.projects.website.description'),
       timeline: "Q1 2025",
-      status: "Terminé"
+      status: "Terminé"  // Changement ici
+    },
+    {
+      icon: RefreshCw,
+      title: t('Sortie Nintendo Switch 2'),
+      description: t('Présentation complète de la Nintendo Switch 2 avec toute les informations sur la console.'),
+      timeline: "5 juin 2025",
+      status: "Prochainement"  // Changement ici
+    },
+    {
+      icon: RefreshCw,
+      title: t('Git Auto Hébergé'),
+      description: t('Git Auto Hébergé pour proposé nos services sur un serveur centralisé en plus de Github.'),
+      timeline: "Q2 2025",
+      status: "En cours"  // Changement ici
     },
     {
       icon: Server,
