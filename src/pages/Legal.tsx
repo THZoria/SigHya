@@ -16,7 +16,7 @@ const Legal = () => {
           text: t('legal.sections.legal.publisher.description'),
           details: [
             { label: t('legal.sections.legal.publisher.director'), value: "SaoriYuki" },
-            { label: t('legal.sections.legal.publisher.contact'), value: "thsaoriyuki@gmail.com", isEmail: true }
+            { label: t('legal.sections.legal.publisher.contact'), value: "contact@sighya.fr", isEmail: true }
           ]
         }
       ]
