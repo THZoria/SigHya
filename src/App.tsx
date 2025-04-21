@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Legal from './pages/Legal';
 import NXChecker from './pages/NXChecker';
 import NXDevice from './pages/NXDevice';
-import Roadmap from './pages/Roadmap';
 import PS5 from './pages/PS5';
+import Tools from './pages/Tools';
+import Legal from './pages/Legal';
+import Roadmap from './pages/Roadmap';
 import Partners from './pages/Partners';
 import NotFound from './pages/NotFound';
 import Planning from './pages/Planning';
@@ -24,10 +25,11 @@ const AnimatedRoutes = () => {
       <Routes location={location} key={location.pathname + location.search}>
         <Route path="/" element={<Home />} />
         <Route path="/legal" element={<Legal />} />
+        <Route path="/tools/*" element={<Tools />} />
         <Route path="/nxchecker" element={<NXChecker />} />
         <Route path="/nxdevice" element={<NXDevice />} />
-        <Route path="/roadmap" element={<Roadmap />} />
         <Route path="/ps5" element={<PS5 />} />
+        <Route path="/roadmap" element={<Roadmap />} />
         <Route path="/partners" element={<Partners />} />
         <Route path="/planning" element={<Planning />} />
         <Route path="*" element={<NotFound />} />

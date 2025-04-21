@@ -5,6 +5,7 @@ export const decodeHTMLEntities = (text: string): string => {
       '&lt;': '<',
       '&gt;': '>',
       '&#039;': "'",
+      '&#39;': "'",
       '&apos;': "'",
       '&nbsp;': ' ',
       '&eacute;': 'é',

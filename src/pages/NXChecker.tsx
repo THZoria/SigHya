@@ -62,17 +62,17 @@ const NXChecker = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-[calc(100vh-64px)] bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 pt-32 pb-4 relative overflow-hidden flex flex-col">
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 pt-32 pb-16 relative overflow-hidden">
         <motion.div
           className="absolute inset-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.1 }}
           transition={{ duration: 1 }}
         >
-          <div className="absolute inset-0 bg-[url('/nx/console.jpg')] bg-cover bg-bottom opacity-40" />
+          <div className="absolute inset-0 bg-[url('/nx/console.jpg')] bg-cover bg-center bg-no-repeat opacity-40" />
         </motion.div>
         
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-12">
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
