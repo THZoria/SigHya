@@ -234,6 +234,7 @@ const Partners = () => {
                     </ul>
                     {partner.links.map((link) => (
                       <a
+                        href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
                         key={link.label}
@@ -241,6 +242,7 @@ const Partners = () => {
                       >
                         <link.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-2 sm:mr-2.5 md:mr-3" />
                         {link.label}
+                        <ChevronRight className="w-4 h-4 ml-2" />
                       </a>
                     ))}
                   </div>
