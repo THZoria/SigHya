@@ -1,0 +1,35 @@
+name: Build and push to `build` branch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      # Step 3: Install dependencies and build
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build
+
+      # Step 4: Push `dist` folder to `build` branch
+      - name: Push build to `build` branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: build
+          publish_dir: dist
+          commit_message: "Build from main branch"
