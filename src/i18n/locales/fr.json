@@ -46,17 +46,19 @@
     },
     "help": {
       "title": "Comment trouver votre numéro de série ?",
-      "description": "Le numéro de série se trouve sous votre Nintendo Switch. C'est une série de caractères commençant par XAW, XAJ, XKJ, ou XKW."
+      "description": "Le numéro de série se trouve sous votre Nintendo Switch. C'est une série de caractères commençant par XAW, XAJ, XKJ, XKW ou HAE."
     },
     "button": "Vérifier la compatibilité",
     "results": {
       "title": "Résultat de la vérification",
       "success": "Switch Non-Patchée\nVous pouvez installer le hack",
-      "warning": "Switch non reconnu\nRaison: Numéro de série non reconnu",
-      "mariko": "Switch Patchée\nRaison: Console Mariko",
-      "oled": "Non compatible\nRaison: Console OLED Mariko",
-      "lite": "Non compatible\nRaison: Console Lite Mariko",
-      "unknown": "Erreur\nRaison: Numéro de série inconnu",
+      "warning": "Switch non reconnue\nRaison : Numéro de série non reconnu",
+      "mariko": "Switch Patchée\nRaison : Console Mariko",
+      "oled": "Non compatible\nRaison : Console OLED Mariko",
+      "lite": "Non compatible\nRaison : Console Lite Mariko",
+      "unknown": "Erreur\nRaison : Numéro de série inconnu",
+      "error": "Non compatible\nRaison : Console patchée, modding impossible.",
+      "hae": "Non compatible\nRaison : Modèle Switch 2 (HAE) de 2025 détecté. Cette console est patchée.",
       "indeterminate": "Indéterminé"
     },
     "importantInfo": {
