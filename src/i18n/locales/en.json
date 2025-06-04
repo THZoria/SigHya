@@ -46,7 +46,7 @@
     },
     "help": {
       "title": "How to find your serial number?",
-      "description": "The serial number is located under your Nintendo Switch. It's a series of characters starting with XAW, XAJ, XKJ, or XKW."
+      "description": "The serial number is located under your Nintendo Switch. It's a series of characters starting with XAW, XAJ, XKJ, XKW or HAE."
     },
     "button": "Check Compatibility",
     "results": {
@@ -57,12 +57,13 @@
       "oled": "Not compatible\nReason: OLED Mariko Console",
       "lite": "Not compatible\nReason: Lite Mariko Console",
       "unknown": "Error\nReason: Unknown serial number",
+      "hae": "2025 Switch 2 (HAE) model detected. This console is patched",
       "indeterminate": "Indeterminate"
     },
     "importantInfo": {
       "title": "Important Information",
       "preJune2018": "Nintendo Switch consoles released before June 2018 are potentially compatible with modding.",
-      "incompatibleModels": "Mariko, OLED, and Lite models are not compatible with current modding methods.",
+      "incompatibleModels": "Mariko, OLED and Lite models as well as Switch 2 are not compatible with current modding methods.",
       "disclaimer": "This checker is provided for informational purposes only. If in doubt, please consult our Discord server for more information."
     }
   },
