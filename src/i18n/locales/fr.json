@@ -64,7 +64,7 @@
     "importantInfo": {
       "title": "Informations importantes",
       "preJune2018": "Les consoles Nintendo Switch sorties avant juin 2018 sont potentiellement compatibles avec le modding.",
-      "incompatibleModels": "Les modèles Mariko, OLED et Lite ne sont pas compatibles avec les méthodes de modding actuelles.",
+      "incompatibleModels": "Les modèles Mariko, OLED et Lite  ainsi que les Switch 2 ne sont pas compatibles avec les méthodes de modding actuelles.",
       "disclaimer": "Ce vérificateur est fourni à titre indicatif. En cas de doute, consultez notre serveur Discord pour plus d'informations."
     }
   },
