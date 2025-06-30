@@ -8,6 +8,10 @@ import MobileMenu from './MobileMenu';
 import LanguageSelector from './LanguageSelector';
 import { mainNavItems, secondaryNavItems } from './navigation';
 
+/**
+ * Main navigation bar component
+ * Handles responsive navigation with mobile menu and scroll effects
+ */
 const Navbar = () => {
   const { t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +19,7 @@ const Navbar = () => {
   const location = useLocation();
   const isLargeScreen = useMediaQuery('(min-width: 1536px)');
 
-  // Gérer le scroll pour l'effet de fond
+  // Handle scroll effect for background transparency
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -25,11 +29,16 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fermer le menu mobile lors du changement de route
+  // Close mobile menu when route changes
   useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
 
+  /**
+   * Check if a navigation item is currently active
+   * @param path - The path to check against current location
+   * @returns boolean indicating if the path is active
+   */
   const isActive = (path: string) => location.pathname === path;
 
   return (
@@ -38,6 +47,7 @@ const Navbar = () => {
     }`}>
       <div className="w-full px-4">
         <div className="flex items-center justify-between h-20">
+          {/* Logo and main navigation items */}
           <div className="flex items-center space-x-4">
             <Link to="/" className="flex-shrink-0 group">
               <motion.img 
@@ -49,7 +59,7 @@ const Navbar = () => {
               />
             </Link>
             
-            {/* Pages principales à gauche */}
+            {/* Main navigation items on the left */}
             <div className="hidden md:flex md:space-x-2">
               {mainNavItems.map((item) => (
                 <motion.div
@@ -75,7 +85,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Pages secondaires et bouton de téléchargement à droite */}
+          {/* Secondary navigation items and download button on the right */}
           <div className="hidden md:flex md:items-center md:space-x-2">
             <LanguageSelector />
             {secondaryNavItems.map((item) => (
@@ -100,6 +110,7 @@ const Navbar = () => {
               </motion.div>
             ))}
             
+            {/* Download button for AtmoPack */}
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -113,7 +124,7 @@ const Navbar = () => {
             </motion.a>
           </div>
 
-          {/* Menu mobile */}
+          {/* Mobile menu toggle button */}
           <div className="md:hidden flex items-center">
             <motion.button
               whileHover={{ scale: 1.1 }}
@@ -127,7 +138,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Menu mobile component */}
+      {/* Mobile menu component */}
       <MobileMenu isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </nav>
   );

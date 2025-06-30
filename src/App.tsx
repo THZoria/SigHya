@@ -16,10 +16,14 @@ import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import { I18nProvider } from './i18n/context';
 
+/**
+ * AnimatedRoutes component handles route transitions with smooth animations
+ * Uses AnimatePresence from framer-motion for page transition effects
+ */
 const AnimatedRoutes = () => {
   const location = useLocation();
   
-  // Use the full pathname as the key to ensure uniqueness
+  // Use the full pathname as the key to ensure uniqueness for animations
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname + location.search}>
@@ -38,6 +42,10 @@ const AnimatedRoutes = () => {
   );
 };
 
+/**
+ * Main App component that wraps the entire application
+ * Provides internationalization context and routing setup
+ */
 function App() {
   return (
     <I18nProvider>
