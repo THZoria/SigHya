@@ -15,12 +15,14 @@ import Planning from './pages/Planning';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import { I18nProvider } from './i18n/context';
+import ErrorBoundary from './components/ErrorBoundary';
+import { ToastProvider } from './components/ui/Toast';
 
 /**
  * AnimatedRoutes component handles route transitions with smooth animations
  * Uses AnimatePresence from framer-motion for page transition effects
  */
-const AnimatedRoutes = () => {
+const AnimatedRoutesComponent = () => {
   const location = useLocation();
   
   // Use the full pathname as the key to ensure uniqueness for animations
@@ -45,19 +47,24 @@ const AnimatedRoutes = () => {
 /**
  * Main App component that wraps the entire application
  * Provides internationalization context and routing setup
+ * Includes error boundary and toast notifications for graceful error handling
  */
 function App() {
   return (
-    <I18nProvider>
-      <Router>
-        <div className="min-h-screen bg-gray-900">
-          <ScrollToTop />
-          <Navbar />
-          <AnimatedRoutes />
-          <Footer />
-        </div>
-      </Router>
-    </I18nProvider>
+    <ErrorBoundary>
+      <ToastProvider>
+        <I18nProvider>
+          <Router>
+            <div className="min-h-screen bg-gray-900">
+              <ScrollToTop />
+              <Navbar />
+              <AnimatedRoutesComponent />
+              <Footer />
+            </div>
+          </Router>
+        </I18nProvider>
+      </ToastProvider>
+    </ErrorBoundary>
   );
 }
 

@@ -4,11 +4,11 @@
 
 <div align="center">
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/version-2.1.8-green.svg)
-![Status](https://img.shields.io/badge/status-active-success.svg)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.5.3-blue.svg)
-![React](https://img.shields.io/badge/React-18.3.1-blue.svg)
+[![Version](https://img.shields.io/badge/version-2.1.7-blue.svg)](https://github.com/THZoria/SigHya)
+[![React](https://img.shields.io/badge/React-18.3.1-blue.svg)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.5.3-blue.svg)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.3.2-purple.svg)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4.1-38B2AC.svg)](https://tailwindcss.com/)
 
 </div>
 
@@ -44,7 +44,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/THZoria/SigHya
+git clone https://github.com/THZoria/SigHya.git
 cd SigHya
 
 # Install dependencies

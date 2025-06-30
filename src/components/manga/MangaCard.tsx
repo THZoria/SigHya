@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 import { Download, ShoppingCart, Calendar, Tag, Building } from 'lucide-react';
 import TiltImage from './TiltImage';
@@ -261,8 +261,9 @@ const DesktopCard: React.FC<MangaCardProps> = ({ manga }) => {
 /**
  * Main MangaCard component with responsive design
  * Renders different card layouts based on screen size and view mode
+ * Memoized to prevent unnecessary re-renders
  */
-const MangaCard: React.FC<MangaCardProps> = ({ manga, index, viewMode }) => {
+const MangaCard: React.FC<MangaCardProps> = memo(({ manga, index, viewMode }) => {
   // Animation variants for card entrance
   const cardVariants = {
     initial: { 
@@ -314,6 +315,6 @@ const MangaCard: React.FC<MangaCardProps> = ({ manga, index, viewMode }) => {
       </div>
     </motion.div>
   );
-};
+});
 
 export default MangaCard;
