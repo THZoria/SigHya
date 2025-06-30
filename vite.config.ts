@@ -31,7 +31,6 @@ export default defineConfig({
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'framer-motion': ['framer-motion'],
           'lucide-icons': ['lucide-react'],
-          'utils': ['rss-parser', 'events', 'stream', 'timers', 'url'],
         },
       },
     },
