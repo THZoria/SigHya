@@ -2,21 +2,37 @@ import { useState, useEffect } from 'react';
 import type { Manga } from '../types/manga';
 import { MAX_RETRIES } from '../constants/manga';
 
+/**
+ * CORS proxy URL for fetching external data
+ */
 const corsProxy = 'https://api.allorigins.win/raw?url=';
 
+/**
+ * Custom hook for managing manga planning data
+ * Fetches manga data from Nautiljon with fallback to local data
+ * Includes retry logic and error handling
+ * 
+ * @returns Object containing mangas array, loading state, and error state
+ * 
+ * @example
+ * const { mangas, loading, error } = useMangaPlanning();
+ */
 export const useMangaPlanning = () => {
   const [mangas, setMangas] = useState<Manga[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);
 
+  /**
+   * Loads manga data from local JSON file as fallback
+   */
   const loadLocalMangas = async () => {
     try {
-      console.log('=== Chargement des données locales ===');
+      console.log('=== Loading local data ===');
       const response = await fetch('/planning.json');
       if (!response.ok) throw new Error('Failed to load local manga data');
       const data = await response.json();
-      console.log('Données locales chargées:', data);
+      console.log('Local data loaded:', data);
       setMangas(data);
       setLoading(false);
     } catch (err) {
@@ -27,10 +43,14 @@ export const useMangaPlanning = () => {
   };
 
   useEffect(() => {
+    /**
+     * Main function to load manga data from Nautiljon
+     * Falls back to local data if external fetch fails
+     */
     const loadMangas = async () => {
       try {
-        console.log('=== Début du chargement des mangas ===');
-        console.log('Tentative de chargement depuis Nautiljon...');
+        console.log('=== Starting manga loading ===');
+        console.log('Attempting to load from Nautiljon...');
 
         const url = encodeURIComponent('https://www.nautiljon.com/planning/manga/');
         const response = await fetch(`${corsProxy}${url}`, {
@@ -40,38 +60,38 @@ export const useMangaPlanning = () => {
         });
 
         if (!response.ok) {
-          console.warn('Erreur lors de la requête Nautiljon:', response.status);
+          console.warn('Error during Nautiljon request:', response.status);
           console.warn('Failed to fetch from Nautiljon, falling back to local data');
           return loadLocalMangas();
         }
         
         const text = await response.text();
-        console.log('Réponse reçue de Nautiljon, longueur:', text.length);
+        console.log('Response received from Nautiljon, length:', text.length);
         const parser = new DOMParser();
         const doc = parser.parseFromString(text, 'text/html');
         const table = doc.querySelector('#planning tbody');
         
         if (!table) {
-          console.warn('Table de planning non trouvée dans la réponse HTML');
+          console.warn('Planning table not found in HTML response');
           console.warn('Planning table not found, falling back to local data');
           return loadLocalMangas();
         }
 
         const mangas: Manga[] = [];
         const rows = table.querySelectorAll('tr');
-        console.log(`Nombre de lignes trouvées: ${rows.length}`);
+        console.log(`Number of rows found: ${rows.length}`);
 
-        console.log('=== Mangas trouvés ===');
+        console.log('=== Found mangas ===');
         rows.forEach((row, index) => {
           const cells = row.querySelectorAll('td');
-          console.log(`Ligne ${index + 1}: ${cells.length} cellules`);
+          console.log(`Row ${index + 1}: ${cells.length} cells`);
           if (cells.length >= 6) {
             const mangaCell = cells[2];
             const links = mangaCell.querySelectorAll('a');
             const lastLink = links[links.length - 1];
             const mangaName = lastLink ? lastLink.textContent?.trim() : '';
-            const id = lastLink?.getAttribute('href')?.split(',').pop()?.split('.')[0] || String(index);
-            console.log(`${index + 1}. Titre: "${mangaName}", ID: ${id}`);
+            const id = lastLink?.getAttribute('href')?.split(',').pop()?.split('.')[0] || `manga-${index}`;
+            console.log(`${index + 1}. Title: "${mangaName}", ID: ${id}`);
             const imageElement = cells[1].querySelector('img');
             const imageSrc = imageElement?.getAttribute('src') || '';
             const lienAcheter = cells[5].querySelector('a')?.getAttribute('href') || null;
@@ -87,12 +107,12 @@ export const useMangaPlanning = () => {
             });
           }
         });
-        console.log('=== Fin des mangas ===');
-        console.log(`Total des mangas chargés: ${mangas.length}`);
+        console.log('=== End of mangas ===');
+        console.log(`Total mangas loaded: ${mangas.length}`);
 
         setMangas(mangas);
       } catch (err) {
-        console.error('Erreur détaillée:', err);
+        console.error('Detailed error:', err);
         console.warn('Error fetching from Nautiljon, falling back to local data:', err);
         return loadLocalMangas();
       } finally {
@@ -100,6 +120,9 @@ export const useMangaPlanning = () => {
       }
     };
 
+    /**
+     * Retry function with exponential backoff
+     */
     const retryWithDelay = () => {
       if (retryCount < MAX_RETRIES) {
         setTimeout(() => {

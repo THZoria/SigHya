@@ -1,39 +1,38 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Download, ShoppingCart, Calendar, Tag, Building, Grid, List } from 'lucide-react';
+import { Download, ShoppingCart, Calendar, Tag, Building } from 'lucide-react';
 import TiltImage from './TiltImage';
-import { generateICS, getICSFilename } from '../../utils/icsGenerator';
+import { downloadICSFile } from '../../utils/icsGenerator';
 import type { Manga } from '../../types/manga';
 import { useI18n } from '../../i18n/context';
 
+/**
+ * Props interface for MangaCard component
+ */
 interface MangaCardProps {
   manga: Manga;
   index: number;
   viewMode: 'grid' | 'list';
 }
 
+/**
+ * Mobile grid card component for manga display
+ * Optimized for mobile devices with grid layout
+ */
 const MobileGridCard: React.FC<MangaCardProps> = ({ manga }) => {
   const { t } = useI18n();
+  
+  /**
+   * Handles ICS file download for calendar integration
+   */
   const handleDownloadICS = () => {
-    const icsContent = generateICS([manga]);
-    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-    const filename = getICSFilename(manga);
-    
-    const link = document.createElement('a');
-    const url = window.URL.createObjectURL(blob);
-    link.href = url;
-    link.setAttribute('download', filename);
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
+    downloadICSFile([manga]);
   };
 
   return (
     <div className="bg-gray-800/80 backdrop-blur-sm rounded-xl overflow-hidden border border-blue-500/20">
       <div className="relative h-80">
+        {/* Manga cover image */}
         <img
           src={manga.image.replace('/imagesmin/', '/images/')}
           alt={manga.nom_manga}
@@ -44,10 +43,14 @@ const MobileGridCard: React.FC<MangaCardProps> = ({ manga }) => {
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent" />
+        
+        {/* Card content overlay */}
         <div className="absolute bottom-0 left-0 right-0 p-4">
           <h3 className="text-xl font-bold text-white mb-2 line-clamp-2">
             {manga.nom_manga}
           </h3>
+          
+          {/* Manga metadata badges */}
           <div className="flex flex-wrap gap-2 mb-3">
             <div className="flex items-center bg-blue-500/20 rounded-full px-3 py-1">
               <Calendar className="w-4 h-4 text-blue-400 mr-1.5" />
@@ -64,6 +67,8 @@ const MobileGridCard: React.FC<MangaCardProps> = ({ manga }) => {
               </div>
             )}
           </div>
+          
+          {/* Action buttons */}
           <div className="flex gap-2">
             <button
               onClick={handleDownloadICS}
@@ -90,28 +95,24 @@ const MobileGridCard: React.FC<MangaCardProps> = ({ manga }) => {
   );
 };
 
+/**
+ * Mobile list card component for manga display
+ * Optimized for mobile devices with list layout
+ */
 const MobileListCard: React.FC<MangaCardProps> = ({ manga }) => {
   const { t } = useI18n();
+  
+  /**
+   * Handles ICS file download for calendar integration
+   */
   const handleDownloadICS = () => {
-    const icsContent = generateICS([manga]);
-    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-    const filename = getICSFilename(manga);
-    
-    const link = document.createElement('a');
-    const url = window.URL.createObjectURL(blob);
-    link.href = url;
-    link.setAttribute('download', filename);
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
+    downloadICSFile([manga]);
   };
 
   return (
     <div className="bg-gray-800/80 backdrop-blur-sm rounded-xl overflow-hidden border border-blue-500/20 p-4">
       <div className="flex gap-4">
+        {/* Manga cover image */}
         <div className="w-24 h-36 flex-shrink-0">
           <img
             src={manga.image.replace('/imagesmin/', '/images/')}
@@ -123,10 +124,14 @@ const MobileListCard: React.FC<MangaCardProps> = ({ manga }) => {
             }}
           />
         </div>
+        
+        {/* Manga content */}
         <div className="flex-1">
           <h3 className="text-lg font-bold text-white mb-2">
             {manga.nom_manga}
           </h3>
+          
+          {/* Manga metadata */}
           <div className="space-y-2 mb-3">
             <div className="flex items-center text-sm text-gray-300">
               <Calendar className="w-4 h-4 text-blue-400 mr-2" />
@@ -143,6 +148,8 @@ const MobileListCard: React.FC<MangaCardProps> = ({ manga }) => {
               </div>
             )}
           </div>
+          
+          {/* Action buttons */}
           <div className="flex gap-2">
             <button
               onClick={handleDownloadICS}
@@ -169,23 +176,18 @@ const MobileListCard: React.FC<MangaCardProps> = ({ manga }) => {
   );
 };
 
+/**
+ * Desktop card component for manga display
+ * Full-featured layout for desktop devices
+ */
 const DesktopCard: React.FC<MangaCardProps> = ({ manga }) => {
   const { t } = useI18n();
+  
+  /**
+   * Handles ICS file download for calendar integration
+   */
   const handleDownloadICS = () => {
-    const icsContent = generateICS([manga]);
-    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-    const filename = getICSFilename(manga);
-    
-    const link = document.createElement('a');
-    const url = window.URL.createObjectURL(blob);
-    link.href = url;
-    link.setAttribute('download', filename);
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
+    downloadICSFile([manga]);
   };
 
   return (
@@ -196,6 +198,7 @@ const DesktopCard: React.FC<MangaCardProps> = ({ manga }) => {
         </h3>
         
         <div className="flex gap-6">
+          {/* Manga cover image with tilt effect */}
           <div className="w-48 h-72 relative overflow-hidden rounded-lg">
             <TiltImage
               src={manga.image.replace('/imagesmin/', '/images/')}
@@ -207,6 +210,7 @@ const DesktopCard: React.FC<MangaCardProps> = ({ manga }) => {
             />
           </div>
 
+          {/* Manga metadata */}
           <div className="flex-1">
             <div className="space-y-4">
               <div className="flex items-center gap-2">
@@ -228,6 +232,7 @@ const DesktopCard: React.FC<MangaCardProps> = ({ manga }) => {
         </div>
       </div>
       
+      {/* Action buttons */}
       <div className="px-6 pb-6 flex items-center space-x-4">
         <button
           onClick={handleDownloadICS}
@@ -253,7 +258,12 @@ const DesktopCard: React.FC<MangaCardProps> = ({ manga }) => {
   );
 };
 
+/**
+ * Main MangaCard component with responsive design
+ * Renders different card layouts based on screen size and view mode
+ */
 const MangaCard: React.FC<MangaCardProps> = ({ manga, index, viewMode }) => {
+  // Animation variants for card entrance
   const cardVariants = {
     initial: { 
       opacity: 0,
@@ -280,6 +290,7 @@ const MangaCard: React.FC<MangaCardProps> = ({ manga, index, viewMode }) => {
       }
     }
   };
+  
   return (
     <motion.div
       variants={cardVariants}
@@ -288,6 +299,7 @@ const MangaCard: React.FC<MangaCardProps> = ({ manga, index, viewMode }) => {
       exit="exit"
       layout
     >
+      {/* Mobile layouts */}
       <div className="block sm:hidden">
         {viewMode === 'grid' ? (
           <MobileGridCard manga={manga} index={index} viewMode={viewMode} />
@@ -295,6 +307,8 @@ const MangaCard: React.FC<MangaCardProps> = ({ manga, index, viewMode }) => {
           <MobileListCard manga={manga} index={index} viewMode={viewMode} />
         )}
       </div>
+      
+      {/* Desktop layout */}
       <div className="hidden sm:block">
         <DesktopCard manga={manga} index={index} viewMode={viewMode} />
       </div>

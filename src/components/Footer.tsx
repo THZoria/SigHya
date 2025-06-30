@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useI18n } from '../i18n/context';
 
+/**
+ * Footer component - Site footer with links and copyright information
+ * Displays contact information, legal links, and version information
+ */
 const Footer = () => {
   const { t } = useI18n();
   
@@ -9,6 +13,7 @@ const Footer = () => {
     <footer className="bg-midnight-900">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+          {/* Logo and tagline section */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/">
               <img
@@ -21,6 +26,8 @@ const Footer = () => {
               {t('roadmap.footer.tagline')}
             </p>
           </div>
+          
+          {/* Contact information */}
           <div>
             <h3 className="text-white text-sm font-semibold uppercase tracking-wider mb-2">
               {t('roadmap.footer.contact.title')}
@@ -38,6 +45,8 @@ const Footer = () => {
               </li>
             </ul>
           </div>
+          
+          {/* Legal links */}
           <div>
             <h3 className="text-white text-sm font-semibold uppercase tracking-wider mb-2">
               {t('roadmap.footer.legal.title')}
@@ -62,6 +71,8 @@ const Footer = () => {
             </ul>
           </div>
         </div>
+        
+        {/* Copyright and version information */}
         <div className="mt-6 md:mt-8 border-t border-midnight-800 pt-6 md:pt-8">
           <p className="text-center text-gray-300 text-sm">
             &copy; 2018 - {new Date().getFullYear()} SigHya

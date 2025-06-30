@@ -69,3 +69,38 @@ export const generateICS = (mangas: Manga[]): string => {
 export const getICSFilename = (manga: Manga): string => {
   return `${manga.nom_manga.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.ics`;
 };
+
+/**
+ * Downloads an ICS file for manga calendar integration
+ * Creates and triggers download of calendar file in browser
+ * 
+ * @param mangas - Array of manga objects to include in calendar
+ * @param filename - Optional custom filename (defaults to first manga name)
+ * 
+ * @example
+ * downloadICSFile([manga1, manga2], 'my_manga_calendar.ics');
+ */
+export const downloadICSFile = (mangas: Manga[], filename?: string): void => {
+  try {
+    const icsContent = generateICS(mangas);
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const downloadFilename = filename || getICSFilename(mangas[0]);
+    
+    // Create download link
+    const link = document.createElement('a');
+    const url = window.URL.createObjectURL(blob);
+    link.href = url;
+    link.setAttribute('download', downloadFilename);
+    link.style.display = 'none';
+    
+    // Trigger download
+    document.body.appendChild(link);
+    link.click();
+    
+    // Cleanup
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error('Error downloading ICS file:', error);
+  }
+};
