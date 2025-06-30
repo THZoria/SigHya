@@ -3,17 +3,23 @@ import { motion } from 'framer-motion';
 import { ChevronRight, Zap as ZapIcon } from 'lucide-react';
 import { useI18n } from '../i18n/context';
 
+/**
+ * Hero component - Main landing section with call-to-action buttons
+ * Features animated logo, title, subtitle, and action buttons
+ * Uses Framer Motion for smooth animations and transitions
+ */
 const Hero = () => {
   const { t } = useI18n();
 
   return (
     <div className="relative min-h-[100vh] flex flex-col bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
-      {/* Background Elements */}
+      {/* Background decorative elements */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent"></div>
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
       </div>
 
+      {/* Main content container */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -22,6 +28,7 @@ const Hero = () => {
           className="text-center flex flex-col items-center"
         >
           <div className="flex flex-col items-center space-y-8">
+            {/* Animated logo */}
             <motion.img
               src="/logo.png"
               alt="SigHya"
@@ -31,6 +38,7 @@ const Hero = () => {
               transition={{ duration: 1, delay: 0.2 }}
             />
 
+            {/* Main title with gradient effect */}
             <motion.h1
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -42,6 +50,7 @@ const Hero = () => {
               </span>
             </motion.h1>
 
+            {/* Subtitle */}
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -52,6 +61,7 @@ const Hero = () => {
             </motion.p>
           </div>
 
+          {/* Call-to-action buttons */}
           <div className="mt-20">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -59,6 +69,7 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             >
+              {/* Discord button */}
               <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -70,6 +81,8 @@ const Hero = () => {
                 <span>{t('home.hero.joinDiscord')}</span>
                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </motion.a>
+              
+              {/* NX Checker button */}
               <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -84,7 +97,7 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      {/* Decorative Elements */}
+      {/* Decorative background elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full filter blur-3xl"></div>
         <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-blue-600/10 rounded-full filter blur-3xl"></div>

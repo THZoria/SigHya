@@ -1,13 +1,88 @@
 import { useState, useEffect } from 'react';
-import Parser from 'rss-parser/dist/rss-parser.min.js';
 import { motion } from 'framer-motion';
-import type { CustomItem } from '../types/rss-parser';
 import { decodeHTMLEntities } from '../utils/htmlEntities';
 
+/**
+ * Interface for RSS feed items with custom fields
+ */
+interface CustomItem {
+  title: string;
+  description: string;
+  link: string;
+  guid: string;
+  pubDate: string;
+  author?: string;
+  enclosure?: {
+    url: string;
+    type: string;
+  };
+  image?: string;
+}
+
+/**
+ * Simple RSS parser for browser environment
+ * Parses XML RSS feed without Node.js dependencies
+ */
+const parseRSSFeed = (xmlText: string): CustomItem[] => {
+  try {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(xmlText, 'text/xml');
+    
+    // Check for parsing errors
+    const parseError = doc.querySelector('parsererror');
+    if (parseError) {
+      throw new Error('Failed to parse RSS XML');
+    }
+    
+    const items = doc.querySelectorAll('item');
+    const processedItems: CustomItem[] = [];
+    
+    items.forEach((item, index) => {
+      if (index >= 6) return; // Limit to 6 items
+      
+      const title = item.querySelector('title')?.textContent || '';
+      const description = item.querySelector('description')?.textContent || '';
+      const link = item.querySelector('link')?.textContent || '';
+      const guid = item.querySelector('guid')?.textContent || `item-${index}`;
+      const pubDate = item.querySelector('pubDate')?.textContent || '';
+      const author = item.querySelector('author')?.textContent || '';
+      
+      // Handle enclosure (article image)
+      const enclosure = item.querySelector('enclosure');
+      const enclosureUrl = enclosure?.getAttribute('url') || '';
+      const enclosureType = enclosure?.getAttribute('type') || '';
+      
+      // Handle author image (specific to this RSS structure)
+      const authorImage = item.querySelector('image')?.textContent || '';
+      
+      processedItems.push({
+        title: decodeHTMLEntities(title),
+        description: decodeHTMLEntities(description),
+        link,
+        guid,
+        pubDate,
+        author: decodeHTMLEntities(author),
+        enclosure: enclosureUrl ? { url: enclosureUrl, type: enclosureType } : undefined,
+        image: authorImage || undefined
+      });
+    });
+    
+    return processedItems;
+  } catch (error) {
+    console.error('Error parsing RSS feed:', error);
+    return [];
+  }
+};
+
+/**
+ * News component - Displays latest news from RSS feed
+ * Fetches and displays news articles with loading states and error handling
+ */
 const News = () => {
   const [news, setNews] = useState<CustomItem[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Animation variants for staggered list animations
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -24,29 +99,21 @@ const News = () => {
   };
 
   useEffect(() => {
+    /**
+     * Fetches news from RSS feed with error handling and fallback
+     */
     const fetchNews = async () => {
       try {
-        const parser = new Parser({
-          customFields: {
-            item: ['enclosure', 'image', 'author']
-          }
-        });
+        // Fetch RSS feed through CORS proxy
         const response = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent('https://hacktuality.com/rss.xml'));
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const xmlText = await response.text();
-        const feed = await parser.parseString(xmlText);
         
-        // Process and clean the feed items
-        const processedItems = feed.items.slice(0, 6).map(feedItem => ({
-          ...feedItem,
-          enclosure: feedItem.enclosure || null,
-          image: feedItem.image || null,
-          title: decodeHTMLEntities(feedItem.title || ''),
-          description: decodeHTMLEntities(feedItem.description || ''),
-          author: decodeHTMLEntities(feedItem.author || '')
-        }));
+        const xmlText = await response.text();
+        
+        // Parse RSS feed using browser-compatible parser
+        const processedItems = parseRSSFeed(xmlText);
         
         setNews(processedItems);
         setLoading(false);
@@ -60,6 +127,7 @@ const News = () => {
     fetchNews();
   }, []);
 
+  // Loading skeleton component
   if (loading) {
     return (
       <div className="py-16 bg-gray-800">
@@ -95,6 +163,8 @@ const News = () => {
         <h2 className="text-3xl font-extrabold text-white text-center mb-12">
           Dernières Actualités
         </h2>
+        
+        {/* Error state */}
         {news.length === 0 ? (
           <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-6">
             <p className="text-center text-red-400">
@@ -102,6 +172,7 @@ const News = () => {
             </p>
           </div>
         ) : (
+          /* News grid with animations */
           <motion.div
             variants={container}
             initial="hidden"
@@ -123,6 +194,7 @@ const News = () => {
                   className="h-full bg-gray-900/80 backdrop-blur-sm rounded-lg p-4 sm:p-5 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20 border border-blue-500/20 hover:border-blue-500/40 hover:bg-gray-800/80"
                 >
                   <div className="flex flex-col items-start gap-4">
+                    {/* News image */}
                     <div className="w-full">
                       {newsItem.enclosure && (
                         <img 
@@ -135,6 +207,8 @@ const News = () => {
                         />
                       )}
                     </div>
+                    
+                    {/* News content */}
                     <div className="w-full">
                       <div className="flex items-center justify-between gap-4 mb-3">
                         <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors duration-300 line-clamp-2">
@@ -144,18 +218,39 @@ const News = () => {
                       <p className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors duration-300 line-clamp-2 mb-3">
                         {newsItem.description}
                       </p>
+                      
+                      {/* News metadata */}
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           {newsItem.author && (
                             <div className="flex items-center gap-2 transition-transform duration-300 group-hover:translate-x-1">
-                              <img 
-                                src={newsItem.image}
-                                alt={newsItem.author}
-                                className="w-6 h-6 rounded-full"
-                                onError={(e) => {
-                                  (e.target as HTMLImageElement).style.display = 'none';
-                                }}
-                              />
+                              {/* Author icon/image */}
+                              <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center">
+                                {newsItem.image ? (
+                                  <img 
+                                    src={newsItem.image}
+                                    alt={newsItem.author}
+                                    className="w-6 h-6 rounded-full object-cover"
+                                    onError={(e) => {
+                                      (e.target as HTMLImageElement).style.display = 'none';
+                                      // Show fallback icon when image fails to load
+                                      const parent = (e.target as HTMLImageElement).parentElement;
+                                      if (parent) {
+                                        parent.innerHTML = `
+                                          <svg class="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                                          </svg>
+                                        `;
+                                      }
+                                    }}
+                                  />
+                                ) : (
+                                  // Default user icon when no image is available
+                                  <svg className="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path>
+                                  </svg>
+                                )}
+                              </div>
                               <span className="text-sm text-gray-400">{newsItem.author}</span>
                             </div>
                           )}

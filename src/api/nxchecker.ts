@@ -1,10 +1,25 @@
+/**
+ * Interface defining the structure of Nintendo Switch compatibility check results
+ */
 interface CheckResult {
     status: 'success' | 'warning' | 'error' | 'mariko' | 'oled' | 'lite' | 'unknown';
     message: string;
     color: string;
   }
   
-  export const checkNXCompatibility = (serialNumber: string): CheckResult => {
+/**
+ * Checks Nintendo Switch compatibility based on serial number analysis
+ * Determines if a Switch can be hacked based on manufacturing date and model
+ * 
+ * @param serialNumber - The Switch serial number to analyze
+ * @returns CheckResult object containing status, message, and color
+ * 
+ * @example
+ * const result = checkNXCompatibility('XAW10000000000');
+ * // Returns: { status: 'success', message: '✅ Switch Non-Patchée...', color: 'green' }
+ */
+export const checkNXCompatibility = (serialNumber: string): CheckResult => {
+    // Validate input
     if (!serialNumber) {
       return {
         status: 'error',
@@ -15,7 +30,7 @@ interface CheckResult {
   
     const cleanSerial = serialNumber.trim().toUpperCase();
   
-    // Check special prefixes first
+    // Check for patched models first (Mariko chipsets)
     if (cleanSerial.startsWith('XKJ')) {
       return {
         status: 'mariko',
@@ -40,10 +55,12 @@ interface CheckResult {
       };
     }
   
-    // Algorithm logic
+    // Extract serial prefix and number for range checking
     const serialPrefix = cleanSerial.substring(0, 4);
     const number = parseInt(cleanSerial.substring(4, 10));
   
+    // Define compatibility ranges for different serial prefixes
+    // Based on manufacturing dates and vulnerability windows
     const ranges = {
       XAW1: { success: 7999, warning: 8999 },
       XAW4: { success: 1100, warning: 1200 },
@@ -55,6 +72,7 @@ interface CheckResult {
   
     const range = ranges[serialPrefix as keyof typeof ranges];
     
+    // Unknown serial prefix
     if (!range) {
       return {
         status: 'unknown',
@@ -63,6 +81,7 @@ interface CheckResult {
       };
     }
   
+    // Check if serial number falls within safe range
     if (number <= range.success) {
       return {
         status: 'success',
@@ -71,6 +90,7 @@ interface CheckResult {
       };
     }
   
+    // Check if serial number falls within warning range
     if (number <= range.warning) {
       return {
         status: 'warning',
@@ -79,6 +99,7 @@ interface CheckResult {
       };
     }
   
+    // Serial number indicates patched console
     return {
       status: 'error',
       message: '❌ Switch Patchée\nRaison: Console post Juin 2018',

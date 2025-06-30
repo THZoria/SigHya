@@ -1,24 +1,33 @@
 {
   "compilerOptions": {
+    // Target ECMAScript version for compilation
     "target": "ES2020",
     "useDefineForClassFields": true,
+    
+    // Library definitions to include
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    
+    // Module system configuration
     "module": "ESNext",
     "skipLibCheck": true,
 
-    /* Bundler mode */
+    /* Bundler mode configuration for Vite */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
+    
+    // React JSX configuration
     "jsx": "react-jsx",
 
-    /* Linting */
+    /* Linting and strict type checking */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
+  
+  // Include all TypeScript files in the src directory
   "include": ["src"]
 }

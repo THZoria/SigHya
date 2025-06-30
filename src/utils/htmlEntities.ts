@@ -1,5 +1,19 @@
+/**
+ * Decodes HTML entities in text strings
+ * Converts HTML entity codes back to their corresponding characters
+ * 
+ * @param text - The text containing HTML entities to decode
+ * @returns The decoded text with HTML entities replaced by their characters
+ * 
+ * @example
+ * decodeHTMLEntities('Hello &amp; World') // Returns: 'Hello & World'
+ * decodeHTMLEntities('Caf&eacute;') // Returns: 'Café'
+ * decodeHTMLEntities('L&#039;équipe') // Returns: 'L'équipe'
+ */
 export const decodeHTMLEntities = (text: string): string => {
-    const entities = {
+    // Mapping of common HTML entities to their character equivalents
+    const entities: Record<string, string> = {
+      // Basic HTML entities
       '&quot;': '"',
       '&amp;': '&',
       '&lt;': '<',
@@ -8,6 +22,8 @@ export const decodeHTMLEntities = (text: string): string => {
       '&#39;': "'",
       '&apos;': "'",
       '&nbsp;': ' ',
+      
+      // French accented characters
       '&eacute;': 'é',
       '&egrave;': 'è',
       '&agrave;': 'à',
@@ -24,7 +40,15 @@ export const decodeHTMLEntities = (text: string): string => {
       '&ccedil;': 'ç',
     };
   
-    return text.replace(/&[a-z0-9]+;/gi, (entity) => {
-      return entities[entity as keyof typeof entities] || entity;
+    // First, handle numeric entities (like &#039;)
+    let decodedText = text.replace(/&#(\d+);/g, (match, code) => {
+      return String.fromCharCode(parseInt(code, 10));
     });
+    
+    // Then, handle named entities
+    decodedText = decodedText.replace(/&[a-z]+;/gi, (entity) => {
+      return entities[entity] || entity;
+    });
+    
+    return decodedText;
   };
