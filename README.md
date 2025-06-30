@@ -5,7 +5,7 @@
 <div align="center">
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/version-2.1.7-green.svg)
+![Version](https://img.shields.io/badge/version-2.1.8-green.svg)
 ![Status](https://img.shields.io/badge/status-active-success.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.5.3-blue.svg)
 ![React](https://img.shields.io/badge/React-18.3.1-blue.svg)
