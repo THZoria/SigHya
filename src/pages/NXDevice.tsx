@@ -23,7 +23,7 @@ const NXDevice = () => {
     const selectedFile = event.target.files?.[0];
     if (!selectedFile) return;
 
-    // Vérifier l'extension du fichier
+    // Check file extension
     if (!selectedFile.name.toLowerCase().endsWith('.bin')) {
       setError("Le fichier doit être au format .bin");
       setFile(null);

@@ -16,7 +16,7 @@ interface CheckResult {
  * 
  * @example
  * const result = checkNXCompatibility('XAW10000000000');
- * // Returns: { status: 'success', message: '✅ Switch Non-Patchée...', color: 'green' }
+ * // Returns: { status: 'success', message: '✅ Unpatched Switch...', color: 'green' }
  */
 export const checkNXCompatibility = (serialNumber: string): CheckResult => {
     // Validate input

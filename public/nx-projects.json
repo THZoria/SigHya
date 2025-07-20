@@ -1,0 +1,94 @@
+{
+  "projects": [
+    {
+      "name": "Atmosphere",
+      "version": "1.9.2",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "https://github.com/Atmosphere-NX/Atmosphere"
+    },
+    {
+      "name": "Hekate",
+      "version": "v6.3.1",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "https://github.com/CTCaer/hekate"
+    },
+    {
+      "name": "Lockpick_RCMaster",
+      "version": "v1.9.15",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "https://github.com/THZoria/Lockpick_RCMaster"
+    },
+    {
+      "name": "TegraExplorer",
+      "version": "4.2.0",
+      "requiredFirmware": "17.0.0",
+      "projectUrl": "https://github.com/suchmememanyskill/TegraExplorer"
+    },
+    {
+      "name": "DBI",
+      "version": "v1.0.0",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "https://github.com/rashevskyv/dbi"
+    },
+    {
+      "name": "Goldleaf",
+      "version": "v1.0.0",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "https://github.com/XorTroll/Goldleaf"
+    },
+    {
+      "name": "Awoo-Installer",
+      "version": "v1.0.0",
+      "requiredFirmware": "15.0.1",
+      "projectUrl": "https://github.com/Huntereb/Awoo-Installer"
+    },
+    {
+      "name": "JKSV",
+      "version": "v1.0.0",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "https://github.com/J-D-K/JKSV"
+    },
+    {
+      "name": "NXDumpTool",
+      "version": "v1.0.0",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "https://github.com/DarkMatterCore/nxdumptool"
+    },
+    {
+      "name": "aio-switch-updater",
+      "version": "v1.0.0",
+      "requiredFirmware": "17.0.0",
+      "projectUrl": "https://github.com/HamletDuFromage/aio-switch-updater"
+    },
+    {
+      "name": "MissionControl",
+      "version": "v1.0.0",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "https://github.com/ndeadly/MissionControl"
+    },
+    {
+      "name": "nx-ovlloader",
+      "version": "v1.0.7",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "https://github.com/WerWolv/nx-ovlloader"
+    },
+    {
+      "name": "SwitchThemeInjector",
+      "version": "v1.0.0",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "https://github.com/exelix11/SwitchThemeInjector"
+    },
+    {
+      "name": "Incognito_RCM",
+      "version": "v1.0.0",
+      "requiredFirmware": "16.0.0",
+      "projectUrl": "https://github.com/jimzrt/incognito_rcm"
+    },
+    {
+      "name": "AtmoPackVanilla",
+      "version": "3.0.4",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "https://github.com/THZoria/AtmoPackVanilla"
+    }
+  ]
+} 

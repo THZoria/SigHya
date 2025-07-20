@@ -1,4 +1,4 @@
-import { Home, Gamepad2, Users, RocketIcon, BookOpen, Scale } from 'lucide-react';
+import { Home, Gamepad2, Users, RocketIcon, BookOpen, Scale, Package } from 'lucide-react';
 
 /**
  * Navigation item interface defining the structure of navigation elements
@@ -26,5 +26,6 @@ export const mainNavItems: NavItem[] = [
 export const secondaryNavItems: NavItem[] = [
   { path: '/roadmap', key: 'roadmap', icon: RocketIcon },
   { path: '/planning', key: 'manga', icon: BookOpen },
+  { path: '/nx-projects', key: 'nxProjects', icon: Package },
   { path: '/legal', key: 'legal', icon: Scale },
 ];
