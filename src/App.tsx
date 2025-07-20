@@ -12,6 +12,7 @@ import Roadmap from './pages/Roadmap';
 import Partners from './pages/Partners';
 import NotFound from './pages/NotFound';
 import Planning from './pages/Planning';
+import NXProjects from './pages/NXProjects';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import { I18nProvider } from './i18n/context';
@@ -38,6 +39,7 @@ const AnimatedRoutesComponent = () => {
         <Route path="/roadmap" element={<Roadmap />} />
         <Route path="/partners" element={<Partners />} />
         <Route path="/planning" element={<Planning />} />
+        <Route path="/nx-projects" element={<NXProjects />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>

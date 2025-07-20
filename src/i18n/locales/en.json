@@ -16,6 +16,7 @@
     "partners": "Partners",
     "roadmap": "Roadmap",
     "manga": "Manga",
+    "nxProjects": "NX Projects",
     "legal": "Legal"
   },
   "tools": {
@@ -279,6 +280,28 @@
         "description": "Setting up a dedicated server for local network gaming on Nintendo Switch.",
         "status": "Coming Soon"
       }
+    }
+  },
+  "nxProjects": {
+    "title": "Nintendo Switch Project Versions",
+    "subtitle": "Discover the latest versions of essential projects for modding your Nintendo Switch",
+    "warning": "⚠️ These projects are intended for educational and development purposes. Make sure to respect your console's terms of use.",
+    "projectCard": {
+      "version": "Version:",
+      "requiredFirmware": "Required Firmware:",
+      "viewProject": "View Project",
+      "download": "Download"
+    },
+    "about": {
+      "title": "About these projects",
+      "atmosphere": "The most popular CFW (Custom Firmware) for Nintendo Switch, providing a solid foundation for homebrew and modifications.",
+      "hekate": "Custom bootloader that allows you to boot different payloads and manage your Switch's partitions.",
+      "lockpick": "Tool to extract encryption keys from your console, necessary for certain development tools.",
+      "tegraExplorer": "File explorer for RCM, allowing you to navigate and modify your Switch's system files."
+    },
+    "actions": {
+      "viewOnGithub": "View on GitHub",
+      "installationGuide": "Installation Guide"
     }
   }
 }
