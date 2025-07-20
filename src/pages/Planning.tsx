@@ -57,7 +57,7 @@ const Planning = () => {
       const matchesSearch = manga.nom_manga.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesPublisher = !selectedPublisher || manga.editeur === selectedPublisher;
       
-      // Vérifier la date spécifique
+      // Check specific date
       let matchesDate = true;
       if (selectedDate) {
         const [year, month, day] = selectedDate.split('-');

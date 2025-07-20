@@ -36,7 +36,7 @@ const Partners = () => {
           </div>
         </div>
 
-        {/* Activités */}
+        {/* Activities */}
         <div className="mt-16">
           <h3 className="text-2xl font-bold text-white mb-8 text-center">
             Nos activités

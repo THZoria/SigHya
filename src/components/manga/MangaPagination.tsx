@@ -17,14 +17,14 @@ const MangaPagination: React.FC<MangaPaginationProps> = ({
 
   if (totalPages <= 1) return null;
 
-  // Fonction pour générer les numéros de page à afficher
+  // Function to generate page numbers to display
   const getPageNumbers = () => {
-    const delta = 2; // Nombre de pages à afficher de chaque côté de la page courante
+    const delta = 2; // Number of pages to display on each side of the current page
     const range = [];
     const rangeWithDots = [];
     let l;
 
-    // Toujours inclure la première page
+    // Always include the first page
     range.push(1);
 
     // Calculer la plage de pages autour de la page courante
@@ -34,12 +34,12 @@ const MangaPagination: React.FC<MangaPaginationProps> = ({
       }
     }
 
-    // Toujours inclure la dernière page
+    // Always include the last page
     if (totalPages > 1) {
       range.push(totalPages);
     }
 
-    // Ajouter les points de suspension si nécessaire
+    // Add ellipsis if necessary
     for (const i of range) {
       if (l) {
         if (i - l === 2) {
@@ -57,7 +57,7 @@ const MangaPagination: React.FC<MangaPaginationProps> = ({
 
   return (
     <div className="mt-8 flex justify-center items-center gap-2">
-      {/* Bouton première page */}
+      {/* First page button */}
       <button
         onClick={() => setCurrentPage(1)}
         disabled={currentPage === 1}
@@ -67,7 +67,7 @@ const MangaPagination: React.FC<MangaPaginationProps> = ({
         <ChevronsLeft className="w-5 h-5 text-blue-400" />
       </button>
 
-      {/* Bouton page précédente */}
+      {/* Previous page button */}
       <button
         onClick={() => setCurrentPage(currentPage - 1)}
         disabled={currentPage === 1}
@@ -77,7 +77,7 @@ const MangaPagination: React.FC<MangaPaginationProps> = ({
         <ChevronLeft className="w-5 h-5 text-blue-400" />
       </button>
 
-      {/* Numéros de pages */}
+      {/* Page numbers */}
       <div className="flex items-center gap-2">
         {getPageNumbers().map((page, index) => (
           <React.Fragment key={index}>
@@ -109,7 +109,7 @@ const MangaPagination: React.FC<MangaPaginationProps> = ({
         <ChevronRight className="w-5 h-5 text-blue-400" />
       </button>
 
-      {/* Bouton dernière page */}
+      {/* Last page button */}
       <button
         onClick={() => setCurrentPage(totalPages)}
         disabled={currentPage === totalPages}

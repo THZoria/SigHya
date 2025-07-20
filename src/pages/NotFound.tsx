@@ -163,7 +163,7 @@ const NotFound = () => {
                     transform="rotate(-90 48 48)"
                   />
                 </svg>
-                {/* Conteneur de l'icône */}
+                {/* Icon container */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <motion.div
                     initial={{ scale: 0.8 }}
