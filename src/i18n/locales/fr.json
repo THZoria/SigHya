@@ -289,7 +289,8 @@
     "warning": "⚠️ Ces projets sont destinés à des fins éducatives et de développement. Assurez-vous de respecter les conditions d'utilisation de votre console.",
     "projectCard": {
       "version": "Version :",
-      "requiredFirmware": "Firmware requis :",
+      "requiredFirmware": "Firmware compatible :",
+      "releaseDate": "Date de sortie :",
       "viewProject": "Voir le projet",
       "download": "Télécharger"
     },

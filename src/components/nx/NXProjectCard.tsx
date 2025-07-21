@@ -47,6 +47,13 @@ const NXProjectCard: React.FC<NXProjectCardProps> = ({ project, index }) => {
             {project.requiredFirmware}
           </span>
         </div>
+
+        <div className="flex items-center justify-between">
+          <span className="text-gray-300 text-sm">{t('nxProjects.projectCard.releaseDate')}</span>
+          <span className="text-white font-medium">
+            {new Date(project.releaseDate).toLocaleDateString()}
+          </span>
+        </div>
       </div>
 
       {/* External Link Indicator */}
