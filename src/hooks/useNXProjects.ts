@@ -4,6 +4,7 @@ export interface NXProject {
   name: string;
   version: string;
   requiredFirmware: string;
+  releaseDate: string;
   projectUrl: string;
 }
 

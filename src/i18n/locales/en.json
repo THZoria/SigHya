@@ -288,7 +288,8 @@
     "warning": "⚠️ These projects are intended for educational and development purposes. Make sure to respect your console's terms of use.",
     "projectCard": {
       "version": "Version:",
-      "requiredFirmware": "Required Firmware:",
+      "requiredFirmware": "Compatible Firmware:",
+      "releaseDate": "Release Date:",
       "viewProject": "View Project",
       "download": "Download"
     },
