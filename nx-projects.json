@@ -4,90 +4,105 @@
       "name": "Atmosphere",
       "version": "1.9.2",
       "requiredFirmware": "20.2.0",
+      "releaseDate": "2025-07-16",
       "projectUrl": "https://github.com/Atmosphere-NX/Atmosphere"
     },
     {
       "name": "Hekate",
       "version": "v6.3.1",
       "requiredFirmware": "20.2.0",
+      "releaseDate": "2025-05-29",
       "projectUrl": "https://github.com/CTCaer/hekate"
     },
     {
       "name": "Lockpick_RCMaster",
       "version": "v1.9.15",
       "requiredFirmware": "20.2.0",
+      "releaseDate": "2025-07-19",
       "projectUrl": "https://github.com/THZoria/Lockpick_RCMaster"
     },
     {
       "name": "TegraExplorer",
       "version": "4.2.0",
       "requiredFirmware": "17.0.0",
+      "releaseDate": "2024-07-07",
       "projectUrl": "https://github.com/suchmememanyskill/TegraExplorer"
     },
     {
       "name": "DBI",
-      "version": "v1.0.0",
+      "version": "796ru",
       "requiredFirmware": "20.2.0",
+      "releaseDate": "2025-07-04",
       "projectUrl": "https://github.com/rashevskyv/dbi"
     },
     {
       "name": "Goldleaf",
-      "version": "v1.0.0",
+      "version": "v1.1.1",
       "requiredFirmware": "20.2.0",
+      "releaseDate": "2025-06-10",
       "projectUrl": "https://github.com/XorTroll/Goldleaf"
     },
     {
       "name": "Awoo-Installer",
-      "version": "v1.0.0",
+      "version": "v1.3.5",
       "requiredFirmware": "15.0.1",
+      "releaseDate": "2022-12-15",
       "projectUrl": "https://github.com/Huntereb/Awoo-Installer"
     },
     {
       "name": "JKSV",
-      "version": "v1.0.0",
+      "version": "11/05/2024",
       "requiredFirmware": "20.2.0",
+      "releaseDate": "2024-11-05",
       "projectUrl": "https://github.com/J-D-K/JKSV"
     },
     {
       "name": "NXDumpTool",
-      "version": "v1.0.0",
+      "version": "v1.1.15",
       "requiredFirmware": "20.2.0",
+      "releaseDate": "2022-02-26",
       "projectUrl": "https://github.com/DarkMatterCore/nxdumptool"
     },
     {
       "name": "aio-switch-updater",
-      "version": "v1.0.0",
+      "version": "v2.23.2",
       "requiredFirmware": "17.0.0",
+      "releaseDate": "2023-11-15",
       "projectUrl": "https://github.com/HamletDuFromage/aio-switch-updater"
     },
     {
       "name": "MissionControl",
-      "version": "v1.0.0",
+      "version": "v0.13.3",
       "requiredFirmware": "20.2.0",
+      "releaseDate": "2025-07-16",
       "projectUrl": "https://github.com/ndeadly/MissionControl"
     },
     {
       "name": "nx-ovlloader",
       "version": "v1.0.7",
       "requiredFirmware": "20.2.0",
+      "releaseDate": "2023-05-05",
       "projectUrl": "https://github.com/WerWolv/nx-ovlloader"
     },
     {
       "name": "SwitchThemeInjector",
-      "version": "v1.0.0",
+      "version": "v4.8.1",
       "requiredFirmware": "20.2.0",
+      "releaseDate": "2025-06-20",
       "projectUrl": "https://github.com/exelix11/SwitchThemeInjector"
     },
     {
       "name": "Incognito_RCM",
-      "version": "v1.0.0",
+      "version": "v0.6.1",
       "requiredFirmware": "16.0.0",
+      "releaseDate": "2020-01-05",
       "projectUrl": "https://github.com/jimzrt/incognito_rcm"
     },
     {
       "name": "AtmoPackVanilla",
       "version": "3.0.4",
       "requiredFirmware": "20.2.0",
+      "releaseDate": "2024-12-28",
       "projectUrl": "https://github.com/THZoria/AtmoPackVanilla"
     }
   ]
