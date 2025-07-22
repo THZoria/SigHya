@@ -17,21 +17,21 @@ const Roadmap = () => {
       title: t('roadmap.projects.website.title'),
       description: t('roadmap.projects.website.description'),
       timeline: "Q1 2025",
-      status: "Terminé"  // Changement ici
+      status: "Terminé"  // Change here
     },
     {
       icon: RefreshCw,
       title: t('Sortie Nintendo Switch 2'),
       description: t('Présentation complète de la Nintendo Switch 2 avec toute les informations sur la console.'),
       timeline: "5 juin 2025",
-      status: "Prochainement"  // Changement ici
+      status: "Prochainement"  // Change here
     },
     {
       icon: RefreshCw,
       title: t('Git Auto Hébergé'),
       description: t('Git Auto Hébergé pour proposé nos services sur un serveur centralisé en plus de Github.'),
       timeline: "Q2 2025",
-      status: "En cours"  // Changement ici
+      status: "En cours"  // Change here
     },
     {
       icon: Server,

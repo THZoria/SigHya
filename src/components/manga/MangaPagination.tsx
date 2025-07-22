@@ -27,7 +27,7 @@ const MangaPagination: React.FC<MangaPaginationProps> = ({
     // Always include the first page
     range.push(1);
 
-    // Calculer la plage de pages autour de la page courante
+            // Calculate page range around current page
     for (let i = currentPage - delta; i <= currentPage + delta; i++) {
       if (i > 1 && i < totalPages) {
         range.push(i);

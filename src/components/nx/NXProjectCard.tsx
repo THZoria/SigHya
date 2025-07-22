@@ -11,9 +11,13 @@ interface NXProjectCardProps {
 
 const NXProjectCard: React.FC<NXProjectCardProps> = ({ project, index }) => {
   const { t } = useI18n();
+  
+  // Build GitHub URL from user/repo format
+  const githubUrl = `https://github.com/${project.projectUrl}`;
+  
   return (
     <motion.a
-      href={project.projectUrl}
+      href={githubUrl}
       target="_blank"
       rel="noopener noreferrer"
       initial={{ opacity: 0, y: 20 }}
@@ -34,7 +38,9 @@ const NXProjectCard: React.FC<NXProjectCardProps> = ({ project, index }) => {
       <div className="space-y-3 mb-6">
         <div className="flex items-center justify-between">
           <span className="text-gray-300 text-sm">{t('nxProjects.projectCard.version')}</span>
-          <span className="text-white font-medium">{project.version}</span>
+          <span className="text-white font-medium">
+            {project.version && project.version !== 'N/A' ? project.version : 'Loading...'}
+          </span>
         </div>
         
         <div className="flex items-center justify-between">
@@ -51,7 +57,10 @@ const NXProjectCard: React.FC<NXProjectCardProps> = ({ project, index }) => {
         <div className="flex items-center justify-between">
           <span className="text-gray-300 text-sm">{t('nxProjects.projectCard.releaseDate')}</span>
           <span className="text-white font-medium">
-            {new Date(project.releaseDate).toLocaleDateString()}
+            {project.releaseDate && project.releaseDate !== 'N/A' 
+              ? new Date(project.releaseDate).toLocaleDateString()
+              : 'Loading...'
+            }
           </span>
         </div>
       </div>

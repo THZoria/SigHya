@@ -116,7 +116,7 @@ const Planning = () => {
     document.body.appendChild(link);
     link.click();
     
-    // Nettoyer
+    // Clean up
     document.body.removeChild(link);
     window.URL.revokeObjectURL(url);
   };
