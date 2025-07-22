@@ -285,7 +285,7 @@
   "nxProjects": {
     "title": "Nintendo Switch Project Versions",
     "subtitle": "Discover the latest versions of essential projects for modding your Nintendo Switch",
-    "warning": "⚠️ These projects are intended for educational and development purposes. Make sure to respect your console's terms of use.",
+    "warning": "These projects are intended for educational and development purposes. Make sure to respect your console's terms of use.",
     "projectCard": {
       "version": "Version:",
       "requiredFirmware": "Compatible Firmware:",

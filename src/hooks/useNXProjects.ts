@@ -6,6 +6,11 @@ export interface NXProject {
   projectUrl: string; // user/repo format
   version?: string;
   releaseDate?: string;
+  description?: string;
+  author?: {
+    name: string;
+    avatar: string;
+  };
 }
 
 interface GitHubRelease {
@@ -13,8 +18,18 @@ interface GitHubRelease {
   published_at: string;
 }
 
+interface GitHubRepo {
+  description: string;
+  homepage?: string;
+  topics?: string[];
+  owner: {
+    login: string;
+    avatar_url: string;
+  };
+}
+
 interface NXProjectsData {
-  projects: Omit<NXProject, 'version' | 'releaseDate'>[];
+  projects: Omit<NXProject, 'version' | 'releaseDate' | 'description' | 'author'>[];
 }
 
 // List of CORS proxies to use as fallbacks
@@ -76,33 +91,56 @@ export const useNXProjects = () => {
     }
   };
 
-  const fetchGitHubRelease = async (repo: string): Promise<{ version: string; releaseDate: string } | null> => {
+  const fetchGitHubData = async (repo: string): Promise<{ 
+    version: string; 
+    releaseDate: string; 
+    description: string;
+    author: { name: string; avatar: string };
+  } | null> => {
     const startTime = performance.now();
     
     try {
-      const url = `https://api.github.com/repos/${repo}/releases/latest`;
-      const response = await fetchWithProxy(url);
+      // Fetch both release and repo data concurrently
+      const [releaseResponse, repoResponse] = await Promise.all([
+        fetchWithProxy(`https://api.github.com/repos/${repo}/releases/latest`),
+        fetchWithProxy(`https://api.github.com/repos/${repo}`)
+      ]);
       
-      if (!response.ok) {
-        const endTime = performance.now();
-        const time = ((endTime - startTime) / 1000).toFixed(3);
-        console.warn(`GitHub API returned ${response.status} for ${repo} (${time}s)`);
-        return null;
+      let releaseData: GitHubRelease | null = null;
+      let repoData: GitHubRepo | null = null;
+      
+      // Parse release data
+      if (releaseResponse.ok) {
+        releaseData = await releaseResponse.json();
       }
       
-      const release: GitHubRelease = await response.json();
+      // Parse repo data
+      if (repoResponse.ok) {
+        repoData = await repoResponse.json();
+      }
+      
       const endTime = performance.now();
       const time = ((endTime - startTime) / 1000).toFixed(3);
-      console.log(`${repo}: ${release.tag_name} (${time}s)`);
+      
+      if (releaseData) {
+        console.log(`${repo}: ${releaseData.tag_name} (${time}s)`);
+      } else {
+        console.warn(`No release data for ${repo} (${time}s)`);
+      }
       
       return {
-        version: release.tag_name,
-        releaseDate: release.published_at.split('T')[0] // Get only the date part
+        version: releaseData?.tag_name || 'N/A',
+        releaseDate: releaseData?.published_at?.split('T')[0] || 'N/A',
+        description: repoData?.description || 'No description available',
+        author: {
+          name: repoData?.owner?.login || 'Unknown',
+          avatar: repoData?.owner?.avatar_url || ''
+        }
       };
     } catch (err) {
       const endTime = performance.now();
       const time = ((endTime - startTime) / 1000).toFixed(3);
-      console.warn(`Failed to fetch release for ${repo} (${time}s):`, err);
+      console.warn(`Failed to fetch data for ${repo} (${time}s):`, err);
       return null;
     }
   };
@@ -124,15 +162,17 @@ export const useNXProjects = () => {
         const data: NXProjectsData = await response.json();
         console.log(`Loaded ${data.projects.length} projects from JSON`);
         
-        // Fetch release data for each project
-        console.log('Fetching GitHub release data for all projects...');
-        const projectsWithReleases = await Promise.all(
+        // Fetch GitHub data for each project
+        console.log('Fetching GitHub data for all projects...');
+        const projectsWithData = await Promise.all(
           data.projects.map(async (project) => {
-            const releaseData = await fetchGitHubRelease(project.projectUrl);
+            const githubData = await fetchGitHubData(project.projectUrl);
             return {
               ...project,
-              version: releaseData?.version || 'N/A',
-              releaseDate: releaseData?.releaseDate || 'N/A'
+              version: githubData?.version || 'N/A',
+              releaseDate: githubData?.releaseDate || 'N/A',
+              description: githubData?.description || 'No description available',
+              author: githubData?.author || { name: 'Unknown', avatar: '' }
             };
           })
         );
@@ -141,10 +181,10 @@ export const useNXProjects = () => {
         const totalTime = ((endTime - startTime) / 1000).toFixed(2);
         
         console.log(`Successfully loaded all projects in ${totalTime} seconds`);
-        console.log(`Projects loaded: ${projectsWithReleases.length}`);
-        console.log(`Average time per project: ${(parseFloat(totalTime) / projectsWithReleases.length).toFixed(3)} seconds`);
+        console.log(`Projects loaded: ${projectsWithData.length}`);
+        console.log(`Average time per project: ${(parseFloat(totalTime) / projectsWithData.length).toFixed(3)} seconds`);
         
-        setProjects(projectsWithReleases);
+        setProjects(projectsWithData);
       } catch (err) {
         const endTime = performance.now();
         const totalTime = ((endTime - startTime) / 1000).toFixed(2);

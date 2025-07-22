@@ -285,7 +285,7 @@
   "nxProjects": {
     "title": "Versiones de Proyectos Nintendo Switch",
     "subtitle": "Descubre las últimas versiones de proyectos esenciales para el modding de tu Nintendo Switch",
-    "warning": "⚠️ Estos proyectos están destinados a fines educativos y de desarrollo. Asegúrate de respetar los términos de uso de tu consola.",
+    "warning": "Estos proyectos están destinados a fines educativos y de desarrollo. Asegúrate de respetar los términos de uso de tu consola.",
     "projectCard": {
       "version": "Versión:",
       "requiredFirmware": "Firmware Compatible:",
