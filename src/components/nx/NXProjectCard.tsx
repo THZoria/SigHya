@@ -38,7 +38,9 @@ const NXProjectCard: React.FC<NXProjectCardProps> = ({ project, index }) => {
       <div className="space-y-3 mb-6">
         <div className="flex items-center justify-between">
           <span className="text-gray-300 text-sm">{t('nxProjects.projectCard.version')}</span>
-          <span className="text-white font-medium">{project.version}</span>
+          <span className="text-white font-medium">
+            {project.version && project.version !== 'N/A' ? project.version : 'Loading...'}
+          </span>
         </div>
         
         <div className="flex items-center justify-between">
@@ -55,7 +57,10 @@ const NXProjectCard: React.FC<NXProjectCardProps> = ({ project, index }) => {
         <div className="flex items-center justify-between">
           <span className="text-gray-300 text-sm">{t('nxProjects.projectCard.releaseDate')}</span>
           <span className="text-white font-medium">
-            {new Date(project.releaseDate).toLocaleDateString()}
+            {project.releaseDate && project.releaseDate !== 'N/A' 
+              ? new Date(project.releaseDate).toLocaleDateString()
+              : 'Loading...'
+            }
           </span>
         </div>
       </div>
