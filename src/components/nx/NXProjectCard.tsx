@@ -11,9 +11,13 @@ interface NXProjectCardProps {
 
 const NXProjectCard: React.FC<NXProjectCardProps> = ({ project, index }) => {
   const { t } = useI18n();
+  
+  // Build GitHub URL from user/repo format
+  const githubUrl = `https://github.com/${project.projectUrl}`;
+  
   return (
     <motion.a
-      href={project.projectUrl}
+      href={githubUrl}
       target="_blank"
       rel="noopener noreferrer"
       initial={{ opacity: 0, y: 20 }}
