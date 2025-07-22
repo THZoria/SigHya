@@ -1,6 +1,11 @@
 {
   "projects": [
     {
+      "name": "NX_Firmware",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "THZoria/NX_Firmware"
+    },
+    {
       "name": "Atmosphere",
       "requiredFirmware": "20.2.0",
       "projectUrl": "Atmosphere-NX/Atmosphere"
@@ -74,6 +79,236 @@
       "name": "AtmoPackVanilla",
       "requiredFirmware": "20.2.0",
       "projectUrl": "THZoria/AtmoPackVanilla"
+    },
+    {
+      "name": "nso-icon-tool",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "dslatt/nso-icon-tool"
+    },
+    {
+      "name": "sys-screenuploader",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "bakatrouble/sys-screenuploader"
+    },
+    {
+      "name": "sphaira",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "ITotalJustice/sphaira"
+    },
+    {
+      "name": "Moonlight-Switch",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "XITRIX/Moonlight-Switch"
+    },
+    {
+      "name": "uLaunch",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "XorTroll/uLaunch"
+    },
+    {
+      "name": "switch_AIO_LS_pack",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "shadow2560/switch_AIO_LS_pack"
+    },
+    {
+      "name": "switchfin",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "dragonflylee/switchfin"
+    },
+    {
+      "name": "SaltyNX",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "masagrator/SaltyNX"
+    },
+    {
+      "name": "FPSLocker",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "masagrator/FPSLocker"
+    },
+    {
+      "name": "SwitchLayoutEditor",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "FuryBaguette/SwitchLayoutEditor"
+    },
+    {
+      "name": "sys-tune",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "TheReconJacob/sys-tune"
+    },
+    {
+      "name": "sudachi.emuplace.app",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "emuplace/sudachi.emuplace.app"
+    },
+    {
+      "name": "SysDVR",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "exelix11/SysDVR"
+    },
+    {
+      "name": "dvr-patches",
+      "requiredFirmware": "20.1.0",
+      "projectUrl": "exelix11/dvr-patches"
+    },
+    {
+      "name": "Deepsea",
+      "requiredFirmware": "19.0.0",
+      "projectUrl": "Team-Neptune/DeepSea"
+    },
+    {
+      "name": "NxFileViewer",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "Myster-Tee/NxFileViewer"
+    },
+    {
+      "name": "sys-con",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "o0Zz/sys-con"
+    },
+    {
+      "name": "ftpsrv",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "ITotalJustice/ftpsrv"
+    },
+    {
+      "name": "jfsw-switch",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "alexart878/jfsw-switch"
+    },
+    {
+      "name": "NooDS",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "Hydr8gon/NooDS"
+    },
+    {
+      "name": "ftpd",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "mtheall/ftpd"
+    },
+    {
+      "name": "Rekado",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "MenosGrante/Rekado"
+    },
+    {
+      "name": "SwitchWave",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "averne/SwitchWave"
+    },
+    {
+      "name": "EdiZon-Overlay",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "proferabg/EdiZon-Overlay"
+    },
+    {
+      "name": "NX-Activity-Log",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "zdm65477730/NX-Activity-Log"
+    },
+    {
+      "name": "Switch-Firmware-Dumper",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "mrdude2478/Switch-Firmware-Dumper"
+    },
+    {
+      "name": "sys-botbase",
+      "requiredFirmware": "19.0.0",
+      "projectUrl": "olliz0r/sys-botbase"
+    },
+    {
+      "name": "sys-clk",
+      "requiredFirmware": "19.0.0",
+      "projectUrl": "retronx-team/sys-clk"
+    },
+    {
+      "name": "nxboot",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "mologie/nxboot"
+    },
+    {
+      "name": "Tinwoo-Release",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "mrdude2478/Tinwoo-Release"
+    },
+    {
+      "name": "Status-Monitor-Overlay",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "masagrator/Status-Monitor-Overlay"
+    },
+    {
+      "name": "NX-Venom",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "CatcherITGF/NX-Venom"
+    },
+    {
+      "name": "Lakka-LibreELEC",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "libretro/Lakka-LibreELEC"
+    },
+    {
+      "name": "RetroArch",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "libretro/RetroArch"
+    },
+    {
+      "name": "flycast",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "flyinghead/flycast"
+    },
+    {
+      "name": "SimpleModDownloader",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "PoloNX/SimpleModDownloader"
+    },
+    {
+      "name": "AtmoPackUpdater",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "PoloNX/AtmoPackUpdater"
+    },
+    {
+      "name": "Ls-News",
+      "requiredFirmware": "15.0.0",
+      "projectUrl": "PoloNX/Ls-News"
+    },
+    {
+      "name": "Ultimate-Switch-Hack-Script",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "shadow2560/Ultimate-Switch-Hack-Script"
+    },
+    {
+      "name": "PKHeX",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "kwsch/PKHeX"
+    },
+    {
+      "name": "nsz",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "nicoboss/nsz"
+    },
+    {
+      "name": "Haku33",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "StarDustCFW/Haku33"
+    },
+    {
+      "name": "The-Simpsons-Hit-and-Run",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "ZenoArrows/The-Simpsons-Hit-and-Run"
+    },
+    {
+      "name": "switch-ezremote-client",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "cy33hc/switch-ezremote-client"
+    },
+    {
+      "name": "nxmp",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "proconsule/nxmp"
+    },
+    {
+      "name": "deltarune_fr_switch",
+      "requiredFirmware": "20.2.0",
+      "projectUrl": "THZoria/deltarune_fr_switch"
     }
   ]
-} 
+}
