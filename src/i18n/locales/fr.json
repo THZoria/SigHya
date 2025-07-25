@@ -312,7 +312,13 @@
       "clearFilters": "Effacer les filtres",
       "showingResults": "Affichage de {count} sur {total} projets",
       "noResults": "Aucun projet trouvé correspondant à vos critères",
-      "clearAllFilters": "Effacer tous les filtres"
+      "clearAllFilters": "Effacer tous les filtres",
+    "pagination": {
+      "show": "Afficher",
+      "perPage": "par page",
+      "showAll": "Tout afficher",
+      "showing": "Affichage de {start} à {end} sur {total} résultats"
+    }
     },
     "sort": {
       "stars": "Étoiles",

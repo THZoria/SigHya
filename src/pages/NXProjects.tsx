@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { AlertTriangle, Search, Filter, SortAsc, SortDesc } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
 import NXProjectCard from '../components/nx/NXProjectCard';
+import Pagination from '../components/Pagination';
 import { useNXProjects } from '../hooks/useNXProjects';
 import { useI18n } from '../i18n/context';
 
@@ -10,6 +11,7 @@ const NXProjects = () => {
   const { t } = useI18n();
   const { 
     projects, 
+    allProjects,
     loading, 
     error, 
     searchTerm, 
@@ -24,7 +26,16 @@ const NXProjects = () => {
     sortDirection,
     setSortDirection,
     languages,
-    firmwareVersions
+    firmwareVersions,
+    // Pagination
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    itemsPerPage,
+    setItemsPerPage,
+    startIndex,
+    endIndex,
+    clearAllFilters
   } = useNXProjects();
 
   const toggleSortDirection = () => {
@@ -33,9 +44,7 @@ const NXProjects = () => {
   };
 
   const clearFilters = () => {
-    setSearchTerm('');
-    setSelectedLanguage('');
-    setSelectedFirmware('');
+    clearAllFilters();
   };
 
   return (
@@ -58,6 +67,8 @@ const NXProjects = () => {
               {t('nxProjects.subtitle')}
             </p>
           </motion.div>
+
+
 
           {/* Search and Filters */}
           <motion.div
@@ -192,8 +203,22 @@ const NXProjects = () => {
             </div>
           )}
 
+          {/* Pagination */}
+          {!loading && !error && allProjects.length > 0 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+              itemsPerPage={itemsPerPage}
+              totalItems={allProjects.length}
+              startIndex={startIndex}
+              endIndex={endIndex}
+              onItemsPerPageChange={setItemsPerPage}
+            />
+          )}
+
           {/* No Results */}
-          {!loading && !error && projects.length === 0 && (searchTerm || selectedLanguage || selectedFirmware) && (
+          {!loading && !error && allProjects.length === 0 && (searchTerm || selectedLanguage || selectedFirmware) && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
