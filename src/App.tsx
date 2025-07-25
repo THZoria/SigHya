@@ -18,6 +18,8 @@ import Footer from './components/Footer';
 import { I18nProvider } from './i18n/context';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ToastProvider } from './components/ui/Toast';
+import InstallPWA from './components/InstallPWA';
+import UpdateNotification from './components/UpdateNotification';
 
 /**
  * AnimatedRoutes component handles route transitions with smooth animations
@@ -62,6 +64,8 @@ function App() {
               <Navbar />
               <AnimatedRoutesComponent />
               <Footer />
+              <InstallPWA />
+              <UpdateNotification />
             </div>
           </Router>
         </I18nProvider>

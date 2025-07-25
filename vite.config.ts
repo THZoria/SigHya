@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
 import pkg from './package.json';
 
 /**
@@ -8,7 +9,54 @@ import pkg from './package.json';
  */
 export default defineConfig({
   // React plugin for JSX support and hot module replacement
-  plugins: [react()],
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/nxhub\.pw\/.*/i,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'nxhub-api-cache',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24, // 24 hours
+              },
+            },
+          },
+        ],
+      },
+      includeAssets: ['logo.png'],
+      manifest: {
+        name: 'SigHya - Modding de consoles',
+        short_name: 'SigHya',
+        description: 'Communauté française de modding de consoles. Guides, tutoriels et entraide pour le modding de Nintendo Switch, PS5 et plus encore.',
+        theme_color: '#1a1a1a',
+        background_color: '#111827',
+        display: 'standalone',
+        orientation: 'portrait-primary',
+        scope: '/',
+        start_url: '/',
+        icons: [
+          {
+            src: '/logo.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'any maskable'
+          },
+          {
+            src: '/logo.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable'
+          }
+        ]
+      }
+    })
+  ],
   
   // Global constants available in the application
   define: {
