@@ -283,7 +283,7 @@
     }
   },
   "nxProjects": {
-    "title": "Versiones de Proyectos Nintendo Switch",
+    "title": "Proyectos Nintendo Switch",
     "subtitle": "Descubre las últimas versiones de proyectos esenciales para el modding de tu Nintendo Switch",
     "warning": "Estos proyectos están destinados a fines educativos y de desarrollo. Asegúrate de respetar los términos de uso de tu consola.",
     "projectCard": {
@@ -303,6 +303,23 @@
     "actions": {
       "viewOnGithub": "Ver en GitHub",
       "installationGuide": "Guía de Instalación"
+    },
+    "filters": {
+      "searchPlaceholder": "Buscar proyectos, autores o descripciones...",
+      "allLanguages": "Todos los lenguajes",
+      "allFirmware": "Todos los firmware",
+      "clearFilters": "Limpiar filtros",
+      "showingResults": "Mostrando {count} de {total} proyectos",
+      "noResults": "No se encontraron proyectos que coincidan con tus criterios",
+      "clearAllFilters": "Limpiar todos los filtros"
+    },
+    "sort": {
+      "stars": "Estrellas",
+      "forks": "Forks",
+      "name": "Nombre",
+      "author": "Autor",
+      "latestRelease": "Última versión",
+      "lastUpdated": "Última actualización"
     }
   }
 }
