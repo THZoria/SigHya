@@ -16,18 +16,30 @@ const Navbar = () => {
   const { t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const location = useLocation();
   const isLargeScreen = useMediaQuery('(min-width: 1536px)');
 
-  // Handle scroll effect for background transparency
+  // Handle scroll effect for background transparency and hide/show navbar
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 20);
+      
+      // Hide navbar when scrolling down, show when scrolling up
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -44,7 +56,7 @@ const Navbar = () => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled ? 'bg-gray-900/90 backdrop-blur-md shadow-xl' : 'bg-transparent'
-    }`}>
+    } ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
       <div className="w-full px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo and main navigation items */}

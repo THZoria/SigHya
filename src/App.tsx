@@ -20,6 +20,8 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { ToastProvider } from './components/ui/Toast';
 import InstallPWA from './components/InstallPWA';
 import UpdateNotification from './components/UpdateNotification';
+import ReadingProgressBar from './components/ReadingProgressBar';
+import ScrollToTopButton from './components/ScrollToTopButton';
 
 /**
  * AnimatedRoutes component handles route transitions with smooth animations
@@ -60,12 +62,19 @@ function App() {
         <I18nProvider>
           <Router>
             <div className="min-h-screen bg-gray-900">
+              <ReadingProgressBar />
               <ScrollToTop />
               <Navbar />
               <AnimatedRoutesComponent />
               <Footer />
               <InstallPWA />
               <UpdateNotification />
+              <ScrollToTopButton 
+                threshold={200}
+                position="bottom-right"
+                size="md"
+                showTooltip={true}
+              />
             </div>
           </Router>
         </I18nProvider>

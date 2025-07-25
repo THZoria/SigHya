@@ -311,7 +311,13 @@
       "clearFilters": "Clear Filters",
       "showingResults": "Showing {count} of {total} projects",
       "noResults": "No projects found matching your criteria",
-      "clearAllFilters": "Clear all filters"
+      "clearAllFilters": "Clear all filters",
+    "pagination": {
+      "show": "Show",
+      "perPage": "per page",
+      "showAll": "Show all",
+      "showing": "Showing {start} to {end} of {total} results"
+    }
     },
     "sort": {
       "stars": "Stars",

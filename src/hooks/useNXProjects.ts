@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 export interface NXProject {
   name: string;
@@ -27,19 +28,134 @@ export type SortOption = 'name' | 'author' | 'stars' | 'forks' | 'latestReleaseD
 export type SortDirection = 'asc' | 'desc';
 
 export const useNXProjects = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  // Initialize state from URL params
   const [projects, setProjects] = useState<NXProject[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<NXProject[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('');
-  const [selectedFirmware, setSelectedFirmware] = useState<string>('');
-  const [sortBy, setSortBy] = useState<SortOption>('stars');
-  const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
+  
+  // State with URL sync
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('q') || '');
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(searchParams.get('lang') || '');
+  const [selectedFirmware, setSelectedFirmware] = useState<string>(searchParams.get('fw') || '');
+  const [sortBy, setSortBy] = useState<SortOption>((searchParams.get('sort') as SortOption) || 'stars');
+  const [sortDirection, setSortDirection] = useState<SortDirection>((searchParams.get('order') as SortDirection) || 'desc');
+  const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('page') || '1'));
+  const [itemsPerPage, setItemsPerPage] = useState(parseInt(searchParams.get('perPage') || '12'));
+  
+  // No longer needed since we don't update URL for search
+  // const searchTimeoutRef = useRef<number>();
 
   // Get unique languages and firmware versions
   const languages = [...new Set(projects.map(p => p.language).filter(Boolean))].sort();
   const firmwareVersions = [...new Set(projects.map(p => p.requiredFirmware))].sort();
+
+  // Update URL params without triggering re-renders
+  const updateURLParams = (updates: Record<string, string | number>) => {
+    const newParams = new URLSearchParams(searchParams);
+    let hasChanges = false;
+    
+    Object.entries(updates).forEach(([key, value]) => {
+      const currentValue = newParams.get(key);
+      const newValue = value === '' || value === 0 || value === '1' ? null : value.toString();
+      
+      if (currentValue !== newValue) {
+        hasChanges = true;
+        if (newValue === null) {
+          newParams.delete(key);
+        } else {
+          newParams.set(key, newValue);
+        }
+      }
+    });
+    
+    // Only update if there are actual changes
+    if (hasChanges) {
+      setSearchParams(newParams, { replace: true });
+    }
+  };
+
+  // Wrapped setters that update URL only when values actually change
+  const setSearchTermWithURL = (term: string) => {
+    if (searchTerm !== term) {
+      setSearchTerm(term);
+      
+      // Update URL in real-time without triggering re-renders
+      const url = new URL(window.location.href);
+      if (term.trim()) {
+        url.searchParams.set('q', term);
+      } else {
+        url.searchParams.delete('q');
+      }
+      url.searchParams.delete('page'); // Reset page when searching
+      
+      // Use replaceState to update URL without re-render
+      window.history.replaceState({}, '', url.toString());
+    }
+  };
+
+  const setSelectedLanguageWithURL = (lang: string) => {
+    if (selectedLanguage !== lang) {
+      setSelectedLanguage(lang);
+      updateURLParams({ lang, page: 1 });
+    }
+  };
+
+  const setSelectedFirmwareWithURL = (fw: string) => {
+    if (selectedFirmware !== fw) {
+      setSelectedFirmware(fw);
+      updateURLParams({ fw, page: 1 });
+    }
+  };
+
+  const setSortByWithURL = (sort: SortOption) => {
+    if (sortBy !== sort) {
+      setSortBy(sort);
+      updateURLParams({ sort });
+    }
+  };
+
+  const setSortDirectionWithURL = (order: SortDirection) => {
+    if (sortDirection !== order) {
+      setSortDirection(order);
+      updateURLParams({ order });
+    }
+  };
+
+  const setCurrentPageWithURL = (page: number) => {
+    if (currentPage !== page) {
+      setCurrentPage(page);
+      updateURLParams({ page });
+    }
+  };
+
+  const setItemsPerPageWithURL = (perPage: number) => {
+    if (itemsPerPage !== perPage) {
+      setItemsPerPage(perPage);
+      updateURLParams({ perPage, page: 1 });
+    }
+  };
+
+  const clearAllFilters = () => {
+    setSearchTerm('');
+    setSelectedLanguage('');
+    setSelectedFirmware('');
+    setCurrentPage(1);
+    setSortBy('stars');
+    setSortDirection('desc');
+    setItemsPerPage(12);
+    
+    // Clear all URL params
+    setSearchParams({}, { replace: true });
+  };
+
+  // Pagination calculations
+  const totalPages = itemsPerPage === -1 ? 1 : Math.ceil(filteredProjects.length / itemsPerPage);
+  const startIndex = itemsPerPage === -1 ? 0 : (currentPage - 1) * itemsPerPage;
+  const endIndex = itemsPerPage === -1 ? filteredProjects.length : startIndex + itemsPerPage;
+  const paginatedProjects = itemsPerPage === -1 ? filteredProjects : filteredProjects.slice(startIndex, endIndex);
 
   // Filter and sort projects
   useEffect(() => {
@@ -113,6 +229,18 @@ export const useNXProjects = () => {
     setFilteredProjects(filtered);
   }, [projects, searchTerm, selectedLanguage, selectedFirmware, sortBy, sortDirection]);
 
+  // Separate effect to handle page reset when filters change
+  useEffect(() => {
+    const hasFilterChanges = searchTerm || selectedLanguage || selectedFirmware;
+    if (hasFilterChanges && currentPage !== 1) {
+      setCurrentPage(1);
+      // Update URL to reflect page reset
+      const url = new URL(window.location.href);
+      url.searchParams.set('page', '1');
+      window.history.replaceState({}, '', url.toString());
+    }
+  }, [searchTerm, selectedLanguage, selectedFirmware]);
+
   useEffect(() => {
     const fetchProjects = async () => {
       const startTime = performance.now();
@@ -151,22 +279,32 @@ export const useNXProjects = () => {
     fetchProjects();
   }, []);
 
-  return { 
-    projects: filteredProjects, 
-    loading, 
-    error, 
-    searchTerm, 
-    setSearchTerm,
+    return {
+    projects: paginatedProjects,
+    allProjects: filteredProjects,
+    loading,
+    error,
+    searchTerm,
+    setSearchTerm: setSearchTermWithURL,
     totalProjects: projects.length,
     selectedLanguage,
-    setSelectedLanguage,
+    setSelectedLanguage: setSelectedLanguageWithURL,
     selectedFirmware,
-    setSelectedFirmware,
+    setSelectedFirmware: setSelectedFirmwareWithURL,
     sortBy,
-    setSortBy,
+    setSortBy: setSortByWithURL,
     sortDirection,
-    setSortDirection,
+    setSortDirection: setSortDirectionWithURL,
     languages,
-    firmwareVersions
+    firmwareVersions,
+    // Pagination
+    currentPage,
+    setCurrentPage: setCurrentPageWithURL,
+    totalPages,
+    itemsPerPage,
+    setItemsPerPage: setItemsPerPageWithURL,
+    startIndex: itemsPerPage === -1 ? 1 : startIndex + 1,
+    endIndex: itemsPerPage === -1 ? filteredProjects.length : Math.min(endIndex, filteredProjects.length),
+    clearAllFilters
   };
 }; 
