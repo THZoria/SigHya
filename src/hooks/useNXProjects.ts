@@ -244,19 +244,19 @@ export const useNXProjects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       const startTime = performance.now();
-      console.log('Starting to fetch NX projects data from nxhub.pw...');
+      console.log('Starting to fetch NX projects data from nxhub.pw/data/projects.json...');
       
       try {
         setLoading(true);
         setError(null);
         
-        const response = await fetch('https://nxhub.pw/output/projects.json');
+        const response = await fetch('https://nxhub.pw/data/projects.json');
         if (!response.ok) {
-          throw new Error('Failed to fetch projects data from nxhub.pw');
+          throw new Error('Failed to fetch projects data from nxhub.pw/data/projects.json');
         }
         
         const data: NXHubResponse = await response.json();
-        console.log(`Loaded ${data.projects.length} projects from nxhub.pw`);
+        console.log(`Loaded ${data.projects.length} projects from nxhub.pw/data/projects.json`);
         
         const endTime = performance.now();
         const totalTime = ((endTime - startTime) / 1000).toFixed(2);
