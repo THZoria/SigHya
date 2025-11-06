@@ -37,7 +37,6 @@ const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({
     });
   };
 
-  // Position classes
   const getPositionClass = () => {
     switch (position) {
       case 'bottom-left':
@@ -45,11 +44,10 @@ const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({
       case 'bottom-center':
         return 'bottom-6 left-1/2 transform -translate-x-1/2';
       default:
-        return 'bottom-6 right-20'; // Moved left to avoid PWA button
+        return 'bottom-6 right-20';
     }
   };
 
-  // Size classes
   const getSizeClass = () => {
     switch (size) {
       case 'sm':

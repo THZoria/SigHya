@@ -56,11 +56,15 @@ export const checkNXCompatibility = (serialNumber: string): CheckResult => {
     }
   
     // Extract serial prefix and number for range checking
+    // Format: XAW1XXXXX where XAW1 is prefix, XXXXX is numeric portion
     const serialPrefix = cleanSerial.substring(0, 4);
     const number = parseInt(cleanSerial.substring(4, 10));
   
-    // Define compatibility ranges for different serial prefixes
-    // Based on manufacturing dates and vulnerability windows
+    // Compatibility ranges based on manufacturing dates and RCM vulnerability patching:
+    // - success: Unpatched consoles (before June 2018 patch)
+    // - warning: Transition period (indeterminate, may or may not be patched)
+    // - error: Patched consoles (after patch date)
+    // Ranges determined by analyzing known console batches and their exploitability
     const ranges = {
       XAW1: { success: 7999, warning: 8999 },
       XAW4: { success: 1100, warning: 1200 },

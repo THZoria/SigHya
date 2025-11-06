@@ -30,13 +30,11 @@ export type SortDirection = 'asc' | 'desc';
 export const useNXProjects = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   
-  // Initialize state from URL params
   const [projects, setProjects] = useState<NXProject[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<NXProject[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
-  // State with URL sync
   const [searchTerm, setSearchTerm] = useState(searchParams.get('q') || '');
   const [selectedLanguage, setSelectedLanguage] = useState<string>(searchParams.get('lang') || '');
   const [selectedFirmware, setSelectedFirmware] = useState<string>(searchParams.get('fw') || '');
@@ -44,15 +42,10 @@ export const useNXProjects = () => {
   const [sortDirection, setSortDirection] = useState<SortDirection>((searchParams.get('order') as SortDirection) || 'desc');
   const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('page') || '1'));
   const [itemsPerPage, setItemsPerPage] = useState(parseInt(searchParams.get('perPage') || '12'));
-  
-  // No longer needed since we don't update URL for search
-  // const searchTimeoutRef = useRef<number>();
 
-  // Get unique languages and firmware versions
   const languages = [...new Set(projects.map(p => p.language).filter(Boolean))].sort();
   const firmwareVersions = [...new Set(projects.map(p => p.requiredFirmware))].sort();
 
-  // Update URL params without triggering re-renders
   const updateURLParams = (updates: Record<string, string | number>) => {
     const newParams = new URLSearchParams(searchParams);
     let hasChanges = false;
@@ -71,27 +64,24 @@ export const useNXProjects = () => {
       }
     });
     
-    // Only update if there are actual changes
     if (hasChanges) {
       setSearchParams(newParams, { replace: true });
     }
   };
 
-  // Wrapped setters that update URL only when values actually change
+  // Use replaceState instead of setSearchParams to update URL without triggering re-render
+  // This prevents infinite loops when URL changes would cause state updates that change URL again
   const setSearchTermWithURL = (term: string) => {
     if (searchTerm !== term) {
       setSearchTerm(term);
       
-      // Update URL in real-time without triggering re-renders
       const url = new URL(window.location.href);
       if (term.trim()) {
         url.searchParams.set('q', term);
       } else {
         url.searchParams.delete('q');
       }
-      url.searchParams.delete('page'); // Reset page when searching
-      
-      // Use replaceState to update URL without re-render
+      url.searchParams.delete('page');
       window.history.replaceState({}, '', url.toString());
     }
   };
@@ -147,21 +137,17 @@ export const useNXProjects = () => {
     setSortDirection('desc');
     setItemsPerPage(12);
     
-    // Clear all URL params
     setSearchParams({}, { replace: true });
   };
 
-  // Pagination calculations
   const totalPages = itemsPerPage === -1 ? 1 : Math.ceil(filteredProjects.length / itemsPerPage);
   const startIndex = itemsPerPage === -1 ? 0 : (currentPage - 1) * itemsPerPage;
   const endIndex = itemsPerPage === -1 ? filteredProjects.length : startIndex + itemsPerPage;
   const paginatedProjects = itemsPerPage === -1 ? filteredProjects : filteredProjects.slice(startIndex, endIndex);
 
-  // Filter and sort projects
   useEffect(() => {
     let filtered = projects;
 
-    // Apply search filter
     if (searchTerm.trim()) {
       filtered = filtered.filter(project => 
         project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -171,17 +157,13 @@ export const useNXProjects = () => {
       );
     }
 
-    // Apply language filter
     if (selectedLanguage) {
       filtered = filtered.filter(project => project.language === selectedLanguage);
     }
 
-    // Apply firmware filter
     if (selectedFirmware) {
       filtered = filtered.filter(project => project.requiredFirmware === selectedFirmware);
     }
-
-    // Apply sorting
     filtered.sort((a, b) => {
       let aValue: any, bValue: any;
 
@@ -229,12 +211,10 @@ export const useNXProjects = () => {
     setFilteredProjects(filtered);
   }, [projects, searchTerm, selectedLanguage, selectedFirmware, sortBy, sortDirection]);
 
-  // Separate effect to handle page reset when filters change
   useEffect(() => {
     const hasFilterChanges = searchTerm || selectedLanguage || selectedFirmware;
     if (hasFilterChanges && currentPage !== 1) {
       setCurrentPage(1);
-      // Update URL to reflect page reset
       const url = new URL(window.location.href);
       url.searchParams.set('page', '1');
       window.history.replaceState({}, '', url.toString());
@@ -297,7 +277,6 @@ export const useNXProjects = () => {
     setSortDirection: setSortDirectionWithURL,
     languages,
     firmwareVersions,
-    // Pagination
     currentPage,
     setCurrentPage: setCurrentPageWithURL,
     totalPages,

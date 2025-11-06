@@ -1,3 +1,9 @@
+/**
+ * NX Device ID Extractor page
+ * Extracts Device ID from Nintendo Switch PRODINFO.bin files
+ * All processing is done client-side in the browser for security
+ */
+
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, AlertTriangle, CheckCircle2, XCircle, FileUp } from 'lucide-react';
@@ -23,7 +29,6 @@ const NXDevice = () => {
     const selectedFile = event.target.files?.[0];
     if (!selectedFile) return;
 
-    // Check file extension
     if (!selectedFile.name.toLowerCase().endsWith('.bin')) {
       setError("Le fichier doit être au format .bin");
       setFile(null);

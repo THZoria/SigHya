@@ -1,3 +1,9 @@
+/**
+ * PS5 UART Checker page
+ * Analyzes and troubleshoots PS5 UART error codes
+ * Provides search functionality with pagination and local caching
+ */
+
 import React, { useEffect, useMemo, useState, useCallback, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -38,10 +44,9 @@ const PS5 = () => {
   const [shouldFetch, setShouldFetch] = useState(true);
   const [cacheTimestamp, setCacheTimestamp] = useState<number | null>(null);
   const CACHE_KEY = 'ps5-error-codes';
-  const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
+  const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000;
   const searchTimeoutRef = useRef<number>();
 
-  // Filter results when query changes
   const filterResults = useCallback((searchQuery: string, codes: ErrorCode[] = errorCodes) => {
     const filtered = codes.filter(error => 
       error.ID.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -50,11 +55,9 @@ const PS5 = () => {
     setFilteredResults(filtered);
   }, [errorCodes]);
 
-  // Get query parameters
   const query = searchParams.get('q') || '';
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
 
-  // Update URL with search params
   const updateUrlParams = (newSearchTerm: string, page: number) => {
     const params = new URLSearchParams(searchParams);
     if (newSearchTerm) params.set('q', newSearchTerm);
@@ -62,7 +65,6 @@ const PS5 = () => {
     setSearchParams(params, { replace: true });
   };
 
-  // Sync search term with URL query
   useEffect(() => {
     if (query !== searchTerm) {
       setSearchTerm(query);
@@ -72,17 +74,14 @@ const PS5 = () => {
     }
   }, [query, errorCodes, filterResults]);
 
-  // Calculate pagination
   const totalPages = Math.ceil(filteredResults.length / ITEMS_PER_PAGE);
   const paginatedResults = filteredResults.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
 
-  // Fetch error codes on mount
   useEffect(() => {
     const fetchErrorCodes = async () => {
-      // Check cache first
       const cached = localStorage.getItem(CACHE_KEY);
       if (cached) {
         try {
@@ -129,29 +128,27 @@ const PS5 = () => {
     }
   }, [shouldFetch, query, filterResults]);
 
-  // Handle search input
   const handleSearch = (value: string) => {
     setSearchTerm(value);
     filterResults(value);
     
-    // Clear any existing timeout
     if (searchTimeoutRef.current) {
       window.clearTimeout(searchTimeoutRef.current);
     }
     
-    // Set a new timeout to update URL params after user stops typing
     searchTimeoutRef.current = window.setTimeout(() => {
       updateUrlParams(value, 1);
     }, 500);
   };
 
-  // Handle page change
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return;
     updateUrlParams(searchTerm, page);
   };
 
-  // Generate page numbers for pagination
+  // Pagination with ellipses: shows first page, last page, current page ± delta (2 pages)
+  // Inserts ellipses (...) when there's a gap > 1 page between displayed numbers
+  // Example: [1] ... [5] [6] [7] [8] [9] ... [20] (currentPage=7, delta=2)
   const pageNumbers = useMemo(() => {
     const delta = 2;
     const range = [];
@@ -166,6 +163,7 @@ const PS5 = () => {
 
     for (const i of range) {
       if (lastNumber) {
+        // If gap is exactly 2 pages, show the middle page instead of ellipses
         if (i - lastNumber === 2) {
           rangeWithDots.push(lastNumber + 1);
         } else if (i - lastNumber !== 1) {

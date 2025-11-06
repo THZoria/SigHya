@@ -1,3 +1,9 @@
+/**
+ * Nintendo Switch Checker page
+ * Allows users to verify if their Nintendo Switch console is compatible with modding
+ * by analyzing the console's serial number against known patched/unpatched ranges
+ */
+
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';

@@ -8,7 +8,6 @@ interface Manga {
   image: string;
 }
 
-// Fetch manga release schedule from Nautiljon
 export const fetchMangaPlanning = async (): Promise<Manga[]> => {
   try {
     const response = await fetch('https://www.nautiljon.com/planning/manga/');

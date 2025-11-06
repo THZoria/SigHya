@@ -17,29 +17,24 @@ const MangaPagination: React.FC<MangaPaginationProps> = ({
 
   if (totalPages <= 1) return null;
 
-  // Function to generate page numbers to display
   const getPageNumbers = () => {
-    const delta = 2; // Number of pages to display on each side of the current page
+    const delta = 2;
     const range = [];
     const rangeWithDots = [];
     let l;
 
-    // Always include the first page
     range.push(1);
 
-            // Calculate page range around current page
     for (let i = currentPage - delta; i <= currentPage + delta; i++) {
       if (i > 1 && i < totalPages) {
         range.push(i);
       }
     }
 
-    // Always include the last page
     if (totalPages > 1) {
       range.push(totalPages);
     }
 
-    // Add ellipsis if necessary
     for (const i of range) {
       if (l) {
         if (i - l === 2) {

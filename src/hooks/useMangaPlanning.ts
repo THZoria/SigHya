@@ -23,10 +23,6 @@ export const useMangaPlanning = () => {
   const [error, setError] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);
 
-  /**
-   * Loads manga data from local JSON file as fallback
-   * Memoized to prevent unnecessary function recreations
-   */
   const loadLocalMangas = useCallback(async () => {
     try {
       console.log('=== Loading local data ===');
@@ -43,11 +39,6 @@ export const useMangaPlanning = () => {
     }
   }, []);
 
-  /**
-   * Main function to load manga data from Nautiljon
-   * Falls back to local data if external fetch fails
-   * Memoized to prevent unnecessary function recreations
-   */
   const loadMangas = useCallback(async () => {
     try {
       console.log('=== Starting manga loading ===');
@@ -121,16 +112,14 @@ export const useMangaPlanning = () => {
     }
   }, [loadLocalMangas]);
 
-  /**
-   * Retry function with exponential backoff
-   * Memoized to prevent unnecessary function recreations
-   */
+  // Exponential backoff retry: delays increase exponentially (1s, 2s, 4s, 8s...)
+  // Prevents overwhelming the CORS proxy with rapid retry attempts
   const retryWithDelay = useCallback(() => {
     if (retryCount < MAX_RETRIES) {
       setTimeout(() => {
         setRetryCount(prev => prev + 1);
         loadMangas();
-      }, Math.pow(2, retryCount) * 1000); // Exponential backoff
+      }, Math.pow(2, retryCount) * 1000);
     }
   }, [retryCount, loadMangas]);
 
@@ -140,7 +129,6 @@ export const useMangaPlanning = () => {
     });
   }, [loadMangas, retryWithDelay]);
 
-  // Memoize the return value to prevent unnecessary re-renders
   const result = useMemo(() => ({
     mangas,
     loading,

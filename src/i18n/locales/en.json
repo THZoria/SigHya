@@ -35,6 +35,10 @@
         "title": "PS5 UART Checker",
         "description": "Analyze UART error codes from your PlayStation 5."
       },
+      "nspForwarder": {
+        "title": "NSP Forwarder Generator",
+        "description": "Create NSP forwarders to launch your homebrews from the HOME menu."
+      },
       "action": "Access Tool"
     }
   },
@@ -280,6 +284,100 @@
         "description": "Setting up a dedicated server for local network gaming on Nintendo Switch.",
         "status": "Coming Soon"
       }
+    }
+  },
+  "nspForwarder": {
+    "title": "NSP Forwarder Generator",
+    "subtitle": "Create NSP forwarders for your homebrews and RetroArch games",
+    "warning": {
+      "title": "Local Processing",
+      "local": "All files are processed locally in your browser. No data is sent to a server."
+    },
+    "credit": "Based on the original project by TooTallNate - https://github.com/TooTallNate/switch-tools",
+    "tabs": {
+      "nro": "NRO Forwarder",
+      "retroarch": "RetroArch Forwarder",
+      "advanced": "Advanced Mode"
+    },
+    "upload": {
+      "selectNro": "Click to select NRO or image file...",
+      "selectImage": "Click to select image file...",
+      "selectBoxArt": "Click to select game box art image file...",
+      "nroOrImage": ".nro files or images accepted",
+      "clickToChangeImage": "Click to change image",
+      "clickToChangeBoxArt": "Click to change box art"
+    },
+    "form": {
+      "appTitle": {
+        "label": "App Title",
+        "placeholder": "HB App Store"
+      },
+      "gameTitle": {
+        "label": "Game Title",
+        "placeholder": "Super Mario World"
+      },
+      "publisher": {
+        "label": "Publisher",
+        "placeholder": "4TU Team"
+      },
+      "nroPath": {
+        "label": "NRO Path"
+      },
+      "corePath": {
+        "label": "Core Path"
+      },
+      "romPath": {
+        "label": "ROM Path"
+      },
+      "prodKeys": {
+        "label": "Prod Keys",
+        "select": "Click to select your 'prod.keys' file...",
+        "help": "prod.keys file required to generate NSP"
+      },
+      "version": {
+        "label": "Version"
+      },
+      "titleId": {
+        "label": "Title ID",
+        "random": "Generate random ID"
+      },
+      "logoType": {
+        "label": "Logo Type",
+        "textAbove": "Text above logo...",
+        "custom": "Custom logo"
+      },
+      "logo": {
+        "label": "Custom Logo",
+        "select": "Select logo..."
+      },
+      "animation": {
+        "label": "Startup Animation",
+        "select": "Select startup animation..."
+      },
+      "options": {
+        "screenshots": "Enable screenshots",
+        "videoCapture": "Enable video capture",
+        "profileSelector": "Enable profile selector",
+        "svcDebug": "Enable svcdebug flag"
+      }
+    },
+    "buttons": {
+      "generate": "Generate NSP",
+      "generating": "Generating..."
+    },
+    "errors": {
+      "missingFields": "Please fill in all required fields",
+      "invalidImageFormat": "Invalid image format. Use PNG, JPG or WebP",
+      "imageTooLarge": "Image is too large. Maximum 2MB",
+      "generationFailed": "NSP generation failed",
+      "invalidMode": "Invalid mode selected"
+    },
+    "instructions": {
+      "title": "Instructions",
+      "step1": "NRO Forwarder: Create a forwarder to launch a .nro file from the HOME menu",
+      "step2": "RetroArch Forwarder: Create a forwarder to launch a ROM directly with RetroArch",
+      "step3": "Advanced Mode: Enable to access advanced options (Title ID, logo, animation, etc.)",
+      "step4": "The prod.keys file is required and must contain your Switch encryption keys"
     }
   },
   "nxProjects": {
