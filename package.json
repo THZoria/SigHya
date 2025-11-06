@@ -1,7 +1,7 @@
 {
   "name": "sighya-fr",
   "private": true,
-  "version": "2.2.6",
+  "version": "2.2.7",
   "type": "module",
   "description": "French community platform for console modding",
   "author": "SigHya",
@@ -48,3 +48,4 @@
     "vite-plugin-pwa": "^1.0.2"
   }
 }
+

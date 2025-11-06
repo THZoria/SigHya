@@ -14,38 +14,17 @@ const Roadmap = () => {
     const projects = [
     {
       icon: RefreshCw,
-      title: t('roadmap.projects.website.title'),
-      description: t('roadmap.projects.website.description'),
-      timeline: "Q1 2025",
-      status: "Terminé"  // Change here
-    },
-    {
-      icon: RefreshCw,
-      title: t('Sortie Nintendo Switch 2'),
-      description: t('Présentation complète de la Nintendo Switch 2 avec toute les informations sur la console.'),
-      timeline: "5 juin 2025",
-      status: "Prochainement"  // Change here
+      title: t('Mise à jour du site'),
+      description: t('Nouvelle mise à jour du site rajoutant plusieurs grosse nouveauté'),
+      timeline: "Décembre 2025",
+      status: "En cours" 
     },
     {
       icon: RefreshCw,
       title: t('Git Auto Hébergé'),
       description: t('Git Auto Hébergé pour proposé nos services sur un serveur centralisé en plus de Github.'),
-      timeline: "Q2 2025",
-      status: "En cours"  // Change here
-    },
-    {
-      icon: Server,
-      title: t('roadmap.projects.infrastructure.title'),
-      description: t('roadmap.projects.infrastructure.description'),
-      timeline: "Q2 2025",
-      status: t('roadmap.projects.infrastructure.status')
-    },
-    {
-      icon: Rocket,
-      title: t('roadmap.projects.lanplay.title'),
-      description: t('roadmap.projects.lanplay.description'),
-      timeline: "Q3 2025",
-      status: t('roadmap.projects.lanplay.status')
+      timeline: "Q2 2026",
+      status: "Prochainement" 
     }
   ];
 
@@ -178,3 +157,4 @@ const Roadmap = () => {
 };
 
 export default Roadmap;
+
