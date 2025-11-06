@@ -1,4 +1,8 @@
-import React from 'react';
+/**
+ * Main application component
+ * Sets up routing, internationalization, error boundaries, and global UI components
+ */
+
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
@@ -6,6 +10,7 @@ import Home from './pages/Home';
 import NXChecker from './pages/NXChecker';
 import NXDevice from './pages/NXDevice';
 import PS5 from './pages/PS5';
+import NSPForwarder from './pages/NSPForwarder';
 import Tools from './pages/Tools';
 import Legal from './pages/Legal';
 import Roadmap from './pages/Roadmap';
@@ -30,7 +35,6 @@ import ScrollToTopButton from './components/ScrollToTopButton';
 const AnimatedRoutesComponent = () => {
   const location = useLocation();
   
-  // Use the full pathname as the key to ensure uniqueness for animations
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname + location.search}>
@@ -40,6 +44,7 @@ const AnimatedRoutesComponent = () => {
         <Route path="/nxchecker" element={<NXChecker />} />
         <Route path="/nxdevice" element={<NXDevice />} />
         <Route path="/ps5" element={<PS5 />} />
+        <Route path="/nsp-forwarder" element={<NSPForwarder />} />
         <Route path="/roadmap" element={<Roadmap />} />
         <Route path="/partners" element={<Partners />} />
         <Route path="/planning" element={<Planning />} />

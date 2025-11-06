@@ -21,13 +21,11 @@ const Navbar = () => {
   const location = useLocation();
   const isLargeScreen = useMediaQuery('(min-width: 1536px)');
 
-  // Handle scroll effect for background transparency and hide/show navbar
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setIsScrolled(currentScrollY > 20);
       
-      // Hide navbar when scrolling down, show when scrolling up
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setIsVisible(false);
       } else {
@@ -41,16 +39,10 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
-  // Close mobile menu when route changes
   useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
 
-  /**
-   * Check if a navigation item is currently active
-   * @param path - The path to check against current location
-   * @returns boolean indicating if the path is active
-   */
   const isActive = (path: string) => location.pathname === path;
 
   return (

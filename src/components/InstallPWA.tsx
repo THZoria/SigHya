@@ -12,15 +12,12 @@ const InstallPWA: React.FC = () => {
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
-      // Prevent the mini-infobar from appearing on mobile
       e.preventDefault();
-      // Stash the event so it can be triggered later
       setDeferredPrompt(e as BeforeInstallPromptEvent);
       setShowInstallButton(true);
     };
 
     const handleAppInstalled = () => {
-      // Hide the install button when app is installed
       setShowInstallButton(false);
       setDeferredPrompt(null);
       console.log('PWA was installed');
@@ -29,7 +26,6 @@ const InstallPWA: React.FC = () => {
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     window.addEventListener('appinstalled', handleAppInstalled);
 
-    // Check if app is already installed
     if (window.matchMedia('(display-mode: standalone)').matches) {
       setShowInstallButton(false);
     }
@@ -43,10 +39,7 @@ const InstallPWA: React.FC = () => {
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
 
-    // Show the install prompt
     deferredPrompt.prompt();
-
-    // Wait for the user to respond to the prompt
     const { outcome } = await deferredPrompt.userChoice;
     
     if (outcome === 'accepted') {
@@ -55,7 +48,6 @@ const InstallPWA: React.FC = () => {
       console.log('User dismissed the install prompt');
     }
 
-    // Clear the deferredPrompt
     setDeferredPrompt(null);
     setShowInstallButton(false);
   };

@@ -12,46 +12,38 @@ export const extractInfoFromBin = async (file: File): Promise<{
     rawData: string;
     deviceId: string;
   }> => {
-    // Nintendo Switch specific markers in hexadecimal format
+    // PRODINFO.bin structure: Device ID is located between specific byte sequences
+    // Start marker: "Nintendo" (ASCII) + "NXCA1Prod1" (ASCII) - identifies Device ID section
+    // End marker: 0x30 0x00 0x00 0x00 - null-terminated sequence marking end of Device ID
     const startMarker = new Uint8Array([
       0x4E, 0x69, 0x6E, 0x74, 0x65, 0x6E, 0x64, 0x6F, // "Nintendo"
       0x4E, 0x58, 0x43, 0x41, 0x31, 0x50, 0x72, 0x6F, // "NXCA1Pro"
       0x64, 0x31 // "d1"
     ]);
-    const endMarker = new Uint8Array([0x30, 0x00, 0x00, 0x00]); // End sequence
+    const endMarker = new Uint8Array([0x30, 0x00, 0x00, 0x00]);
   
-    // Read file content as ArrayBuffer for binary processing
     const content = await file.arrayBuffer();
     const contentArray = new Uint8Array(content);
     const fileSize = contentArray.length;
 
-    // Find start marker position in the binary data
     const startIndex = findSequence(contentArray, startMarker);
     if (startIndex === -1) {
       throw new Error("Start marker not found in file.");
     }
 
-    // Find end marker position starting from the start marker
     const endIndex = findSequence(contentArray, endMarker, startIndex);
     if (endIndex === -1) {
       throw new Error("End marker not found in file.");
     }
 
-    // Extract data between the start and end markers
     const extractedData = contentArray.slice(startIndex + startMarker.length, endIndex);
-
-    // Convert extracted binary data to ASCII text
     const decoder = new TextDecoder('ascii');
     let text = decoder.decode(extractedData);
 
-    // Clean up the extracted text
     text = text.replace(/-/g, '').trim();
-    // Remove all non-alphanumeric characters from the beginning
     text = text.replace(/^[^a-zA-Z0-9]+/, '');
-    // Remove NX prefix if still present (case insensitive)
     text = text.replace(/^NX/i, '');
     
-    // Convert extracted data to hexadecimal format for debugging
     const rawDataHex = Array.from(extractedData)
       .map(byte => byte.toString(16).padStart(2, '0'))
       .join(' ');

@@ -14,5 +14,4 @@ createRoot(document.getElementById('root')!).render(
   </React.StrictMode>
 );
 
-// Register service worker for PWA functionality
 registerServiceWorker();

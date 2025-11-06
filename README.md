@@ -21,6 +21,7 @@
 - [Built With](#️-built-with)
 - [Contributing](#-contributing)
 - [License](#-license)
+- [Tools Documentation](#-tools-documentation)
 - [Acknowledgments](#-acknowledgments)
 
 ## ✨ Features
@@ -28,6 +29,7 @@
 - 🔍 **NX Checker** - Verify your Nintendo Switch compatibility for modding
 - 🔑 **NX Device ID** - Extract device ID from PRODINFO.bin files
 - 🎮 **PS5 UART** - Analyze PS5 UART error codes and troubleshooting
+- 📦 **NSP Forwarder Generator** - Create NSP forwarders for homebrews and RetroArch games
 - 📚 **Manga Planning** - Track upcoming manga releases with calendar integration
 - 🌍 **Multi-language** - Available in French, English, and Spanish
 - 📱 **Responsive Design** - Optimized for desktop, tablet, and mobile devices
@@ -142,6 +144,17 @@ We love contributions! Here's how you can help:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## 🛠️ Tools Documentation
+
+This section provides detailed documentation for each tool available on the SigHya platform.
+
+For complete technical documentation, see the individual tool documentation files:
+
+- 📋 [Nintendo Switch Checker](docs/tools/nintendo-switch-checker.md) - Verify Switch compatibility for modding
+- 🔑 [NX Device ID Extractor](docs/tools/nx-device-id-extractor.md) - Extract Device ID from PRODINFO.bin
+- 🎮 [PS5 UART Checker](docs/tools/ps5-uart-checker.md) - Analyze PS5 error codes
+- 📦 [NSP Forwarder Generator](docs/tools/nsp-forwarder-generator.md) - Create NSP forwarders for homebrews
+
 ## 💖 Acknowledgments
 
 ### 🌟 Special Thanks
@@ -157,6 +170,7 @@ A huge thank you to Ghost0159 for their exceptional contribution:
 #### Additional Thanks
 - **Nautiljon** for manga data and release information
 - **Console Service Tool** for PS5 error codes and troubleshooting data
+- **TooTallNate** for the NSP Forwarder implementation
 - Our amazing community members and contributors
 - All the developers who maintain the open-source libraries we use
 

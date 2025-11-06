@@ -1,3 +1,9 @@
+/**
+ * NX Projects page
+ * Displays Nintendo Switch homebrew projects from NXHub
+ * Features search, filtering by language/firmware, sorting, and pagination
+ */
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { AlertTriangle, Search, Filter, SortAsc, SortDesc } from 'lucide-react';
@@ -27,7 +33,6 @@ const NXProjects = () => {
     setSortDirection,
     languages,
     firmwareVersions,
-    // Pagination
     currentPage,
     setCurrentPage,
     totalPages,

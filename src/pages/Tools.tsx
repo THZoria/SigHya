@@ -1,7 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Gamepad2, Terminal, Wrench } from 'lucide-react';
+import { Gamepad2, Terminal, Wrench, Package } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
 import { useI18n } from '../i18n/context';
 
@@ -28,6 +27,13 @@ const Tools = () => {
       description: t('tools.items.ps5.description'),
       icon: Wrench,
       path: '/ps5',
+      color: 'purple'
+    },
+    {
+      title: t('tools.items.nspForwarder.title'),
+      description: t('tools.items.nspForwarder.description'),
+      icon: Package,
+      path: '/nsp-forwarder',
       color: 'purple'
     }
   ];

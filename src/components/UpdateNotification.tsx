@@ -9,7 +9,6 @@ const UpdateNotification: React.FC = () => {
       setShowUpdate(true);
     };
 
-    // Listen for update events
     window.addEventListener('vite-plugin-pwa:update-found', handleUpdateFound);
 
     return () => {

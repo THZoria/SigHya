@@ -28,7 +28,6 @@ const ReadingProgressBar: React.FC<ReadingProgressBarProps> = ({
   }, []);
 
   useEffect(() => {
-    // Throttle scroll events for better performance
     let ticking = false;
     
     const handleScroll = () => {
@@ -41,19 +40,14 @@ const ReadingProgressBar: React.FC<ReadingProgressBarProps> = ({
       }
     };
 
-    // Add scroll event listener
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    // Initial calculation
     updateProgress();
 
-    // Cleanup
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [updateProgress]);
 
-  // Always show the bar when there's progress, even if small
   if (progress <= 0) {
     return null;
   }

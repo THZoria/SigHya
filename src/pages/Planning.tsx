@@ -1,3 +1,9 @@
+/**
+ * Manga Planning page
+ * Displays upcoming manga releases with filtering, sorting, and calendar integration
+ * Data is fetched from Nautiljon with fallback to local JSON
+ */
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, Loader2, AlertCircle } from 'lucide-react';
@@ -22,7 +28,6 @@ const Planning = () => {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
   const [timeFilter, setTimeFilter] = useState<'all' | 'today' | 'week'>('all');
 
-  // Get unique publishers from manga list
   const publishers = [...new Set(mangas.map(manga => manga.editeur).filter(Boolean))];
 
   const today = new Date().toLocaleDateString('fr-FR', {
@@ -31,11 +36,10 @@ const Planning = () => {
     year: 'numeric'
   });
 
-  // Get start and end of current week
   const getWeekDates = () => {
     const now = new Date();
     const startOfWeek = new Date(now);
-    startOfWeek.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1)); // Start from Monday
+    startOfWeek.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1));
     const endOfWeek = new Date(startOfWeek);
     endOfWeek.setDate(startOfWeek.getDate() + 6);
     return {
@@ -51,13 +55,11 @@ const Planning = () => {
     return date >= week.start && date <= week.end;
   };
 
-  // Filter and sort mangas
   const filteredMangas = mangas
     .filter(manga => {
       const matchesSearch = manga.nom_manga.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesPublisher = !selectedPublisher || manga.editeur === selectedPublisher;
       
-      // Check specific date
       let matchesDate = true;
       if (selectedDate) {
         const [year, month, day] = selectedDate.split('-');
@@ -96,7 +98,6 @@ const Planning = () => {
       return sortDirection === 'asc' ? comparison : -comparison;
     });
 
-  // Pagination
   const totalPages = Math.ceil(filteredMangas.length / ITEMS_PER_PAGE);
   const paginatedMangas = filteredMangas.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
