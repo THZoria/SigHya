@@ -3,8 +3,10 @@
     "loading": "Cargando...",
     "error": "Se produjo un error",
     "closeMenu": "Cerrar menú",
+    "openMenu": "Abrir menú",
     "installApp": "Instalar app",
     "downloadAtmoPack": "Descargar AtmoPack",
+    "downloadAtmoPackAria": "Descargar AtmoPack (se abre en una nueva pestaña)",
     "notFound": {
       "title": "Página No Encontrada",
       "subtitle": "¡Ups! La página que buscas parece haberse perdido en el espacio...",
@@ -21,7 +23,9 @@
     "manga": "Manga",
     "nxProjects": "Proyectos NX",
     "legal": "Legal",
-    "language": "Idioma"
+    "language": "Idioma",
+    "ariaLabel": "Navegación principal",
+    "homeAria": "Volver al inicio"
   },
   "tools": {
     "title": "Herramientas de Modding",
@@ -55,18 +59,19 @@
     },
     "help": {
       "title": "¿Cómo encontrar tu número de serie?",
-      "description": "El número de serie se encuentra en la parte inferior de tu Nintendo Switch. Es una serie de caracteres que empiezan por XAW, XAJ, XKJ, XKW o HAE."
+      "description": "El número de serie se encuentra en la parte inferior de tu Nintendo Switch. Es una serie de caracteres que empiezan por XAW, XAJ, XKJ, XKW, HAE o HAW."
     },
     "button": "Verificar Compatibilidad",
     "results": {
       "title": "Resultado de la verificación",
-      "success": "Switch No Parcheada\nPuedes instalar el hack",
-      "warning": "Switch Parcheada\nRazón: Consola posterior a junio 2018",
-      "mariko": "Switch Parcheada\nRazón: Consola Mariko",
-      "oled": "No compatible\nRazón: Consola OLED Mariko",
-      "lite": "No compatible\nRazón: Consola Lite Mariko",
+      "success": "Switch Legacy No Parcheada\nModelo: Switch Original (Legacy)\nPuedes instalar el hack",
+      "warning": "Switch Legacy Potencialmente Parcheada\nModelo: Switch Original (Legacy)\nRazón: Número de serie en un rango indeterminado. La consola podría ser hackeable via RCM, pero es poco probable.",
+      "mariko": "Switch Parcheada\nModelo: Switch Mariko\nRazón: Consola Mariko, modding imposible.",
+      "oled": "No compatible\nModelo: Switch OLED Mariko\nRazón: Consola OLED Mariko, modding imposible.",
+      "lite": "No compatible\nModelo: Switch Lite Mariko\nRazón: Consola Lite Mariko, modding imposible.",
       "unknown": "Error\nRazón: Número de serie desconocido",
-      "hae": "No compatible : 2025 Switch 2 (HAE) modelo detectado. Esta consola está parcheada",
+      "error": "No compatible\nModelo: Switch Legacy\nRazón: Consola Legacy parcheada, modding imposible.",
+      "hae": "No compatible\nModelo: Switch 2 (HAE/HAW)\nRazón: Modelo Switch 2 de 2025 detectado. Esta consola está parcheada.",
       "indeterminate": "Indeterminado"
     },
     "importantInfo": {
@@ -102,6 +107,10 @@
       "selectFile": "Selecciona tu archivo PRODINFO.bin",
       "format": "Asegúrate de que el archivo esté en formato .bin",
       "warning": "Nunca compartas tu archivo PRODINFO.bin completo"
+    },
+    "errors": {
+      "invalidFormat": "El archivo debe estar en formato .bin",
+      "analysisError": "Ocurrió un error al analizar el archivo"
     }
   },
   "ps5": {
@@ -126,6 +135,8 @@
       "noResults": "No se encontraron resultados para \"{query}\"",
       "loading": "Cargando resultados...",
       "error": "Ocurrió un error durante la búsqueda",
+      "fetchError": "Error al cargar los códigos de error. Por favor, inténtalo de nuevo más tarde.",
+      "priorityLabel": "Prioridad",
       "priority": {
         "critical": "Crítico",
         "high": "Alto",

@@ -15,6 +15,7 @@ import { useMangaPlanning } from '../hooks/useMangaPlanning';
 import { useI18n } from '../i18n/context';
 import { generateICS, getICSFilename } from '../utils/icsGenerator';
 import { ITEMS_PER_PAGE } from '../constants/manga';
+import { SkeletonCard } from '../components/ui/Skeleton';
 
 const Planning = () => {
   const { t } = useI18n();
@@ -208,11 +209,10 @@ const Planning = () => {
 
           {/* Loading State */}
           {loading && (
-            <div className="flex items-center justify-center py-12">
-              <div className="text-center">
-                <Loader2 className="w-8 h-8 text-blue-400 animate-spin mb-4" />
-                <p className="text-blue-300">{t('planning.loading')}</p>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <SkeletonCard key={index} />
+              ))}
             </div>
           )}
 

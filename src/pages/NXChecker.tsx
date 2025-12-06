@@ -6,21 +6,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Search, AlertCircle, HelpCircle, ChevronRight, ZapIcon, ShieldIcon } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Search, AlertCircle, HelpCircle, ChevronRight } from 'lucide-react';
 import { useNXChecker } from '../hooks/useNXChecker';
 import PageTransition from '../components/PageTransition';
 import { useI18n } from '../i18n/context';
 
 const NXChecker = () => {
   const { t } = useI18n();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [serialNumber, setSerialNumber] = useState('');
   const { checkCompatibility, result } = useNXChecker();
   const [isInitialized, setIsInitialized] = useState(false);
-  const [metaDescription, setMetaDescription] = useState(
-    'Vérifiez la compatibilité de votre Nintendo Switch avec le modding. Un outil simple et rapide pour savoir si votre console est compatible.'
-  );
 
   useEffect(() => {
     const serial = searchParams.get('serial');
@@ -39,27 +36,6 @@ const NXChecker = () => {
     }
   }, [serialNumber, isInitialized]);
 
-  useEffect(() => {
-    if (result) {
-      const statusText = {
-        success: 'Compatible',
-        warning: 'Indéterminé',
-        error: 'Non compatible',
-        mariko: 'Non compatible (Mariko)',
-        oled: 'Non compatible (OLED)',
-        lite: 'Non compatible (Lite)',
-        unknown: 'Numéro de série inconnu'
-      }[result.status];
-
-      setMetaDescription(
-        `Nintendo Switch ${serialNumber}: ${statusText}. ${result.message.replace(/\n/g, ' ')}`
-      );
-    } else {
-      setMetaDescription(
-        'Vérifiez la compatibilité de votre Nintendo Switch avec le modding. Un outil simple et rapide pour savoir si votre console est compatible.'
-      );
-    }
-  }, [result, serialNumber]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -120,7 +96,7 @@ const NXChecker = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="serialNumber" className="block text-sm font-medium text-gray-300 mb-2">
-                  Numéro de série
+                  {t('nxChecker.serialNumber.label')}
                 </label>
                 <div className="relative">
                   <input
@@ -131,8 +107,11 @@ const NXChecker = () => {
                     onChange={(e) => setSerialNumber(e.target.value)}
                     className="block w-full px-4 py-3 bg-gray-700/50 backdrop-blur-sm border-2 border-blue-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-400 transition-all duration-300"
                     placeholder={t('nxChecker.serialNumber.placeholder')}
+                    aria-label={t('nxChecker.serialNumber.placeholder')}
+                    aria-required="true"
+                    aria-describedby="serialNumber-help"
                   />
-                  <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none" aria-hidden="true">
                     <Search className="h-5 w-5 text-blue-400" />
                   </div>
                 </div>
@@ -145,10 +124,11 @@ const NXChecker = () => {
                 } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300 relative overflow-hidden shadow-lg shadow-blue-500/20`}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                aria-label={t('nxChecker.button')}
               >
                 <>
                   {t('nxChecker.button')}
-                  <ChevronRight className="ml-2 h-5 w-5" />
+                  <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
                 </>
               </motion.button>
             </form>
@@ -164,9 +144,12 @@ const NXChecker = () => {
               result.status === 'warning' ? 'border-yellow-500' :
               'border-red-500'
             }`}
+              role="alert"
+              aria-live="polite"
+              aria-atomic="true"
             >
               <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0">
+                <div className="flex-shrink-0" aria-hidden="true">
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}

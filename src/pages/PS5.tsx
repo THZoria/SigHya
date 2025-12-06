@@ -5,7 +5,7 @@
  */
 
 import React, { useEffect, useMemo, useState, useCallback, useRef } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, 
@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import PageTransition from '../components/PageTransition';
 import { useI18n } from '../i18n/context';
+import { SkeletonCard } from '../components/ui/Skeleton';
 
 interface ErrorCode {
   ID: string;
@@ -34,15 +35,12 @@ const ITEMS_PER_PAGE = 5;
 const PS5 = () => {
   const { t } = useI18n();
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
   const [errorCodes, setErrorCodes] = useState<ErrorCode[]>([]);
   const [filteredResults, setFilteredResults] = useState<ErrorCode[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [isInitialized, setIsInitialized] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [shouldFetch, setShouldFetch] = useState(true);
-  const [cacheTimestamp, setCacheTimestamp] = useState<number | null>(null);
   const CACHE_KEY = 'ps5-error-codes';
   const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000;
   const searchTimeoutRef = useRef<number>();
@@ -87,9 +85,7 @@ const PS5 = () => {
         try {
           const { data, timestamp } = JSON.parse(cached);
           if (Date.now() - timestamp < CACHE_DURATION) {
-            setCacheTimestamp(timestamp);
             setErrorCodes(data.PlayStation5.ErrorCodes);
-            setIsInitialized(true);
             setLoading(false);
             filterResults(query, data.PlayStation5.ErrorCodes);
             return;
@@ -107,16 +103,14 @@ const PS5 = () => {
         if (data?.PlayStation5?.ErrorCodes) {
           const timestamp = Date.now();
           localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp }));
-          setCacheTimestamp(timestamp);
           setErrorCodes(data.PlayStation5.ErrorCodes);
           filterResults(query, data.PlayStation5.ErrorCodes);
-          setIsInitialized(true);
         } else {
           throw new Error('Invalid data structure');
         }
       } catch (error) {
         console.error('Error fetching error codes:', error);
-        setError('Erreur lors du chargement des codes d\'erreur. Veuillez réessayer plus tard.');
+        setError(t('ps5.results.fetchError'));
       } finally {
         setLoading(false);
       }
@@ -253,8 +247,10 @@ const PS5 = () => {
                 onChange={(e) => handleSearch(e.target.value)}
                 placeholder={t('ps5.search.placeholder')}
                 className="w-full px-5 py-4 bg-gray-900/50 border-2 border-blue-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                aria-label={t('ps5.search.placeholder')}
+                aria-describedby="ps5-search-description"
               />
-              <div className="absolute right-4 top-1/2 -translate-y-1/2">
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true">
                 <Search className="w-5 h-5 text-blue-400" />
               </div>
             </div>
@@ -284,12 +280,11 @@ const PS5 = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="text-center py-12"
+                className="space-y-4"
               >
-                <div className="inline-flex items-center space-x-3">
-                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500" />
-                  <span className="text-blue-300">{t('ps5.results.loading')}</span>
-                </div>
+                {Array.from({ length: 3 }).map((_, index) => (
+                  <SkeletonCard key={index} className="bg-gray-800/80 backdrop-blur-sm" />
+                ))}
               </motion.div>
             )}
           </AnimatePresence>
@@ -315,15 +310,17 @@ const PS5 = () => {
               <div className="space-y-4">
                 <AnimatePresence mode="wait">
                   {paginatedResults.length > 0 ? (
-                    paginatedResults.map((result, index) => {
+                    paginatedResults.map((result) => {
                       const statusInfo = getStatusInfo(result.Status, result.Priority);
                       return (
                         <div
                           key={result.ID}
                           className={`bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 border ${statusInfo.border} hover:scale-[1.01] transition-transform duration-200`}
+                          role="article"
+                          aria-labelledby={`error-${result.ID}`}
                         >
                           <div className="flex items-start space-x-4">
-                            <div className={`p-3 rounded-lg ${statusInfo.bg}`}>
+                            <div className={`p-3 rounded-lg ${statusInfo.bg}`} aria-hidden="true">
                               {result.Priority === 3 ? (
                                 <XCircle className={statusInfo.text} />
                               ) : result.Priority === 2 ? (
@@ -336,10 +333,10 @@ const PS5 = () => {
                             </div>
                             <div className="flex-1">
                               <div className="flex items-start justify-between">
-                                <h3 className="text-xl font-semibold text-white mb-2">
+                                <h3 id={`error-${result.ID}`} className="text-xl font-semibold text-white mb-2">
                                   {result.ID}
                                 </h3>
-                                <span className={`px-3 py-1 rounded-full text-sm ${statusInfo.bg} ${statusInfo.text}`}>
+                                <span className={`px-3 py-1 rounded-full text-sm ${statusInfo.bg} ${statusInfo.text}`} aria-label={`${t('ps5.results.priorityLabel')}: ${t(`ps5.results.priority.${statusInfo.label.toLowerCase()}`)}`}>
                                   {t(`ps5.results.priority.${statusInfo.label.toLowerCase()}`)}
                                 </span>
                               </div>
