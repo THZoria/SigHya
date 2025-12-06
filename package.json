@@ -1,7 +1,7 @@
 {
   "name": "sighya-fr",
   "private": true,
-  "version": "2.2.8",
+  "version": "2.2.9",
   "type": "module",
   "description": "French community platform for console modding",
   "author": "SigHya",

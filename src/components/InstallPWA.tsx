@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Download } from 'lucide-react';
+import { useMediaQuery } from '../hooks/useMediaQuery';
+import { useI18n } from '../i18n/context';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>;
@@ -7,8 +9,10 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 const InstallPWA: React.FC = () => {
+  const { t } = useI18n();
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showInstallButton, setShowInstallButton] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
@@ -52,7 +56,7 @@ const InstallPWA: React.FC = () => {
     setShowInstallButton(false);
   };
 
-  if (!showInstallButton) return null;
+  if (!showInstallButton || isMobile) return null;
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
@@ -61,7 +65,7 @@ const InstallPWA: React.FC = () => {
         className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-lg transition-all duration-200 hover:scale-105"
       >
         <Download className="w-4 h-4" />
-        <span>Installer l'app</span>
+        <span>{t('common.installApp')}</span>
       </button>
     </div>
   );

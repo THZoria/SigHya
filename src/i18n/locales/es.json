@@ -2,6 +2,9 @@
   "common": {
     "loading": "Cargando...",
     "error": "Se produjo un error",
+    "closeMenu": "Cerrar menú",
+    "installApp": "Instalar app",
+    "downloadAtmoPack": "Descargar AtmoPack",
     "notFound": {
       "title": "Página No Encontrada",
       "subtitle": "¡Ups! La página que buscas parece haberse perdido en el espacio...",
@@ -17,7 +20,8 @@
     "roadmap": "Roadmap",
     "manga": "Manga",
     "nxProjects": "Proyectos NX",
-    "legal": "Legal"
+    "legal": "Legal",
+    "language": "Idioma"
   },
   "tools": {
     "title": "Herramientas de Modding",
