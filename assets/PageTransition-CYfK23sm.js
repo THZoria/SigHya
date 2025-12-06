@@ -1,0 +1,1 @@
+import{j as n,m as e}from"./framer-motion-DORXFKSY.js";const o=({children:a})=>{const i={initial:{opacity:0,y:20,scale:.98},animate:{opacity:1,y:0,scale:1},exit:{opacity:0,y:-20,scale:.98}},t={type:"tween",ease:"anticipate",duration:.4};return n.jsx(e.div,{initial:"initial",animate:"animate",exit:"exit",variants:i,transition:t,className:"w-full",children:a})};export{o as P};
