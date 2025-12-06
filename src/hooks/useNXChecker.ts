@@ -16,7 +16,8 @@ export const useNXChecker = () => {
     const serial = serialNumber.toUpperCase().trim();
     console.log('Analyzed serial number:', serial);
 
-    if (serial.startsWith('HAE')) {
+    // Switch 2 models: HAE or HAW prefix
+    if (serial.startsWith('HAE') || serial.startsWith('HAW')) {
       setResult({
         status: 'hae',
         message: t('nxChecker.results.hae'),

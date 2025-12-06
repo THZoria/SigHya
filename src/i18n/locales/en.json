@@ -3,8 +3,10 @@
     "loading": "Loading...",
     "error": "An error occurred",
     "closeMenu": "Close menu",
+    "openMenu": "Open menu",
     "installApp": "Install app",
     "downloadAtmoPack": "Download AtmoPack",
+    "downloadAtmoPackAria": "Download AtmoPack (opens in a new tab)",
     "notFound": {
       "title": "Page Not Found",
       "subtitle": "Oops! The page you're looking for seems to have drifted into space...",
@@ -21,7 +23,9 @@
     "manga": "Manga",
     "nxProjects": "NX Projects",
     "legal": "Legal",
-    "language": "Language"
+    "language": "Language",
+    "ariaLabel": "Main navigation",
+    "homeAria": "Return to home"
   },
   "tools": {
     "title": "Modding Tools",
@@ -55,18 +59,19 @@
     },
     "help": {
       "title": "How to find your serial number?",
-      "description": "The serial number is located under your Nintendo Switch. It's a series of characters starting with XAW, XAJ, XKJ, XKW or HAE."
+      "description": "The serial number is located under your Nintendo Switch. It's a series of characters starting with XAW, XAJ, XKJ, XKW, HAE or HAW."
     },
     "button": "Check Compatibility",
     "results": {
       "title": "Check Result",
-      "success": "Unpatched Switch\nYou can install the hack",
-      "warning": "Undetermined Switch\nReason: Serial number not recognized",
-      "mariko": "Patched Switch\nReason: Mariko Console",
-      "oled": "Not compatible\nReason: OLED Mariko Console",
-      "lite": "Not compatible\nReason: Lite Mariko Console",
+      "success": "Unpatched Legacy Switch\nModel: Original Switch (Legacy)\nYou can install the hack",
+      "warning": "Potentially Patched Legacy Switch\nModel: Original Switch (Legacy)\nReason: Serial number is in an indeterminate range. The console might be hackable via RCM, but it's unlikely.",
+      "mariko": "Patched Switch\nModel: Switch Mariko\nReason: Mariko console, modding impossible.",
+      "oled": "Not compatible\nModel: Switch OLED Mariko\nReason: OLED Mariko console, modding impossible.",
+      "lite": "Not compatible\nModel: Switch Lite Mariko\nReason: Lite Mariko console, modding impossible.",
       "unknown": "Error\nReason: Unknown serial number",
-      "hae": "2025 Switch 2 (HAE) model detected. This console is patched",
+      "error": "Not compatible\nModel: Legacy Switch\nReason: Patched Legacy console, modding impossible.",
+      "hae": "Not compatible\nModel: Switch 2 (HAE/HAW)\nReason: 2025 Switch 2 model detected. This console is patched.",
       "indeterminate": "Indeterminate"
     },
     "importantInfo": {
@@ -102,6 +107,10 @@
       "selectFile": "Select your PRODINFO.bin file",
       "format": "Make sure the file is in .bin format",
       "warning": "Never share your complete PRODINFO.bin file"
+    },
+    "errors": {
+      "invalidFormat": "The file must be in .bin format",
+      "analysisError": "An error occurred while analyzing the file"
     }
   },
   "ps5": {
@@ -126,6 +135,8 @@
       "noResults": "No results found for \"{query}\"",
       "loading": "Loading results...",
       "error": "An error occurred while searching",
+      "fetchError": "Error loading error codes. Please try again later.",
+      "priorityLabel": "Priority",
       "priority": {
         "critical": "Critical",
         "high": "High",

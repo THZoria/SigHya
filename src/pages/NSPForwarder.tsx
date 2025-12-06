@@ -228,9 +228,9 @@ const NSPForwarder = () => {
             </div>
           </motion.div>
 
-          {/* Layout en 2 colonnes sur grand écran */}
+          {/* Two-column layout on large screens */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-            {/* Colonne gauche - Upload + Advanced */}
+            {/* Left column - Upload + Advanced */}
             <div className="lg:col-span-1 space-y-5">
               {/* Tabs */}
               <motion.div
@@ -617,15 +617,17 @@ const NSPForwarder = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    aria-label={isGenerating ? t('nspForwarder.buttons.generating') : t('nspForwarder.buttons.generate')}
+                    aria-busy={isGenerating}
                   >
                     {isGenerating ? (
                       <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" aria-hidden="true" />
                         <span>{t('nspForwarder.buttons.generating')}</span>
                       </>
                     ) : (
                       <>
-                        <Package className="w-5 h-5" />
+                        <Package className="w-5 h-5" aria-hidden="true" />
                         <span>{t('nspForwarder.buttons.generate')}</span>
                       </>
                     )}

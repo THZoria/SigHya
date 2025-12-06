@@ -23,10 +23,36 @@ const I18nContext = createContext<I18nContextType | undefined>(undefined);
 const DEFAULT_LANGUAGE: Language = 'fr';
 const LANGUAGE_KEY = 'preferred-language';
 
+/**
+ * Detect browser language and map to supported languages
+ * Falls back to default language if browser language is not supported
+ */
+const detectBrowserLanguage = (): Language => {
+  if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
+  
+  const browserLang = navigator.language || (navigator as any).userLanguage || '';
+  const langCode = browserLang.split('-')[0].toLowerCase();
+  
+  // Map browser language codes to supported languages
+  const languageMap: Record<string, Language> = {
+    'fr': 'fr',
+    'en': 'en',
+    'es': 'es',
+  };
+  
+  return languageMap[langCode] || DEFAULT_LANGUAGE;
+};
+
 export const I18nProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
+    // Check if user has a saved preference
     const saved = localStorage.getItem(LANGUAGE_KEY);
-    return (saved as Language) || DEFAULT_LANGUAGE;
+    if (saved && (saved === 'fr' || saved === 'en' || saved === 'es')) {
+      return saved as Language;
+    }
+    
+    // Auto-detect browser language if no preference is saved
+    return detectBrowserLanguage();
   });
 
   const setLanguage = useCallback((lang: Language) => {

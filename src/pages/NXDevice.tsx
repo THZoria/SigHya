@@ -13,7 +13,7 @@ import { useI18n } from '../i18n/context';
 
 const NXDevice = () => {
   const { t } = useI18n();
-  const [file, setFile] = useState<File | null>(null);
+  const [, setFile] = useState<File | null>(null);
   const [fileInfo, setFileInfo] = useState<{
     fileSize: number;
     startIndex: number;
@@ -30,7 +30,7 @@ const NXDevice = () => {
     if (!selectedFile) return;
 
     if (!selectedFile.name.toLowerCase().endsWith('.bin')) {
-      setError("Le fichier doit être au format .bin");
+      setError(t('nxDevice.errors.invalidFormat'));
       setFile(null);
       setFileInfo(null);
       return;
@@ -45,7 +45,7 @@ const NXDevice = () => {
       const info = await extractInfoFromBin(selectedFile);
       setFileInfo(info);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Une erreur est survenue lors de l'analyse du fichier");
+      setError(err instanceof Error ? err.message : t('nxDevice.errors.analysisError'));
     } finally {
       setIsProcessing(false);
     }
@@ -64,7 +64,7 @@ const NXDevice = () => {
     if (!droppedFile) return;
 
     if (!droppedFile.name.toLowerCase().endsWith('.bin')) {
-      setError("Le fichier doit être au format .bin");
+      setError(t('nxDevice.errors.invalidFormat'));
       setFileInfo(null);
       return;
     }
@@ -78,7 +78,7 @@ const NXDevice = () => {
       const info = await extractInfoFromBin(droppedFile);
       setFileInfo(info);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Une erreur est survenue lors de l'analyse du fichier");
+      setError(err instanceof Error ? err.message : t('nxDevice.errors.analysisError'));
     } finally {
       setIsProcessing(false);
     }
