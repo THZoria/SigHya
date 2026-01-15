@@ -9,6 +9,8 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.3-blue.svg)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.3.2-purple.svg)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4.1-38B2AC.svg)](https://tailwindcss.com/)
+[![Discord](https://img.shields.io/discord/454099185416011776?label=Rejoindre%20le%20Discord&logo=discord&logoColor=white&style=for-the-badge)](https://discord.sighya.fr) <br>
+[![Téléchargements](https://img.shields.io/github/downloads/THZoria/SigHya/total?label=Téléchargements&color=blue&style=for-the-badge)](https://github.com/THZoria/SigHya)
 
 </div>
 
@@ -178,4 +180,5 @@ A huge thank you to Ghost0159 for their exceptional contribution:
 
 <div align="center">
 Made with ❤️ by the SigHya team
+
 </div>
