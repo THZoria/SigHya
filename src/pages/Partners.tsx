@@ -140,7 +140,7 @@ const Partners = () => {
       icon: MessageSquare,
       image: "/partners/game_boy.png",
       links: [
-        { label: "Discord", url: "https://discord.gg/8ZtjJaE6", icon: MessageCircle }
+        { label: "Discord", url: "https://discord.gg/RyEchWsHnq", icon: MessageCircle }
       ],
       features: [
         "Développement Homebrew",
@@ -361,3 +361,4 @@ const Partners = () => {
 };
 
 export default Partners;
+
