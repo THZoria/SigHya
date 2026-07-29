@@ -1,23 +1,23 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { motion } from 'framer-motion';
-import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion'
+import { AlertTriangle, Home, RefreshCw } from 'lucide-react'
+import { Component, type ErrorInfo, type ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 
 interface Props {
-  children: ReactNode;
-  fallback?: ReactNode;
+  children: ReactNode
+  fallback?: ReactNode
 }
 
 interface State {
-  hasError: boolean;
-  error?: Error;
-  errorInfo?: ErrorInfo;
+  hasError: boolean
+  error?: Error
+  errorInfo?: ErrorInfo
 }
 
 /**
  * Error Boundary component to catch and handle React errors gracefully
  * Provides a user-friendly error UI with recovery options
- * 
+ *
  * @example
  * <ErrorBoundary>
  *   <YourComponent />
@@ -25,38 +25,35 @@ interface State {
  */
 class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
-    super(props);
-    this.state = { hasError: false };
+    super(props)
+    this.state = { hasError: false }
   }
 
   static getDerivedStateFromError(error: Error): State {
     // Update state so the next render will show the fallback UI
-    return { hasError: true, error };
+    return { hasError: true, error }
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // Log error to console for debugging
-    console.error('Error caught by ErrorBoundary:', error, errorInfo);
-    
     // Update state with error details
     this.setState({
       error,
-      errorInfo
-    });
+      errorInfo,
+    })
 
     // Here you could also log the error to an error reporting service
     // logErrorToService(error, errorInfo);
   }
 
   handleRetry = () => {
-    this.setState({ hasError: false, error: undefined, errorInfo: undefined });
-  };
+    this.setState({ hasError: false, error: undefined, errorInfo: undefined })
+  }
 
   render() {
     if (this.state.hasError) {
       // Custom fallback UI
       if (this.props.fallback) {
-        return this.props.fallback;
+        return this.props.fallback
       }
 
       // Default error UI
@@ -71,7 +68,7 @@ class ErrorBoundary extends Component<Props, State> {
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              transition={{ delay: 0.2, type: "spring", stiffness: 260, damping: 20 }}
+              transition={{ delay: 0.2, type: 'spring', stiffness: 260, damping: 20 }}
               className="mb-8"
             >
               <div className="w-20 h-20 mx-auto bg-red-500/10 rounded-full flex items-center justify-center">
@@ -111,8 +108,12 @@ class ErrorBoundary extends Component<Props, State> {
                     Détails de l'erreur (Développement)
                   </summary>
                   <div className="space-y-2">
-                    <p><strong>Message:</strong> {this.state.error.message}</p>
-                    <p><strong>Stack:</strong></p>
+                    <p>
+                      <strong>Message:</strong> {this.state.error.message}
+                    </p>
+                    <p>
+                      <strong>Stack:</strong>
+                    </p>
                     <pre className="text-xs bg-gray-900 p-2 rounded overflow-auto">
                       {this.state.error.stack}
                     </pre>
@@ -146,11 +147,11 @@ class ErrorBoundary extends Component<Props, State> {
             </motion.div>
           </motion.div>
         </div>
-      );
+      )
     }
 
-    return this.props.children;
+    return this.props.children
   }
 }
 
-export default ErrorBoundary; 
+export default ErrorBoundary

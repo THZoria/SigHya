@@ -1,23 +1,23 @@
-import React from 'react';
-import { useI18n } from '../i18n/context';
-import type { Language } from '../i18n/types';
-import { useMediaQuery } from '../hooks/useMediaQuery';
+import type React from 'react'
+import { useMediaQuery } from '../hooks/useMediaQuery'
+import { useI18n } from '../i18n/context'
+import type { Language } from '../i18n/types'
 
 const languages: { code: Language; label: string; flag: string }[] = [
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
   { code: 'en', label: 'English', flag: '🇬🇧' },
-  { code: 'es', label: 'Español', flag: '🇪🇸' }
-];
+  { code: 'es', label: 'Español', flag: '🇪🇸' },
+]
 
 interface LanguageSelectorProps {
-  variant?: 'desktop' | 'mobile';
+  variant?: 'desktop' | 'mobile'
 }
 
 const LanguageSelector: React.FC<LanguageSelectorProps> = ({ variant }) => {
-  const { language, setLanguage } = useI18n();
-  const isMobile = useMediaQuery('(max-width: 768px)');
-  const useMobileVariant = variant === 'mobile' || (variant === undefined && isMobile);
-  const currentLanguage = languages.find(l => l.code === language);
+  const { language, setLanguage } = useI18n()
+  const isMobile = useMediaQuery('(max-width: 768px)')
+  const useMobileVariant = variant === 'mobile' || (variant === undefined && isMobile)
+  const currentLanguage = languages.find((l) => l.code === language)
 
   if (useMobileVariant) {
     return (
@@ -37,7 +37,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ variant }) => {
           </button>
         ))}
       </div>
-    );
+    )
   }
 
   return (
@@ -46,7 +46,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ variant }) => {
         <span>{currentLanguage?.flag}</span>
         <span>{currentLanguage?.label}</span>
       </button>
-      
+
       <div className="absolute right-0 mt-2 w-48 py-2 bg-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
         {languages.map(({ code, label, flag }) => (
           <button
@@ -62,7 +62,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ variant }) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LanguageSelector;
+export default LanguageSelector

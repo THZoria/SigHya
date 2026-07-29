@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Gamepad2, Terminal, Wrench, Package } from 'lucide-react';
-import PageTransition from '../components/PageTransition';
-import { useI18n } from '../i18n/context';
+import { motion } from 'framer-motion'
+import { Gamepad2, Package, Terminal, Wrench } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import PageTransition from '../components/PageTransition'
+import { useI18n } from '../i18n/context'
 
 const Tools = () => {
-  const { t } = useI18n();
+  const { t } = useI18n()
 
   const tools = [
     {
@@ -13,36 +13,36 @@ const Tools = () => {
       description: t('tools.items.nxChecker.description'),
       icon: Gamepad2,
       path: '/nxchecker',
-      color: 'blue'
+      color: 'blue',
     },
     {
       title: t('tools.items.nxDevice.title'),
       description: t('tools.items.nxDevice.description'),
       icon: Terminal,
       path: '/nxdevice',
-      color: 'green'
+      color: 'green',
     },
     {
       title: t('tools.items.ps5.title'),
       description: t('tools.items.ps5.description'),
       icon: Wrench,
       path: '/ps5',
-      color: 'purple'
+      color: 'purple',
     },
     {
       title: t('tools.items.nspForwarder.title'),
       description: t('tools.items.nspForwarder.description'),
       icon: Package,
       path: '/nsp-forwarder',
-      color: 'purple'
-    }
-  ];
+      color: 'purple',
+    },
+  ]
 
   return (
     <PageTransition>
       <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 pt-32 pb-16 relative">
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-12">
             <motion.h1
@@ -77,14 +77,10 @@ const Tools = () => {
                     <div className={`p-3 rounded-lg bg-${tool.color}-500/10`}>
                       <tool.icon className={`w-6 h-6 text-${tool.color}-400`} />
                     </div>
-                    <h2 className="text-xl font-semibold text-white">
-                      {tool.title}
-                    </h2>
+                    <h2 className="text-xl font-semibold text-white">{tool.title}</h2>
                   </div>
-                  
-                  <p className="text-gray-300 mb-6 flex-grow">
-                    {tool.description}
-                  </p>
+
+                  <p className="text-gray-300 mb-6 flex-grow">{tool.description}</p>
 
                   <Link
                     to={tool.path}
@@ -99,7 +95,7 @@ const Tools = () => {
         </div>
       </div>
     </PageTransition>
-  );
-};
+  )
+}
 
-export default Tools;
+export default Tools

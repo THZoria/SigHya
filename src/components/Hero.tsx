@@ -1,7 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ChevronRight, Zap as ZapIcon } from 'lucide-react';
-import { useI18n } from '../i18n/context';
+import { motion } from 'framer-motion'
+import { ChevronRight, Zap as ZapIcon } from 'lucide-react'
+import { useI18n } from '../i18n/context'
 
 /**
  * Hero component - Main landing section with call-to-action buttons
@@ -9,7 +8,7 @@ import { useI18n } from '../i18n/context';
  * Uses Framer Motion for smooth animations and transitions
  */
 const Hero = () => {
-  const { t } = useI18n();
+  const { t } = useI18n()
 
   return (
     <div className="relative min-h-[100vh] flex flex-col bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
@@ -81,7 +80,7 @@ const Hero = () => {
                 <span>{t('home.hero.joinDiscord')}</span>
                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </motion.a>
-              
+
               {/* NX Checker button */}
               <motion.a
                 whileHover={{ scale: 1.05 }}
@@ -103,7 +102,7 @@ const Hero = () => {
         <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-blue-600/10 rounded-full filter blur-3xl"></div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero

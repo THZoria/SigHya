@@ -4,91 +4,92 @@
  * All processing is done client-side in the browser for security
  */
 
-import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, AlertTriangle, CheckCircle2, XCircle, FileUp } from 'lucide-react';
-import PageTransition from '../components/PageTransition';
-import { extractInfoFromBin } from '../utils/binParser';
-import { useI18n } from '../i18n/context';
+import { AnimatePresence, motion } from 'framer-motion'
+import { AlertTriangle, CheckCircle2, FileUp, Upload, XCircle } from 'lucide-react'
+import type React from 'react'
+import { useRef, useState } from 'react'
+import PageTransition from '../components/PageTransition'
+import { useI18n } from '../i18n/context'
+import { extractInfoFromBin } from '../utils/binParser'
 
 const NXDevice = () => {
-  const { t } = useI18n();
-  const [, setFile] = useState<File | null>(null);
+  const { t } = useI18n()
+  const [, setFile] = useState<File | null>(null)
   const [fileInfo, setFileInfo] = useState<{
-    fileSize: number;
-    startIndex: number;
-    endIndex: number;
-    rawData: string;
-    deviceId: string;
-  } | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+    fileSize: number
+    startIndex: number
+    endIndex: number
+    rawData: string
+    deviceId: string
+  } | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [isProcessing, setIsProcessing] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (!selectedFile) return;
+    const selectedFile = event.target.files?.[0]
+    if (!selectedFile) return
 
     if (!selectedFile.name.toLowerCase().endsWith('.bin')) {
-      setError(t('nxDevice.errors.invalidFormat'));
-      setFile(null);
-      setFileInfo(null);
-      return;
+      setError(t('nxDevice.errors.invalidFormat'))
+      setFile(null)
+      setFileInfo(null)
+      return
     }
 
-    setFile(selectedFile);
-    setError(null);
-    setFileInfo(null);
-    setIsProcessing(true);
+    setFile(selectedFile)
+    setError(null)
+    setFileInfo(null)
+    setIsProcessing(true)
 
     try {
-      const info = await extractInfoFromBin(selectedFile);
-      setFileInfo(info);
+      const info = await extractInfoFromBin(selectedFile)
+      setFileInfo(info)
     } catch (err) {
-      setError(err instanceof Error ? err.message : t('nxDevice.errors.analysisError'));
+      setError(err instanceof Error ? err.message : t('nxDevice.errors.analysisError'))
     } finally {
-      setIsProcessing(false);
+      setIsProcessing(false)
     }
-  };
+  }
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-  };
+    event.preventDefault()
+    event.stopPropagation()
+  }
 
   const handleDrop = async (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
+    event.preventDefault()
+    event.stopPropagation()
 
-    const droppedFile = event.dataTransfer.files[0];
-    if (!droppedFile) return;
+    const droppedFile = event.dataTransfer.files[0]
+    if (!droppedFile) return
 
     if (!droppedFile.name.toLowerCase().endsWith('.bin')) {
-      setError(t('nxDevice.errors.invalidFormat'));
-      setFileInfo(null);
-      return;
+      setError(t('nxDevice.errors.invalidFormat'))
+      setFileInfo(null)
+      return
     }
 
-    setFile(droppedFile);
-    setError(null);
-    setFileInfo(null);
-    setIsProcessing(true);
+    setFile(droppedFile)
+    setError(null)
+    setFileInfo(null)
+    setIsProcessing(true)
 
     try {
-      const info = await extractInfoFromBin(droppedFile);
-      setFileInfo(info);
+      const info = await extractInfoFromBin(droppedFile)
+      setFileInfo(info)
     } catch (err) {
-      setError(err instanceof Error ? err.message : t('nxDevice.errors.analysisError'));
+      setError(err instanceof Error ? err.message : t('nxDevice.errors.analysisError'))
     } finally {
-      setIsProcessing(false);
+      setIsProcessing(false)
     }
-  };
+  }
 
   return (
     <PageTransition>
       <div className="min-h-screen pt-32 pb-16 relative">
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
-        
+
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           {/* Header */}
           <motion.div
@@ -97,7 +98,9 @@ const NXDevice = () => {
             transition={{ duration: 0.3 }}
             className="text-center mb-12"
           >
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text mb-4">{t('nxDevice.title')}</h1>
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text mb-4">
+              {t('nxDevice.title')}
+            </h1>
             <p className="text-xl text-blue-200/80">{t('nxDevice.subtitle')}</p>
             <div className="mt-4 bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 text-sm text-blue-300">
               <p>⚠️ {t('nxDevice.warning.local')}</p>
@@ -121,7 +124,15 @@ const NXDevice = () => {
             />
 
             <div
+              role="button"
+              tabIndex={0}
               onClick={() => fileInputRef.current?.click()}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  fileInputRef.current?.click()
+                }
+              }}
               onDragOver={handleDragOver}
               onDrop={handleDrop}
               className="border-2 border-dashed border-blue-500/30 rounded-xl p-8 text-center cursor-pointer transition-all hover:border-blue-500/50"
@@ -134,9 +145,7 @@ const NXDevice = () => {
                   <p className="text-lg font-medium text-white mb-2">
                     {t('nxDevice.upload.title')}
                   </p>
-                  <p className="text-sm text-gray-400">
-                    {t('nxDevice.upload.subtitle')}
-                  </p>
+                  <p className="text-sm text-gray-400">{t('nxDevice.upload.subtitle')}</p>
                 </div>
               </div>
             </div>
@@ -186,7 +195,9 @@ const NXDevice = () => {
 
                 <div className="space-y-4">
                   <div className="bg-gray-900/50 rounded-lg p-4">
-                    <h3 className="text-sm font-medium text-gray-400 mb-2">{t('nxDevice.fileInfo.deviceId')}</h3>
+                    <h3 className="text-sm font-medium text-gray-400 mb-2">
+                      {t('nxDevice.fileInfo.deviceId')}
+                    </h3>
                     <p className="text-xl font-mono text-white text-center select-all">
                       {fileInfo.deviceId}
                     </p>
@@ -194,24 +205,29 @@ const NXDevice = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="bg-gray-900/50 rounded-lg p-4">
-                      <h3 className="text-sm font-medium text-gray-400 mb-2">{t('nxDevice.fileInfo.fileSize')}</h3>
+                      <h3 className="text-sm font-medium text-gray-400 mb-2">
+                        {t('nxDevice.fileInfo.fileSize')}
+                      </h3>
                       <p className="text-lg text-white">{fileInfo.fileSize} octets</p>
                     </div>
 
                     <div className="bg-gray-900/50 rounded-lg p-4">
-                      <h3 className="text-sm font-medium text-gray-400 mb-2">{t('nxDevice.fileInfo.markers')}</h3>
+                      <h3 className="text-sm font-medium text-gray-400 mb-2">
+                        {t('nxDevice.fileInfo.markers')}
+                      </h3>
                       <p className="text-lg text-white">
-                        {t('nxDevice.fileInfo.start')}: {fileInfo.startIndex}<br />
+                        {t('nxDevice.fileInfo.start')}: {fileInfo.startIndex}
+                        <br />
                         {t('nxDevice.fileInfo.end')}: {fileInfo.endIndex}
                       </p>
                     </div>
                   </div>
 
                   <div className="bg-gray-900/50 rounded-lg p-4">
-                    <h3 className="text-sm font-medium text-gray-400 mb-2">{t('nxDevice.fileInfo.rawData')}</h3>
-                    <p className="text-sm font-mono text-white break-all">
-                      {fileInfo.rawData}
-                    </p>
+                    <h3 className="text-sm font-medium text-gray-400 mb-2">
+                      {t('nxDevice.fileInfo.rawData')}
+                    </h3>
+                    <p className="text-sm font-mono text-white break-all">{fileInfo.rawData}</p>
                   </div>
                 </div>
               </motion.div>
@@ -225,7 +241,9 @@ const NXDevice = () => {
             transition={{ duration: 0.3, delay: 0.2 }}
             className="mt-12 bg-gray-800/50 rounded-xl p-6 border border-gray-700"
           >
-            <h2 className="text-xl font-semibold text-white mb-4">{t('nxDevice.instructions.title')}</h2>
+            <h2 className="text-xl font-semibold text-white mb-4">
+              {t('nxDevice.instructions.title')}
+            </h2>
             <ul className="space-y-2 text-gray-300">
               <li className="flex items-start gap-2">
                 <FileUp className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
@@ -244,7 +262,7 @@ const NXDevice = () => {
         </div>
       </div>
     </PageTransition>
-  );
-};
+  )
+}
 
-export default NXDevice;
+export default NXDevice

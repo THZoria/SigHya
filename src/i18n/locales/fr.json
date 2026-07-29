@@ -22,6 +22,7 @@
     "roadmap": "Roadmap",
     "manga": "Manga",
     "nxProjects": "Projets NX",
+    "shop": "Shop",
     "legal": "Légal",
     "language": "Langue",
     "ariaLabel": "Navigation principale",
@@ -79,6 +80,45 @@
       "preJune2018": "Les consoles Nintendo Switch sorties avant juin 2018 sont potentiellement compatibles avec le modding.",
       "incompatibleModels": "Les modèles Mariko, OLED et Lite  ainsi que les Switch 2 ne sont pas compatibles avec les méthodes de modding actuelles.",
       "disclaimer": "Ce vérificateur est fourni à titre indicatif. En cas de doute, consultez notre serveur Discord pour plus d'informations."
+    },
+    "prefixes": {
+      "title": "À quoi correspond chaque préfixe ?",
+      "subtitle": "Le début du numéro de série permet d'identifier la famille de console avant même le test de compatibilité.",
+      "legacy": {
+        "label": "Legacy",
+        "title": "Switch originale (2017)",
+        "description": "Les préfixes XAW1, XAW4, XAW7, XAJ1, XAJ4 et XAJ7 correspondent aux premières Nintendo Switch. Ce sont les seules qui peuvent être non patchées selon la plage du numéro.",
+        "prefixes": ["XAW1", "XAW4", "XAW7", "XAJ1", "XAJ4", "XAJ7"],
+        "status": "Statut : vérifier la plage exacte, car certaines sont hackables et d'autres patchées."
+      },
+      "mariko": {
+        "label": "Mariko",
+        "title": "Switch V2 / Mariko",
+        "description": "Les préfixes XKJ et XKW renvoient à la génération Mariko. Ces consoles sont considérées comme patchées pour les méthodes RCM classiques.",
+        "prefixes": ["XKJ", "XKW"],
+        "status": "Statut : non compatible avec les méthodes de modding RCM classiques."
+      },
+      "lite": {
+        "label": "Lite",
+        "title": "Switch Lite",
+        "description": "Les préfixes XJE et XJW correspondent aux Nintendo Switch Lite. Elles ne sont pas hackables via les méthodes Legacy/RCM.",
+        "prefixes": ["XJE", "XJW"],
+        "status": "Statut : non compatible en l'état pour les méthodes Legacy."
+      },
+      "oled": {
+        "label": "OLED",
+        "title": "Switch OLED",
+        "description": "Les préfixes XTW et XTJ désignent les modèles Nintendo Switch OLED. Ils appartiennent aussi à la famille Mariko patchée.",
+        "prefixes": ["XTW", "XTJ"],
+        "status": "Statut : non compatible avec les méthodes de modding RCM classiques."
+      },
+      "switch2": {
+        "label": "Switch 2",
+        "title": "Nintendo Switch 2",
+        "description": "Les préfixes HAE et HAW correspondent aux modèles Switch 2 détectés par le checker.",
+        "prefixes": ["HAE", "HAW"],
+        "status": "Statut : non compatible avec les méthodes actuelles gérées par cet outil."
+      }
     }
   },
   "nxDevice": {
@@ -425,12 +465,12 @@
       "showingResults": "Affichage de {count} sur {total} projets",
       "noResults": "Aucun projet trouvé correspondant à vos critères",
       "clearAllFilters": "Effacer tous les filtres",
-    "pagination": {
-      "show": "Afficher",
-      "perPage": "par page",
-      "showAll": "Tout afficher",
-      "showing": "Affichage de {start} à {end} sur {total} résultats"
-    }
+      "pagination": {
+        "show": "Afficher",
+        "perPage": "par page",
+        "showAll": "Tout afficher",
+        "showing": "Affichage de {start} à {end} sur {total} résultats"
+      }
     },
     "sort": {
       "stars": "Étoiles",
@@ -439,6 +479,48 @@
       "author": "Auteur",
       "latestRelease": "Dernière release",
       "lastUpdated": "Dernière mise à jour"
+    }
+  },
+  "shop": {
+    "hero": {
+      "eyebrow": "Boutique partenaire",
+      "title": "Équipez-vous pour le modding",
+      "subtitle": "Retrouvez nos recommandations d'accessoires, précommandes et jeux Switch, tous liés via nos partenaires Amazon."
+    },
+    "categories": {
+      "accessories": {
+        "title": "Accessoires",
+        "description": "Cartes SD, lecteurs et accessoires indispensables pour votre Switch moddée."
+      },
+      "preorders": {
+        "title": "Précommandes Switch 2",
+        "description": "Les prochains jeux à paraître sur Nintendo Switch 2, disponibles en précommande."
+      },
+      "released": {
+        "title": "Jeux Switch sortis",
+        "description": "Jeux déjà disponibles sur Nintendo Switch."
+      }
+    },
+    "badges": {
+      "deals": "Promo",
+      "preorder": "Précommande",
+      "released": "Disponible"
+    },
+    "actions": {
+      "viewOnAmazon": "Voir sur Amazon",
+      "productSingular": "produit",
+      "productsPlural": "produits"
+    },
+    "products": {
+      "weeklyTop": "Sélection de la semaine"
+    },
+    "highlight": {
+      "prefix": "La catégorie",
+      "suffix": "se met à jour automatiquement avec les dernières sorties."
+    },
+    "states": {
+      "loading": "Chargement des jeux disponibles...",
+      "empty": "Aucun jeu disponible pour le moment. Revenez bientôt !"
     }
   }
 }

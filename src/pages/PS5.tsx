@@ -4,39 +4,40 @@
  * Provides search functionality with pagination and local caching
  */
 
-import React, { useEffect, useMemo, useState, useCallback, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Search, 
-  AlertCircle, 
-  Terminal, 
-  ChevronsLeft, 
-  ChevronsRight,
+import { AnimatePresence, motion } from 'framer-motion'
+import {
+  AlertCircle,
+  AlertTriangle,
   ChevronLeft,
   ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
   Info,
-  AlertTriangle,
-  XCircle
-} from 'lucide-react';
-import PageTransition from '../components/PageTransition';
-import { useI18n } from '../i18n/context';
-import { SkeletonCard } from '../components/ui/Skeleton';
+  Search,
+  Terminal,
+  XCircle,
+} from 'lucide-react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import PageTransition from '../components/PageTransition'
+import { SkeletonCard } from '../components/ui/Skeleton'
+import { useI18n } from '../i18n/context'
 
 interface ErrorCode {
-  ID: string;
-  Message: string;
-  Status: number;
-  Priority: number;
+  ID: string
+  Message: string
+  Status: number
+  Priority: number
 }
 
-const CACHE_KEY = 'ps5-error-codes';
-const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000;
+const CACHE_KEY = 'ps5-error-codes'
+const CACHE_DURATION = 7 * 24 * 60 * 60 * 1000
 
 const normalizeErrorCodes = (payload: unknown): ErrorCode[] => {
-  const rawCodes = (payload as { PlayStation5?: { ErrorCodes?: unknown } })?.PlayStation5?.ErrorCodes;
+  const rawCodes = (payload as { PlayStation5?: { ErrorCodes?: unknown } })?.PlayStation5
+    ?.ErrorCodes
   if (!Array.isArray(rawCodes)) {
-    throw new Error('Invalid data structure');
+    throw new Error('Invalid data structure')
   }
 
   return rawCodes
@@ -46,146 +47,149 @@ const normalizeErrorCodes = (payload: unknown): ErrorCode[] => {
       Message: typeof entry.Message === 'string' ? entry.Message : 'Unknown error',
       Status: Number.isFinite(Number(entry.Status)) ? Number(entry.Status) : 0,
       Priority: Number.isFinite(Number(entry.Priority)) ? Number(entry.Priority) : 0,
-    }));
-};
+    }))
+}
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 5
 
 const PS5 = () => {
-  const { t } = useI18n();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [errorCodes, setErrorCodes] = useState<ErrorCode[]>([]);
-  const [filteredResults, setFilteredResults] = useState<ErrorCode[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [shouldFetch, setShouldFetch] = useState(true);
-  const searchTimeoutRef = useRef<number>();
+  const { t } = useI18n()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [errorCodes, setErrorCodes] = useState<ErrorCode[]>([])
+  const [filteredResults, setFilteredResults] = useState<ErrorCode[]>([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [shouldFetch, setShouldFetch] = useState(true)
+  const searchTimeoutRef = useRef<number>(undefined)
 
-  const filterResults = useCallback((searchQuery: string, codes: ErrorCode[] = errorCodes) => {
-    const filtered = codes.filter(error => 
-      error.ID.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      error.Message.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setFilteredResults(filtered);
-  }, [errorCodes]);
+  const filterResults = useCallback(
+    (searchQuery: string, codes: ErrorCode[] = errorCodes) => {
+      const filtered = codes.filter(
+        (error) =>
+          error.ID.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          error.Message.toLowerCase().includes(searchQuery.toLowerCase()),
+      )
+      setFilteredResults(filtered)
+    },
+    [errorCodes],
+  )
 
-  const query = searchParams.get('q') || '';
-  const currentPage = parseInt(searchParams.get('page') || '1', 10);
+  const query = searchParams.get('q') || ''
+  const currentPage = parseInt(searchParams.get('page') || '1', 10)
 
   const updateUrlParams = (newSearchTerm: string, page: number) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams)
     if (newSearchTerm) {
-      params.set('q', newSearchTerm);
+      params.set('q', newSearchTerm)
     } else {
-      params.delete('q');
+      params.delete('q')
     }
 
     if (page > 1 && newSearchTerm) {
-      params.set('page', page.toString());
+      params.set('page', page.toString())
     } else {
-      params.delete('page');
+      params.delete('page')
     }
 
-    setSearchParams(params, { replace: true });
-  };
+    setSearchParams(params, { replace: true })
+  }
 
   useEffect(() => {
-    if (query !== searchTerm) {
-      setSearchTerm(query);
+    if (query) {
+      setSearchTerm(query)
       if (errorCodes.length > 0) {
-        filterResults(query);
+        filterResults(query)
       }
     }
-  }, [query, errorCodes, filterResults, searchTerm]);
+  }, [])
 
-  const totalPages = Math.ceil(filteredResults.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filteredResults.length / ITEMS_PER_PAGE)
   const paginatedResults = filteredResults.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
+    currentPage * ITEMS_PER_PAGE,
+  )
 
   useEffect(() => {
     const fetchErrorCodes = async () => {
-      const cached = localStorage.getItem(CACHE_KEY);
+      const cached = localStorage.getItem(CACHE_KEY)
       if (cached) {
         try {
-          const { data, timestamp } = JSON.parse(cached);
+          const { data, timestamp } = JSON.parse(cached)
           if (Date.now() - timestamp < CACHE_DURATION) {
-            const cachedCodes = normalizeErrorCodes(data);
-            setErrorCodes(cachedCodes);
-            setLoading(false);
-            filterResults(query, cachedCodes);
-            return;
+            const cachedCodes = normalizeErrorCodes(data)
+            setErrorCodes(cachedCodes)
+            setLoading(false)
+            filterResults(query, cachedCodes)
+            return
           }
-        } catch (error) {
-          console.error('Error parsing cached data:', error);
-        }
+        } catch (_error) {}
       }
 
       try {
-        const response = await fetch('https://raw.githubusercontent.com/amoamare/Console-Service-Tool/master/Resources/ErrorCodes.json');
-        if (!response.ok) throw new Error('Failed to fetch error codes');
-        const data = await response.json();
-        const normalizedCodes = normalizeErrorCodes(data);
-        
+        const response = await fetch(
+          'https://raw.githubusercontent.com/amoamare/Console-Service-Tool/master/Resources/ErrorCodes.json',
+        )
+        if (!response.ok) throw new Error('Failed to fetch error codes')
+        const data = await response.json()
+        const normalizedCodes = normalizeErrorCodes(data)
+
         if (normalizedCodes.length > 0) {
-          const timestamp = Date.now();
-          localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp }));
-          setErrorCodes(normalizedCodes);
-          filterResults(query, normalizedCodes);
+          const timestamp = Date.now()
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp }))
+          setErrorCodes(normalizedCodes)
+          filterResults(query, normalizedCodes)
         } else {
-          throw new Error('Invalid data structure');
+          throw new Error('Invalid data structure')
         }
-      } catch (error) {
-        console.error('Error fetching error codes:', error);
-        setError(t('ps5.results.fetchError'));
+      } catch (_error) {
+        setError(t('ps5.results.fetchError'))
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
     if (shouldFetch) {
-      setShouldFetch(false);
-      fetchErrorCodes();
+      setShouldFetch(false)
+      fetchErrorCodes()
     }
     return () => {
       if (searchTimeoutRef.current) {
-        window.clearTimeout(searchTimeoutRef.current);
+        window.clearTimeout(searchTimeoutRef.current)
       }
-    };
-  }, [filterResults, query, shouldFetch, t]);
+    }
+  }, [filterResults, query, shouldFetch, t])
 
   const handleSearch = (value: string) => {
-    setSearchTerm(value);
-    filterResults(value);
-    
+    setSearchTerm(value)
+    filterResults(value)
+
     if (searchTimeoutRef.current) {
-      window.clearTimeout(searchTimeoutRef.current);
+      window.clearTimeout(searchTimeoutRef.current)
     }
-    
+
     searchTimeoutRef.current = window.setTimeout(() => {
-      updateUrlParams(value, 1);
-    }, 500);
-  };
+      updateUrlParams(value, 1)
+    }, 500)
+  }
 
   const handlePageChange = (page: number) => {
-    if (page < 1 || page > totalPages) return;
-    updateUrlParams(searchTerm, page);
-  };
+    if (page < 1 || page > totalPages) return
+    updateUrlParams(searchTerm, page)
+  }
 
   // Pagination with ellipses: shows first page, last page, current page ± delta (2 pages)
   // Inserts ellipses (...) when there's a gap > 1 page between displayed numbers
   // Example: [1] ... [5] [6] [7] [8] [9] ... [20] (currentPage=7, delta=2)
   const pageNumbers = useMemo(() => {
-    const delta = 2;
-    const range = [];
-    const rangeWithDots: (number | string)[] = [];
-    let lastNumber;
+    const delta = 2
+    const range = []
+    const rangeWithDots: (number | string)[] = []
+    let lastNumber: number | undefined
 
     for (let i = 1; i <= totalPages; i++) {
       if (i === 1 || i === totalPages || (i >= currentPage - delta && i <= currentPage + delta)) {
-        range.push(i);
+        range.push(i)
       }
     }
 
@@ -193,17 +197,17 @@ const PS5 = () => {
       if (lastNumber) {
         // If gap is exactly 2 pages, show the middle page instead of ellipses
         if (i - lastNumber === 2) {
-          rangeWithDots.push(lastNumber + 1);
+          rangeWithDots.push(lastNumber + 1)
         } else if (i - lastNumber !== 1) {
-          rangeWithDots.push('...');
+          rangeWithDots.push('...')
         }
       }
-      rangeWithDots.push(i);
-      lastNumber = i;
+      rangeWithDots.push(i)
+      lastNumber = i
     }
 
-    return rangeWithDots;
-  }, [currentPage, totalPages]);
+    return rangeWithDots
+  }, [currentPage, totalPages])
 
   // Get status information
   const getStatusInfo = (_status: number, priority: number) => {
@@ -212,37 +216,37 @@ const PS5 = () => {
         bg: 'bg-red-500/10',
         border: 'border-red-500/20',
         text: 'text-red-400',
-        label: 'critical'
+        label: 'critical',
       },
       2: {
         bg: 'bg-orange-500/10',
         border: 'border-orange-500/20',
         text: 'text-orange-400',
-        label: 'high'
+        label: 'high',
       },
       1: {
         bg: 'bg-yellow-500/10',
         border: 'border-yellow-500/20',
         text: 'text-yellow-400',
-        label: 'medium'
+        label: 'medium',
       },
       0: {
         bg: 'bg-blue-500/10',
         border: 'border-blue-500/20',
         text: 'text-blue-400',
-        label: 'low'
-      }
-    };
+        label: 'low',
+      },
+    }
 
-    return baseClasses[priority as keyof typeof baseClasses] || baseClasses[0];
-  };
+    return baseClasses[priority as keyof typeof baseClasses] || baseClasses[0]
+  }
 
   return (
     <PageTransition>
       <div className="min-h-screen pt-32 pb-16 relative">
         {/* Background Pattern */}
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
-        
+
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           {/* Header */}
           <motion.div
@@ -251,10 +255,10 @@ const PS5 = () => {
             transition={{ duration: 0.3 }}
             className="text-center mb-12"
           >
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text mb-4">{t('ps5.title')}</h1>
-            <p className="text-xl text-blue-200/80">
-              {t('ps5.subtitle')}
-            </p>
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text mb-4">
+              {t('ps5.title')}
+            </h1>
+            <p className="text-xl text-blue-200/80">{t('ps5.subtitle')}</p>
           </motion.div>
 
           {/* Search Section */}
@@ -268,9 +272,7 @@ const PS5 = () => {
               <Terminal className="w-6 h-6 text-blue-400 flex-shrink-0" />
               <div>
                 <h3 className="text-lg font-medium text-white mb-2">{t('ps5.search.title')}</h3>
-                <p className="text-gray-300">
-                  {t('ps5.search.description')}
-                </p>
+                <p className="text-gray-300">{t('ps5.search.description')}</p>
               </div>
             </div>
 
@@ -284,7 +286,10 @@ const PS5 = () => {
                 aria-label={t('ps5.search.placeholder')}
                 aria-describedby="ps5-search-description"
               />
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true">
+              <div
+                className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"
+                aria-hidden="true"
+              >
                 <Search className="w-5 h-5 text-blue-400" />
               </div>
             </div>
@@ -325,13 +330,12 @@ const PS5 = () => {
 
           {/* Results Section */}
           {!loading && query && (
-            <motion.div
-              initial={false}
-            >
+            <motion.div initial={false}>
               {/* Results Header */}
               <div className="flex items-center justify-between mb-6">
                 <div className="text-gray-300">
-                  {filteredResults.length} {t(`ps5.results.${filteredResults.length === 1 ? 'found' : 'found_plural'}`)}
+                  {filteredResults.length}{' '}
+                  {t(`ps5.results.${filteredResults.length === 1 ? 'found' : 'found_plural'}`)}
                 </div>
                 {totalPages > 1 && (
                   <div className="text-gray-400 text-sm">
@@ -345,12 +349,11 @@ const PS5 = () => {
                 <AnimatePresence mode="wait">
                   {paginatedResults.length > 0 ? (
                     paginatedResults.map((result) => {
-                      const statusInfo = getStatusInfo(result.Status, result.Priority);
+                      const statusInfo = getStatusInfo(result.Status, result.Priority)
                       return (
-                        <div
+                        <article
                           key={result.ID}
                           className={`bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 border ${statusInfo.border} hover:scale-[1.01] transition-transform duration-200`}
-                          role="article"
                           aria-labelledby={`error-${result.ID}`}
                         >
                           <div className="flex items-start space-x-4">
@@ -367,18 +370,24 @@ const PS5 = () => {
                             </div>
                             <div className="flex-1">
                               <div className="flex items-start justify-between">
-                                <h3 id={`error-${result.ID}`} className="text-xl font-semibold text-white mb-2">
+                                <h3
+                                  id={`error-${result.ID}`}
+                                  className="text-xl font-semibold text-white mb-2"
+                                >
                                   {result.ID}
                                 </h3>
-                                <span className={`px-3 py-1 rounded-full text-sm ${statusInfo.bg} ${statusInfo.text}`} aria-label={`${t('ps5.results.priorityLabel')}: ${t(`ps5.results.priority.${statusInfo.label.toLowerCase()}`)}`}>
+                                <span
+                                  className={`px-3 py-1 rounded-full text-sm ${statusInfo.bg} ${statusInfo.text}`}
+                                  title={`${t('ps5.results.priorityLabel')}: ${t(`ps5.results.priority.${statusInfo.label.toLowerCase()}`)}`}
+                                >
                                   {t(`ps5.results.priority.${statusInfo.label.toLowerCase()}`)}
                                 </span>
                               </div>
                               <p className="text-gray-300">{result.Message}</p>
                             </div>
                           </div>
-                        </div>
-                      );
+                        </article>
+                      )
                     })
                   ) : (
                     <motion.div
@@ -387,7 +396,9 @@ const PS5 = () => {
                       transition={{ duration: 0.2 }}
                       className="text-center py-8"
                     >
-                      <p className="text-gray-400">{t('ps5.results.noResults').replace('{query}', query)}</p>
+                      <p className="text-gray-400">
+                        {t('ps5.results.noResults').replace('{query}', query)}
+                      </p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -401,21 +412,17 @@ const PS5 = () => {
                       onClick={() => handlePageChange(1)}
                       disabled={currentPage === 1}
                       className={`p-2 rounded-lg transition-all duration-300 ${
-                        currentPage === 1
-                          ? 'opacity-50 cursor-not-allowed'
-                          : 'hover:bg-blue-500/20'
+                        currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-500/20'
                       }`}
                     >
                       <ChevronsLeft className="w-5 h-5 text-blue-400" />
                     </button>
-                    
+
                     <button
                       onClick={() => handlePageChange(currentPage - 1)}
                       disabled={currentPage === 1}
                       className={`p-2 rounded-lg transition-all duration-300 ${
-                        currentPage === 1
-                          ? 'opacity-50 cursor-not-allowed'
-                          : 'hover:bg-blue-500/20'
+                        currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-500/20'
                       }`}
                     >
                       <ChevronLeft className="w-5 h-5 text-blue-400" />
@@ -473,7 +480,7 @@ const PS5 = () => {
         </div>
       </div>
     </PageTransition>
-  );
-};
+  )
+}
 
-export default PS5;
+export default PS5

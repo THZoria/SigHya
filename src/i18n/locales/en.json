@@ -22,6 +22,7 @@
     "roadmap": "Roadmap",
     "manga": "Manga",
     "nxProjects": "NX Projects",
+    "shop": "Shop",
     "legal": "Legal",
     "language": "Language",
     "ariaLabel": "Main navigation",
@@ -79,6 +80,45 @@
       "preJune2018": "Nintendo Switch consoles released before June 2018 are potentially compatible with modding.",
       "incompatibleModels": "Mariko, OLED and Lite models as well as Switch 2 are not compatible with current modding methods.",
       "disclaimer": "This checker is provided for informational purposes only. If in doubt, please consult our Discord server for more information."
+    },
+    "prefixes": {
+      "title": "What does each prefix mean?",
+      "subtitle": "The beginning of the serial number identifies the console family before even running the compatibility test.",
+      "legacy": {
+        "label": "Legacy",
+        "title": "Original Switch (2017)",
+        "description": "Prefixes XAW1, XAW4, XAW7, XAJ1, XAJ4 and XAJ7 correspond to the first Nintendo Switch consoles. These are the only ones that may be unpatched depending on the serial number range.",
+        "prefixes": ["XAW1", "XAW4", "XAW7", "XAJ1", "XAJ4", "XAJ7"],
+        "status": "Status: verify the exact range, as some are hackable and others are patched."
+      },
+      "mariko": {
+        "label": "Mariko",
+        "title": "Switch V2 / Mariko",
+        "description": "Prefixes XKJ and XKW refer to the Mariko generation. These consoles are considered patched for classic RCM methods.",
+        "prefixes": ["XKJ", "XKW"],
+        "status": "Status: not compatible with classic RCM modding methods."
+      },
+      "lite": {
+        "label": "Lite",
+        "title": "Switch Lite",
+        "description": "Prefixes XJE and XJW correspond to Nintendo Switch Lite. They are not hackable via Legacy/RCM methods.",
+        "prefixes": ["XJE", "XJW"],
+        "status": "Status: not compatible with Legacy methods in their current state."
+      },
+      "oled": {
+        "label": "OLED",
+        "title": "Switch OLED",
+        "description": "Prefixes XTW and XTJ designate Nintendo Switch OLED models. They also belong to the patched Mariko family.",
+        "prefixes": ["XTW", "XTJ"],
+        "status": "Status: not compatible with classic RCM modding methods."
+      },
+      "switch2": {
+        "label": "Switch 2",
+        "title": "Nintendo Switch 2",
+        "description": "Prefixes HAE and HAW correspond to Switch 2 models detected by the checker.",
+        "prefixes": ["HAE", "HAW"],
+        "status": "Status: not compatible with current methods handled by this tool."
+      }
     }
   },
   "nxDevice": {
@@ -425,12 +465,12 @@
       "showingResults": "Showing {count} of {total} projects",
       "noResults": "No projects found matching your criteria",
       "clearAllFilters": "Clear all filters",
-    "pagination": {
-      "show": "Show",
-      "perPage": "per page",
-      "showAll": "Show all",
-      "showing": "Showing {start} to {end} of {total} results"
-    }
+      "pagination": {
+        "show": "Show",
+        "perPage": "per page",
+        "showAll": "Show all",
+        "showing": "Showing {start} to {end} of {total} results"
+      }
     },
     "sort": {
       "stars": "Stars",
@@ -439,6 +479,48 @@
       "author": "Author",
       "latestRelease": "Latest Release",
       "lastUpdated": "Last Updated"
+    }
+  },
+  "shop": {
+    "hero": {
+      "eyebrow": "Partner Shop",
+      "title": "Gear up for modding",
+      "subtitle": "Find our recommended accessories, preorders and Switch games, all linked through our Amazon partners."
+    },
+    "categories": {
+      "accessories": {
+        "title": "Accessories",
+        "description": "SD cards, readers and essential accessories for your modded Switch."
+      },
+      "preorders": {
+        "title": "Switch 2 Preorders",
+        "description": "Upcoming games for Nintendo Switch 2, available for preorder."
+      },
+      "released": {
+        "title": "Released Switch Games",
+        "description": "Games already available on Nintendo Switch."
+      }
+    },
+    "badges": {
+      "deals": "Deal",
+      "preorder": "Preorder",
+      "released": "Available"
+    },
+    "actions": {
+      "viewOnAmazon": "View on Amazon",
+      "productSingular": "product",
+      "productsPlural": "products"
+    },
+    "products": {
+      "weeklyTop": "Weekly pick"
+    },
+    "highlight": {
+      "prefix": "The",
+      "suffix": "category updates automatically with the latest releases."
+    },
+    "states": {
+      "loading": "Loading available games...",
+      "empty": "No games available yet. Check back soon!"
     }
   }
 }

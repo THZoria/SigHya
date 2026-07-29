@@ -1,13 +1,13 @@
-import { motion } from 'framer-motion';
-import { Users, Wrench, MessageSquare, Rocket } from 'lucide-react';
-import { useI18n } from '../i18n/context';
+import { motion } from 'framer-motion'
+import { MessageSquare, Rocket, Users, Wrench } from 'lucide-react'
+import { useI18n } from '../i18n/context'
 
 /**
  * Features component - Displays key features and capabilities of the platform
  * Shows community, expertise, projects, and events sections with animations
  */
 const Features = () => {
-  const { t } = useI18n();
+  const { t } = useI18n()
 
   // Feature items configuration with icons and translations
   const features = [
@@ -31,13 +31,13 @@ const Features = () => {
       description: t('home.features.items.events.description'),
       icon: MessageSquare,
     },
-  ];
+  ]
 
   return (
     <div className="py-24 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
@@ -66,25 +66,21 @@ const Features = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className="h-full bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group">
+                <div className="h-full bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 border border-blue-500/20 hover:border-blue-500/50 transition-all duration-500 group hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.3)] hover:bg-gray-800/70 hover:-translate-y-1">
                   {/* Feature icon with hover animation */}
                   <motion.div
                     whileHover={{ rotate: 12, scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                    className="inline-flex items-center justify-center p-3 bg-blue-600/20 rounded-xl mb-6 group-hover:bg-blue-600/30"
+                    transition={{ type: 'spring', stiffness: 300 }}
+                    className="inline-flex items-center justify-center p-3 bg-blue-600/20 rounded-xl mb-6 group-hover:bg-blue-600/30 group-hover:shadow-[0_0_20px_-3px_rgba(59,130,246,0.4)] transition-all duration-500"
                   >
-                    <feature.icon className="h-7 w-7 text-blue-400" aria-hidden="true" />
+                    <feature.icon className="h-7 w-7 text-blue-400 group-hover:text-blue-300 transition-colors duration-500" aria-hidden="true" />
                   </motion.div>
-                  
+
                   {/* Feature title */}
-                  <h3 className="text-xl font-semibold text-white mb-4">
-                    {feature.name}
-                  </h3>
-                  
+                  <h3 className="text-xl font-semibold text-white mb-4">{feature.name}</h3>
+
                   {/* Feature description */}
-                  <p className="text-gray-300 leading-relaxed">
-                    {feature.description}
-                  </p>
+                  <p className="text-gray-300 leading-relaxed">{feature.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -92,7 +88,7 @@ const Features = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Features;
+export default Features

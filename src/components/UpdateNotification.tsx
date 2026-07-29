@@ -1,30 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { RefreshCw, X } from 'lucide-react';
+import { RefreshCw, X } from 'lucide-react'
+import type React from 'react'
+import { useEffect, useState } from 'react'
 
 const UpdateNotification: React.FC = () => {
-  const [showUpdate, setShowUpdate] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false)
 
   useEffect(() => {
     const handleUpdateFound = () => {
-      setShowUpdate(true);
-    };
+      setShowUpdate(true)
+    }
 
-    window.addEventListener('vite-plugin-pwa:update-found', handleUpdateFound);
+    window.addEventListener('vite-plugin-pwa:update-found', handleUpdateFound)
 
     return () => {
-      window.removeEventListener('vite-plugin-pwa:update-found', handleUpdateFound);
-    };
-  }, []);
+      window.removeEventListener('vite-plugin-pwa:update-found', handleUpdateFound)
+    }
+  }, [])
 
   const handleUpdate = () => {
-    window.location.reload();
-  };
+    window.location.reload()
+  }
 
   const handleDismiss = () => {
-    setShowUpdate(false);
-  };
+    setShowUpdate(false)
+  }
 
-  if (!showUpdate) return null;
+  if (!showUpdate) return null
 
   return (
     <div className="fixed top-4 right-4 z-50 bg-blue-600 text-white p-4 rounded-lg shadow-lg max-w-sm">
@@ -58,7 +59,7 @@ const UpdateNotification: React.FC = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default UpdateNotification; 
+export default UpdateNotification

@@ -1,16 +1,18 @@
+import { readFileSync } from 'node:fs';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
-import pkg from './package.json';
+
+const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'));
 
 /**
  * Vite configuration for the SigHya application
- * Defines build settings, development server options, and optimization strategies
  */
 export default defineConfig({
-  // React plugin for JSX support and hot module replacement
   plugins: [
     react(),
+    tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
       workbox: {
@@ -23,7 +25,7 @@ export default defineConfig({
               cacheName: 'nxhub-api-cache',
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24, // 24 hours
+                maxAgeSeconds: 60 * 60 * 24,
               },
             },
           },
@@ -33,7 +35,7 @@ export default defineConfig({
       manifest: {
         name: 'SigHya - Modding de consoles',
         short_name: 'SigHya',
-        description: 'Communauté française de modding de consoles. Guides, tutoriels et entraide pour le modding de Nintendo Switch, PS5 et plus encore.',
+        description: 'Communaut\u00e9 fran\u00e7aise de modding de consoles. Guides, tutoriels et entraide pour le modding de Nintendo Switch, PS5 et plus encore.',
         theme_color: '#1a1a1a',
         background_color: '#111827',
         display: 'standalone',
@@ -58,42 +60,45 @@ export default defineConfig({
     })
   ],
   
-  // Global constants available in the application
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version)
   },
   
-  // Development server configuration
   server: {
     port: 5173,
     host: true,
+    proxy: {
+      '/proxy/rss': {
+        target: 'https://api.allorigins.win',
+        changeOrigin: true,
+        rewrite: () => `/raw?url=${encodeURIComponent('https://hacktuality.com/rss.xml')}`,
+      },
+    },
   },
   
-  // Production build configuration
   build: {
     target: 'esnext',
     rollupOptions: {
       output: {
-        // Manual chunk splitting for better caching and loading performance
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'framer-motion': ['framer-motion'],
-          'lucide-icons': ['lucide-react'],
+        manualChunks(id) {
+          if (id.includes('node_modules/react-dom') || id.includes('node_modules/react/') || id.includes('node_modules/react-router-dom')) {
+            return 'react-vendor';
+          }
+          if (id.includes('node_modules/framer-motion')) {
+            return 'framer-motion';
+          }
+          if (id.includes('node_modules/lucide-react')) {
+            return 'lucide-icons';
+          }
         },
       },
     },
     chunkSizeWarningLimit: 1000,
-    commonjsOptions: {
-      transformMixedEsModules: true,
-      include: [/node_modules/],
-    },
   },
   
-  // Module resolution configuration
   resolve: {
     alias: {
-      '@': '/src', // Path alias for cleaner imports
+      '@': '/src',
     },
-    mainFields: ['browser', 'module', 'main'],
   },
 });

@@ -1,16 +1,16 @@
-import React from 'react';
-import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
-import { useI18n } from '../i18n/context';
+import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react'
+import React from 'react'
+import { useI18n } from '../i18n/context'
 
 interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-  itemsPerPage: number;
-  totalItems: number;
-  startIndex: number;
-  endIndex: number;
-  onItemsPerPageChange?: (itemsPerPage: number) => void;
+  currentPage: number
+  totalPages: number
+  onPageChange: (page: number) => void
+  itemsPerPage: number
+  totalItems: number
+  startIndex: number
+  endIndex: number
+  onItemsPerPageChange?: (itemsPerPage: number) => void
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -21,37 +21,41 @@ const Pagination: React.FC<PaginationProps> = ({
   totalItems,
   startIndex,
   endIndex,
-  onItemsPerPageChange
+  onItemsPerPageChange,
 }) => {
-  const { t } = useI18n();
+  const { t } = useI18n()
   const getVisiblePages = () => {
-    const delta = 2;
-    const range = [];
-    const rangeWithDots = [];
+    const delta = 2
+    const range = []
+    const rangeWithDots = []
 
-    for (let i = Math.max(2, currentPage - delta); i <= Math.min(totalPages - 1, currentPage + delta); i++) {
-      range.push(i);
+    for (
+      let i = Math.max(2, currentPage - delta);
+      i <= Math.min(totalPages - 1, currentPage + delta);
+      i++
+    ) {
+      range.push(i)
     }
 
     if (currentPage - delta > 2) {
-      rangeWithDots.push(1, '...');
+      rangeWithDots.push(1, '...')
     } else {
-      rangeWithDots.push(1);
+      rangeWithDots.push(1)
     }
 
-    rangeWithDots.push(...range);
+    rangeWithDots.push(...range)
 
     if (currentPage + delta < totalPages - 1) {
-      rangeWithDots.push('...', totalPages);
+      rangeWithDots.push('...', totalPages)
     } else {
-      rangeWithDots.push(totalPages);
+      rangeWithDots.push(totalPages)
     }
 
-    return rangeWithDots;
-  };
+    return rangeWithDots
+  }
 
   if (totalPages <= 1 && itemsPerPage !== -1) {
-    return null;
+    return null
   }
 
   return (
@@ -128,7 +132,7 @@ const Pagination: React.FC<PaginationProps> = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Pagination; 
+export default Pagination

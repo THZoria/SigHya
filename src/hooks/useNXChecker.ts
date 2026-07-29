@@ -1,34 +1,36 @@
-import { useCallback, useState } from 'react';
-import { checkNXCompatibility } from '../api/nxchecker';
-import { useI18n } from '../i18n/context';
+import { useCallback, useState } from 'react'
+import { checkNXCompatibility } from '../api/nxchecker'
+import { useI18n } from '../i18n/context'
 
 interface CheckResult {
-  status: 'success' | 'warning' | 'error' | 'mariko' | 'oled' | 'lite' | 'unknown' | 'hae';
-  message: string;
-  color: string;
+  status: 'success' | 'warning' | 'error' | 'mariko' | 'oled' | 'lite' | 'unknown' | 'hae'
+  message: string
+  color: string
 }
 
 export const useNXChecker = () => {
-  const [result, setResult] = useState<CheckResult | null>(null);
-  const { t } = useI18n();
+  const [result, setResult] = useState<CheckResult | null>(null)
+  const { t } = useI18n()
 
-  const checkCompatibility = useCallback((serialNumber: string) => {
-    const serial = serialNumber.toUpperCase().trim();
-    console.log('Analyzed serial number:', serial);
+  const checkCompatibility = useCallback(
+    (serialNumber: string) => {
+      const serial = serialNumber.toUpperCase().trim()
 
-    // Switch 2 models: HAE or HAW prefix
-    if (serial.startsWith('HAE') || serial.startsWith('HAW')) {
-      setResult({
-        status: 'hae',
-        message: t('nxChecker.results.hae'),
-        color: 'red',
-      });
-      return;
-    }
+      // Switch 2 models: HAE or HAW prefix
+      if (serial.startsWith('HAE') || serial.startsWith('HAW')) {
+        setResult({
+          status: 'hae',
+          message: t('nxChecker.results.hae'),
+          color: 'red',
+        })
+        return
+      }
 
-    const result = checkNXCompatibility(serial);
-    setResult(result);
-  }, [t]);
+      const result = checkNXCompatibility(serial)
+      setResult(result)
+    },
+    [t],
+  )
 
-  return { checkCompatibility, result };
-};
+  return { checkCompatibility, result }
+}

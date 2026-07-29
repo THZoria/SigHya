@@ -4,26 +4,25 @@
  * Features search, filtering by language/firmware, sorting, and pagination
  */
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { AlertTriangle, Search, Filter, SortAsc, SortDesc } from 'lucide-react';
-import PageTransition from '../components/PageTransition';
-import NXProjectCard from '../components/nx/NXProjectCard';
-import Pagination from '../components/Pagination';
-import { useNXProjects } from '../hooks/useNXProjects';
-import type { SortOption } from '../hooks/useNXProjects';
-import { useI18n } from '../i18n/context';
-import { SkeletonCard } from '../components/ui/Skeleton';
+import { motion } from 'framer-motion'
+import { AlertTriangle, Filter, Search, SortAsc, SortDesc } from 'lucide-react'
+import NXProjectCard from '../components/nx/NXProjectCard'
+import PageTransition from '../components/PageTransition'
+import Pagination from '../components/Pagination'
+import { SkeletonCard } from '../components/ui/Skeleton'
+import type { SortOption } from '../hooks/useNXProjects'
+import { useNXProjects } from '../hooks/useNXProjects'
+import { useI18n } from '../i18n/context'
 
 const NXProjects = () => {
-  const { t } = useI18n();
-  const { 
-    projects, 
+  const { t } = useI18n()
+  const {
+    projects,
     allProjects,
-    loading, 
-    error, 
-    searchTerm, 
-    setSearchTerm, 
+    loading,
+    error,
+    searchTerm,
+    setSearchTerm,
     totalProjects,
     selectedLanguage,
     setSelectedLanguage,
@@ -42,23 +41,23 @@ const NXProjects = () => {
     setItemsPerPage,
     startIndex,
     endIndex,
-    clearAllFilters
-  } = useNXProjects();
+    clearAllFilters,
+  } = useNXProjects()
 
   const toggleSortDirection = () => {
-    const newDirection = sortDirection === 'asc' ? 'desc' : 'asc';
-    setSortDirection(newDirection);
-  };
+    const newDirection = sortDirection === 'asc' ? 'desc' : 'asc'
+    setSortDirection(newDirection)
+  }
 
   const clearFilters = () => {
-    clearAllFilters();
-  };
+    clearAllFilters()
+  }
 
   return (
     <PageTransition>
       <div className="min-h-screen pt-32 pb-16 relative">
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           {/* Header */}
           <motion.div
@@ -70,12 +69,8 @@ const NXProjects = () => {
             <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text mb-4">
               {t('nxProjects.title')}
             </h1>
-            <p className="text-xl text-blue-200/80 mb-6">
-              {t('nxProjects.subtitle')}
-            </p>
+            <p className="text-xl text-blue-200/80 mb-6">{t('nxProjects.subtitle')}</p>
           </motion.div>
-
-
 
           {/* Search and Filters */}
           <motion.div
@@ -92,7 +87,7 @@ const NXProjects = () => {
                 placeholder={t('nxProjects.filters.searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all duration-200"
+                className="w-full pl-10 pr-4 py-3 bg-gray-800/50 border border-gray-700/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 focus:shadow-[0_0_15px_-3px_rgba(59,130,246,0.3)] transition-all duration-500"
               />
             </div>
 
@@ -104,11 +99,13 @@ const NXProjects = () => {
                 <select
                   value={selectedLanguage}
                   onChange={(e) => setSelectedLanguage(e.target.value)}
-                  className="bg-gray-800/50 border border-gray-700/50 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500/50"
+                  className="bg-gray-800/50 border border-gray-700/50 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all duration-500"
                 >
                   <option value="">{t('nxProjects.filters.allLanguages')}</option>
-                  {languages.map(lang => (
-                    <option key={lang} value={lang}>{lang}</option>
+                  {languages.map((lang) => (
+                    <option key={lang} value={lang}>
+                      {lang}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -119,11 +116,13 @@ const NXProjects = () => {
                 <select
                   value={selectedFirmware}
                   onChange={(e) => setSelectedFirmware(e.target.value)}
-                  className="bg-gray-800/50 border border-gray-700/50 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500/50"
+                  className="bg-gray-800/50 border border-gray-700/50 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all duration-500"
                 >
                   <option value="">{t('nxProjects.filters.allFirmware')}</option>
-                  {firmwareVersions.map(fw => (
-                    <option key={fw} value={fw}>{fw}</option>
+                  {firmwareVersions.map((fw) => (
+                    <option key={fw} value={fw}>
+                      {fw}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -133,7 +132,7 @@ const NXProjects = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as SortOption)}
-                  className="bg-gray-800/50 border border-gray-700/50 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500/50"
+                  className="bg-gray-800/50 border border-gray-700/50 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all duration-500"
                 >
                   <option value="stars">{t('nxProjects.sort.stars')}</option>
                   <option value="forks">{t('nxProjects.sort.forks')}</option>
@@ -144,7 +143,7 @@ const NXProjects = () => {
                 </select>
                 <button
                   onClick={toggleSortDirection}
-                  className="p-2 bg-gray-800/50 border border-gray-700/50 rounded-lg hover:border-blue-500/50 transition-colors duration-200"
+                  className="p-2 bg-gray-800/50 border border-gray-700/50 rounded-lg hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-500"
                 >
                   {sortDirection === 'asc' ? (
                     <SortAsc className="w-4 h-4 text-gray-400" />
@@ -158,7 +157,7 @@ const NXProjects = () => {
               {(searchTerm || selectedLanguage || selectedFirmware) && (
                 <button
                   onClick={clearFilters}
-                  className="px-3 py-2 bg-gray-700/50 border border-gray-600/50 rounded-lg text-gray-300 text-sm hover:bg-gray-600/50 transition-colors duration-200"
+                  className="px-3 py-2 bg-gray-700/50 border border-gray-600/50 rounded-lg text-gray-300 text-sm hover:bg-gray-600/50 hover:border-blue-500/30 transition-all duration-500"
                 >
                   {t('nxProjects.filters.clearFilters')}
                 </button>
@@ -168,7 +167,9 @@ const NXProjects = () => {
             {/* Results Counter */}
             {(searchTerm || selectedLanguage || selectedFirmware) && (
               <div className="text-center text-sm text-gray-400">
-                {t('nxProjects.filters.showingResults').replace('{count}', allProjects.length.toString()).replace('{total}', totalProjects.toString())}
+                {t('nxProjects.filters.showingResults')
+                  .replace('{count}', allProjects.length.toString())
+                  .replace('{total}', totalProjects.toString())}
               </div>
             )}
           </motion.div>
@@ -200,11 +201,7 @@ const NXProjects = () => {
           {!loading && !error && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projects.map((project, index) => (
-                <NXProjectCard
-                  key={project.name}
-                  project={project}
-                  index={index}
-                />
+                <NXProjectCard key={project.name} project={project} index={index} />
               ))}
             </div>
           )}
@@ -224,63 +221,56 @@ const NXProjects = () => {
           )}
 
           {/* No Results */}
-          {!loading && !error && allProjects.length === 0 && (searchTerm || selectedLanguage || selectedFirmware) && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-12"
-            >
-              <p className="text-gray-400 text-lg">{t('nxProjects.filters.noResults')}</p>
-              <button
-                onClick={clearFilters}
-                className="mt-4 text-blue-400 hover:text-blue-300 transition-colors duration-200"
+          {!loading &&
+            !error &&
+            allProjects.length === 0 &&
+            (searchTerm || selectedLanguage || selectedFirmware) && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-12"
               >
-                {t('nxProjects.filters.clearAllFilters')}
-              </button>
-            </motion.div>
-          )}
+                <p className="text-gray-400 text-lg">{t('nxProjects.filters.noResults')}</p>
+                <button
+                  onClick={clearFilters}
+                  className="mt-4 text-blue-400 hover:text-blue-300 transition-colors duration-200"
+                >
+                  {t('nxProjects.filters.clearAllFilters')}
+                </button>
+              </motion.div>
+            )}
 
           {/* Additional Information */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.5 }}
-            className="mt-16 bg-gray-800/50 rounded-xl p-6 border border-gray-700"
+            className="mt-16 bg-gray-800/50 rounded-xl p-6 border border-gray-700 hover:border-blue-500/30 hover:shadow-[0_0_25px_-5px_rgba(59,130,246,0.15)] transition-all duration-500"
           >
-            <h2 className="text-xl font-semibold text-white mb-4">
-              {t('nxProjects.about.title')}
-            </h2>
+            <h2 className="text-xl font-semibold text-white mb-4">{t('nxProjects.about.title')}</h2>
             <div className="grid md:grid-cols-2 gap-6 text-gray-300">
               <div>
                 <h3 className="text-lg font-medium text-blue-400 mb-2">Atmosphere</h3>
-                <p className="text-sm">
-                  {t('nxProjects.about.atmosphere')}
-                </p>
+                <p className="text-sm">{t('nxProjects.about.atmosphere')}</p>
               </div>
               <div>
                 <h3 className="text-lg font-medium text-blue-400 mb-2">Hekate</h3>
-                <p className="text-sm">
-                  {t('nxProjects.about.hekate')}
-                </p>
+                <p className="text-sm">{t('nxProjects.about.hekate')}</p>
               </div>
               <div>
                 <h3 className="text-lg font-medium text-blue-400 mb-2">Lockpick_RCM</h3>
-                <p className="text-sm">
-                  {t('nxProjects.about.lockpick')}
-                </p>
+                <p className="text-sm">{t('nxProjects.about.lockpick')}</p>
               </div>
               <div>
                 <h3 className="text-lg font-medium text-blue-400 mb-2">TegraExplorer</h3>
-                <p className="text-sm">
-                  {t('nxProjects.about.tegraExplorer')}
-                </p>
+                <p className="text-sm">{t('nxProjects.about.tegraExplorer')}</p>
               </div>
             </div>
           </motion.div>
         </div>
       </div>
     </PageTransition>
-  );
-};
+  )
+}
 
-export default NXProjects; 
+export default NXProjects

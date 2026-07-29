@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Home, Rocket, Timer } from 'lucide-react';
-import PageTransition from '../components/PageTransition';
-import { useI18n } from '../i18n/context';
+import { motion } from 'framer-motion'
+import { Home, Rocket, Timer } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import PageTransition from '../components/PageTransition'
+import { useI18n } from '../i18n/context'
 
 const NotFound = () => {
-  const { t } = useI18n();
-  const [countdown, setCountdown] = useState(20);
-  const navigate = useNavigate();
+  const { t } = useI18n()
+  const [countdown, setCountdown] = useState(20)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (countdown > 0) {
-      const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-      return () => clearTimeout(timer);
+      const timer = setTimeout(() => setCountdown(countdown - 1), 1000)
+      return () => clearTimeout(timer)
     } else {
-      navigate('/');
+      navigate('/')
     }
-  }, [countdown, navigate]);
+  }, [countdown, navigate])
 
   const getCircleProgress = () => {
-    return ((20 - countdown) / 20) * 100;
-  };
+    return ((20 - countdown) / 20) * 100
+  }
 
   return (
     <PageTransition>
@@ -37,7 +37,7 @@ const NotFound = () => {
             transition={{
               duration: 8,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: 'easeInOut',
             }}
             className="mb-12 sm:mb-12 flex items-center justify-center"
           >
@@ -57,14 +57,14 @@ const NotFound = () => {
                 transition: {
                   duration: 2,
                   repeat: Infinity,
-                  repeatType: "reverse",
-                  ease: "easeInOut"
-                }
+                  repeatType: 'reverse',
+                  ease: 'easeInOut',
+                },
               }}
               transition={{
-                type: "spring",
+                type: 'spring',
                 stiffness: 260,
-                damping: 20
+                damping: 20,
               }}
               className="relative mb-12 cursor-pointer"
             >
@@ -74,12 +74,12 @@ const NotFound = () => {
                   animate={{
                     scale: [1, 1.2, 1],
                     opacity: [0.5, 1, 0.5],
-                    y: [0, -5, 0]
+                    y: [0, -5, 0],
                   }}
                   transition={{
                     duration: 1.5,
                     repeat: Infinity,
-                    ease: "easeInOut"
+                    ease: 'easeInOut',
                   }}
                   className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-blue-500/20 rounded-full filter blur-xl"
                 />
@@ -87,13 +87,13 @@ const NotFound = () => {
                   animate={{
                     scale: [1, 1.3, 1],
                     opacity: [0.3, 0.6, 0.3],
-                    y: [0, -8, 0]
+                    y: [0, -8, 0],
                   }}
                   transition={{
                     duration: 2,
                     repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 0.5
+                    ease: 'easeInOut',
+                    delay: 0.5,
                   }}
                   className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-20 h-20 bg-blue-400/10 rounded-full filter blur-xl"
                 />
@@ -129,7 +129,7 @@ const NotFound = () => {
               className="mb-8 sm:mb-12 flex items-center justify-center"
             >
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32">
-                <svg className="w-full h-full" viewBox="0 0 96 96">
+                <svg className="w-full h-full" viewBox="0 0 96 96" aria-hidden="true">
                   {/* Cercle de fond */}
                   <circle
                     className="text-gray-800"
@@ -150,12 +150,12 @@ const NotFound = () => {
                     cx="48"
                     cy="48"
                     initial={{ pathLength: 0 }}
-                    animate={{ 
+                    animate={{
                       pathLength: getCircleProgress() / 100,
                       transition: {
                         duration: 1,
-                        ease: "linear"
-                      }
+                        ease: 'linear',
+                      },
                     }}
                     strokeDasharray="276.46"
                     strokeDashoffset="276.46"
@@ -169,23 +169,23 @@ const NotFound = () => {
                     initial={{ scale: 0.8 }}
                     animate={{
                       scale: [0.8, 1],
-                      opacity: [0, 1]
+                      opacity: [0, 1],
                     }}
                     transition={{
                       duration: 0.3,
-                      ease: "easeOut"
+                      ease: 'easeOut',
                     }}
                     className="relative"
                   >
                     <motion.div
                       animate={{
                         scale: [1, 1.1, 1],
-                        opacity: [1, 0.8, 1]
+                        opacity: [1, 0.8, 1],
                       }}
                       transition={{
                         duration: 2,
                         repeat: Infinity,
-                        ease: "easeInOut"
+                        ease: 'easeInOut',
                       }}
                       className="absolute inset-0 bg-blue-500/20 rounded-full blur-md"
                     />
@@ -239,7 +239,7 @@ const NotFound = () => {
         </div>
       </div>
     </PageTransition>
-  );
-};
+  )
+}
 
-export default NotFound;
+export default NotFound

@@ -1,173 +1,131 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Globe, MessageSquare, Gamepad2, ChevronRight, MessageCircle } from 'lucide-react';
-import PageTransition from '../components/PageTransition';
+import { motion } from 'framer-motion'
+import { ChevronRight, Gamepad2, Globe, MessageCircle, MessageSquare } from 'lucide-react'
+import React from 'react'
+import PageTransition from '../components/PageTransition'
 
 const Partners = () => {
   const partners = [
     {
-      name: "Sblerky",
+      name: 'Sblerky',
       description: "Communauté dédiée au modding et à l'entraide",
-      type: "Support Technique",
-      badgeColor: "bg-emerald-500/10 text-emerald-400",
+      type: 'Support Technique',
+      badgeColor: 'bg-emerald-500/10 text-emerald-400',
       icon: MessageSquare,
-      image: "/partners/sblerky.jpg",
+      image: '/partners/sblerky.jpg',
       links: [
-        { label: "Discord", url: "https://discordapp.com/invite/c9HJVkbufc", icon: MessageCircle }
+        { label: 'Discord', url: 'https://discordapp.com/invite/c9HJVkbufc', icon: MessageCircle },
       ],
-      features: [
-        "Support technique",
-        "Entraide communautaire",
-        "Communauté active"
-      ]
+      features: ['Support technique', 'Entraide communautaire', 'Communauté active'],
     },
     {
-      name: "LS-Atelier",
-      description: "Communauté spécialisée dans le modding",
-      type: "Support Technique",
-      badgeColor: "bg-emerald-500/10 text-emerald-400",
+      name: 'LS-Atelier',
+      description: 'Communauté spécialisée dans le modding',
+      type: 'Support Technique',
+      badgeColor: 'bg-emerald-500/10 text-emerald-400',
       icon: Gamepad2,
-      image: "/partners/ls_atelier.jpg",
-      links: [
-        { label: "Discord", url: "https://discord.gg/ykn7xXvJrd", icon: MessageCircle }
-      ],
-      features: [
-        "Support technique avancé",
-        "Guides et tutoriels",
-        "Communauté d'experts"
-      ]
+      image: '/partners/ls_atelier.jpg',
+      links: [{ label: 'Discord', url: 'https://discord.gg/ykn7xXvJrd', icon: MessageCircle }],
+      features: ['Support technique avancé', 'Guides et tutoriels', "Communauté d'experts"],
     },
     {
-      name: "Homebrew France",
-      description: "La référence française du homebrew et du modding",
-      type: "Ressources & Documentation",
-      badgeColor: "bg-purple-500/10 text-purple-400",
+      name: 'Homebrew France',
+      description: 'La référence française du homebrew et du modding',
+      type: 'Ressources & Documentation',
+      badgeColor: 'bg-purple-500/10 text-purple-400',
       icon: Globe,
-      image: "/partners/homebrew_france.png",
-      links: [
-        { label: "Site Web", url: "https://homebrewfrance.fr", icon: Globe }
-      ],
-      features: [
-        "Actualités homebrew",
-        "Ressources techniques",
-        "Documentation française"
-      ]
+      image: '/partners/homebrew_france.png',
+      links: [{ label: 'Site Web', url: 'https://homebrewfrance.fr', icon: Globe }],
+      features: ['Actualités homebrew', 'Ressources techniques', 'Documentation française'],
     },
     {
-      name: "Oxycore",
+      name: 'Oxycore',
       description: "Communauté d'émulation et de préservation",
-      type: "Émulation",
-      badgeColor: "bg-amber-500/10 text-amber-400",
+      type: 'Émulation',
+      badgeColor: 'bg-amber-500/10 text-amber-400',
       icon: Gamepad2,
-      image: "/partners/oxycore.png",
+      image: '/partners/oxycore.png',
       links: [
-        { label: "Discord", url: "https://discord.gg/oxycore-emulation-1015296412013035591", icon: MessageCircle }
+        {
+          label: 'Discord',
+          url: 'https://discord.gg/oxycore-emulation-1015296412013035591',
+          icon: MessageCircle,
+        },
       ],
-      features: [
-        "Émulation de consoles",
-        "Préservation des jeux",
-        "Support technique"
-      ]
+      features: ['Émulation de consoles', 'Préservation des jeux', 'Support technique'],
     },
     {
-      name: "My Happy Ten Challenge",
-      description: "Challenges et nostalgie du retrogaming",
-      type: "Retrogaming",
-      badgeColor: "bg-rose-500/10 text-rose-400",
+      name: 'My Happy Ten Challenge',
+      description: 'Challenges et nostalgie du retrogaming',
+      type: 'Retrogaming',
+      badgeColor: 'bg-rose-500/10 text-rose-400',
       icon: Gamepad2,
-      image: "/partners/happy_ten.jpg",    
-      links: [
-        { label: "Site Web", url: "http://retrogaming.charpenel.org/", icon: Globe }
-      ],
-      features: [
-        "Challenges retrogaming",
-        "Événements communautaires",
-        "Partage de passion"
-      ]
+      image: '/partners/happy_ten.jpg',
+      links: [{ label: 'Site Web', url: 'http://retrogaming.charpenel.org/', icon: Globe }],
+      features: ['Challenges retrogaming', 'Événements communautaires', 'Partage de passion'],
     },
     {
       name: "HizMod's",
       description: "Communauté de modding et d'entraide",
-      type: "Support Technique",
-      badgeColor: "bg-emerald-500/10 text-emerald-400",
+      type: 'Support Technique',
+      badgeColor: 'bg-emerald-500/10 text-emerald-400',
       icon: MessageSquare,
-      image: "/partners/hiz_mod.webp",
-      links: [
-        { label: "Discord", url: "https://discord.gg/2XwaXfBtDr", icon: MessageCircle }
-      ],
-      features: [
-        "Support technique",
-        "Guides de modding",
-        "Communauté active"
-      ]
+      image: '/partners/hiz_mod.webp',
+      links: [{ label: 'Discord', url: 'https://discord.gg/2XwaXfBtDr', icon: MessageCircle }],
+      features: ['Support technique', 'Guides de modding', 'Communauté active'],
     },
     {
-      name: "Anth0 - Mig Switch",
-      description: "Expertise en modding de Nintendo Switch",
-      type: "Support Nintendo",
-      badgeColor: "bg-red-500/10 text-red-400",
+      name: 'Anth0 - Mig Switch',
+      description: 'Expertise en modding de Nintendo Switch',
+      type: 'Support Nintendo',
+      badgeColor: 'bg-red-500/10 text-red-400',
       icon: Gamepad2,
-      image: "/partners/anth0_mig.png",
-      links: [
-        { label: "Discord", url: "https://discord.gg/2XwaXfBtDr", icon: MessageCircle }
-      ],
-      features: [
-        "Spécialiste Switch",
-        "Support technique",
-        "Guides détaillés"
-      ]
+      image: '/partners/anth0_mig.png',
+      links: [{ label: 'Discord', url: 'https://discord.gg/2XwaXfBtDr', icon: MessageCircle }],
+      features: ['Spécialiste Switch', 'Support technique', 'Guides détaillés'],
     },
     {
-      name: "Akitatek",
-      description: "Communauté technique et modding",
-      type: "Support Technique",
-      badgeColor: "bg-emerald-500/10 text-emerald-400",
+      name: 'Akitatek',
+      description: 'Communauté technique et modding',
+      type: 'Support Technique',
+      badgeColor: 'bg-emerald-500/10 text-emerald-400',
       icon: MessageSquare,
-      image: "/partners/akitatek.png",
-      links: [
-        { label: "Discord", url: "https://discord.gg/Kzjw8VAXMd", icon: MessageCircle }
-      ],
-      features: [
-        "Support technique",
-        "Entraide communautaire",
-        "Ressources modding"
-      ]
+      image: '/partners/akitatek.png',
+      links: [{ label: 'Discord', url: 'https://discord.gg/Kzjw8VAXMd', icon: MessageCircle }],
+      features: ['Support technique', 'Entraide communautaire', 'Ressources modding'],
     },
     {
-      name: "Game Boy - Jeux, Homebrew, Mods",
-      type: "Retrogaming",
-      badgeColor: "bg-rose-500/10 text-rose-400",
+      name: 'Game Boy - Jeux, Homebrew, Mods',
+      type: 'Retrogaming',
+      badgeColor: 'bg-rose-500/10 text-rose-400',
       icon: MessageSquare,
-      image: "/partners/game_boy.png",
-      links: [
-        { label: "Discord", url: "https://discord.gg/RyEchWsHnq", icon: MessageCircle }
-      ],
+      image: '/partners/game_boy.png',
+      links: [{ label: 'Discord', url: 'https://discord.gg/RyEchWsHnq', icon: MessageCircle }],
       features: [
-        "Développement Homebrew",
-        "Développement Mods",
-        "Conception de jeux GB/GBA en physique"
-      ]
-    }
-  ];
+        'Développement Homebrew',
+        'Développement Mods',
+        'Conception de jeux GB/GBA en physique',
+      ],
+    },
+  ]
 
   const collaborations = [
     {
-      title: "Projets Communautaires",
-      description: "Développement de projets open source pour la communauté modding",
-      icon: MessageSquare
+      title: 'Projets Communautaires',
+      description: 'Développement de projets open source pour la communauté modding',
+      icon: MessageSquare,
     },
     {
-      title: "Événements Partagés",
+      title: 'Événements Partagés',
       description: "Organisation d'événements en collaboration avec nos partenaires",
-      icon: MessageCircle
-    }
-  ];
+      icon: MessageCircle,
+    },
+  ]
 
   return (
     <PageTransition>
       <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 pt-32 pb-16 relative">
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           {/* Header */}
           <motion.div
@@ -180,8 +138,8 @@ const Partners = () => {
               Nos Partenaires
             </h1>
             <p className="text-lg sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
-              Découvrez les partenaires qui nous accompagnent dans notre mission de 
-              promouvoir le modding et la préservation des jeux vidéo.
+              Découvrez les partenaires qui nous accompagnent dans notre mission de promouvoir le
+              modding et la préservation des jeux vidéo.
             </p>
           </motion.div>
 
@@ -195,7 +153,7 @@ const Partners = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="sm:hidden bg-gray-800/80 backdrop-blur-sm rounded-xl border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group overflow-hidden"
+                  className="sm:hidden bg-gray-800/80 backdrop-blur-sm rounded-xl border border-blue-500/20 hover:border-blue-500/50 hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.25)] transition-all duration-500 group overflow-hidden hover:-translate-y-1"
                 >
                   <div className="p-6">
                     <div className="flex flex-col gap-4 mb-6">
@@ -212,10 +170,10 @@ const Partners = () => {
                           </div>
                         )}
                         <div className="flex-1">
-                          <h3 className="text-xl font-bold text-white mb-2">
-                            {partner.name}
-                          </h3>
-                          <span className={`inline-flex px-3 py-1.5 rounded-full text-sm font-medium ${partner.badgeColor}`}>
+                          <h3 className="text-xl font-bold text-white mb-2">{partner.name}</h3>
+                          <span
+                            className={`inline-flex px-3 py-1.5 rounded-full text-sm font-medium ${partner.badgeColor}`}
+                          >
                             {partner.type}
                           </span>
                         </div>
@@ -226,7 +184,10 @@ const Partners = () => {
                     </p>
                     <ul className="space-y-4 mb-6">
                       {partner.features.map((feature) => (
-                        <li key={feature} className="flex items-center text-gray-300 text-sm sm:text-base md:text-lg">
+                        <li
+                          key={feature}
+                          className="flex items-center text-gray-300 text-sm sm:text-base md:text-lg"
+                        >
                           <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 bg-blue-500 rounded-full mr-2 sm:mr-3 md:mr-4" />
                           {feature}
                         </li>
@@ -254,7 +215,7 @@ const Partners = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="hidden sm:block bg-gray-800/80 backdrop-blur-sm rounded-xl p-5 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 group"
+                  className="hidden sm:block bg-gray-800/80 backdrop-blur-sm rounded-xl p-5 border border-blue-500/20 hover:border-blue-500/50 hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.25)] transition-all duration-500 group hover:-translate-y-1"
                 >
                   <div className="flex items-start gap-4">
                     {partner.image ? (
@@ -270,16 +231,14 @@ const Partners = () => {
                     )}
                     <div className="flex-1">
                       <div className="flex flex-col gap-2 mb-4">
-                        <h3 className="text-lg font-bold text-white">
-                          {partner.name}
-                        </h3>
-                        <span className={`inline-flex px-3 py-1.5 rounded-full text-sm font-medium ${partner.badgeColor} self-start`}>
+                        <h3 className="text-lg font-bold text-white">{partner.name}</h3>
+                        <span
+                          className={`inline-flex px-3 py-1.5 rounded-full text-sm font-medium ${partner.badgeColor} self-start`}
+                        >
                           {partner.type}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-300 mb-4">
-                        {partner.description}
-                      </p>
+                      <p className="text-sm text-gray-300 mb-4">{partner.description}</p>
                       <div className="space-y-4">
                         <div className="flex flex-wrap gap-3">
                           {partner.links.map((link) => (
@@ -320,9 +279,7 @@ const Partners = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-10 sm:mb-12"
           >
-            <h2 className="text-3xl sm:text-3xl font-bold text-white mb-4">
-              Nos Collaborations
-            </h2>
+            <h2 className="text-3xl sm:text-3xl font-bold text-white mb-4">Nos Collaborations</h2>
             <p className="text-lg text-gray-300">
               Découvrez les différentes façons dont nous collaborons avec nos partenaires
             </p>
@@ -336,19 +293,15 @@ const Partners = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 sm:p-5 border border-blue-500/20"
+                className="bg-gray-800/60 backdrop-blur-sm rounded-xl p-4 sm:p-5 border border-blue-500/20 hover:border-blue-500/40 hover:shadow-[0_0_20px_-5px_rgba(59,130,246,0.2)] transition-all duration-500"
               >
                 <div className="flex items-center gap-4">
                   <div className="p-2.5 bg-blue-500/10 rounded-lg">
                     <collab.icon className="w-5 h-5 text-blue-400" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-white mb-1.5">
-                      {collab.title}
-                    </h3>
-                    <p className="text-sm text-gray-300">
-                      {collab.description}
-                    </p>
+                    <h3 className="text-lg font-semibold text-white mb-1.5">{collab.title}</h3>
+                    <p className="text-sm text-gray-300">{collab.description}</p>
                   </div>
                 </div>
               </motion.div>
@@ -357,8 +310,7 @@ const Partners = () => {
         </div>
       </div>
     </PageTransition>
-  );
-};
+  )
+}
 
-export default Partners;
-
+export default Partners

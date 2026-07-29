@@ -1,51 +1,51 @@
-import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { RefreshCw, Calendar } from 'lucide-react';
-import PageTransition from '../components/PageTransition';
-import { useI18n } from '../i18n/context';
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { Calendar, RefreshCw } from 'lucide-react'
+import PageTransition from '../components/PageTransition'
+import { useI18n } from '../i18n/context'
 
 const Roadmap = () => {
-  const { t } = useI18n();
-  const { scrollY } = useScroll();
+  const { t } = useI18n()
+  const { scrollY } = useScroll()
 
-  const backgroundY = useTransform(scrollY, [0, 1000], ['0%', '50%']);
-  const backgroundOpacity = useTransform(scrollY, [0, 300], [0.03, 0.05]);
+  const backgroundY = useTransform(scrollY, [0, 1000], ['0%', '50%'])
+  const backgroundOpacity = useTransform(scrollY, [0, 300], [0.03, 0.05])
 
-    const projects = [
+  const projects = [
     {
       icon: RefreshCw,
-      title: t('Mise à jour du site'),
-      description: t('Nouvelle mise à jour du site rajoutant plusieurs grosse nouveauté'),
-      timeline: "Décembre 2025",
-      status: "En cours" 
+      title: 'Mise à jour du site',
+      description: 'Nouvelle mise à jour du site rajoutant plusieurs grosse nouveauté',
+      timeline: 'Décembre 2025',
+      status: 'En cours',
     },
     {
       icon: RefreshCw,
-      title: t('Git Auto Hébergé'),
-      description: t('Git Auto Hébergé pour proposé nos services sur un serveur centralisé en plus de Github.'),
-      timeline: "Q2 2026",
-      status: "Prochainement" 
-    }
-  ];
+      title: 'Git Auto Hébergé',
+      description:
+        'Git Auto Hébergé pour proposé nos services sur un serveur centralisé en plus de Github.',
+      timeline: 'Q2 2026',
+      status: 'Prochainement',
+    },
+  ]
 
   return (
     <PageTransition>
       <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 pt-32 pb-16 relative overflow-hidden px-4 sm:px-6">
-        <motion.div 
+        <motion.div
           className="absolute inset-0 bg-grid-pattern"
-          style={{ 
+          style={{
             opacity: backgroundOpacity,
-            y: backgroundY
+            y: backgroundY,
           }}
         />
-        
+
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ 
+            transition={{
               duration: 0.6,
-              ease: "easeOut"
+              ease: 'easeOut',
             }}
             className="text-center mb-10 sm:mb-16"
           >
@@ -59,7 +59,7 @@ const Roadmap = () => {
 
           <div className="relative">
             <motion.div className="hidden sm:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-blue-500/20 rounded-full" />
-            
+
             <div className="space-y-8 sm:space-y-16">
               {projects.map((project, index) => (
                 <motion.div
@@ -68,26 +68,27 @@ const Roadmap = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
                   viewport={{ once: true }}
-                  transition={{ 
+                  transition={{
                     duration: 0.6,
                     delay: index * 0.15,
-                    type: "spring",
-                    bounce: 0.3
+                    type: 'spring',
+                    bounce: 0.3,
                   }}
-                  onTap={() => setSelectedProject(selectedProject === index ? null : index)}
                   className={`relative flex ${
-                    index % 2 === 0 
-                      ? 'sm:justify-start justify-center' 
+                    index % 2 === 0
+                      ? 'sm:justify-start justify-center'
                       : 'sm:justify-end justify-center'
                   }`}
                 >
                   <div className="w-full sm:w-[calc(50%-2rem)] relative">
-                    <div className={`hidden sm:flex absolute top-0 ${
-                      index % 2 === 0 ? '-right-12' : '-left-12'
-                    } w-12 h-12 items-center justify-center`}>
+                    <div
+                      className={`hidden sm:flex absolute top-0 ${
+                        index % 2 === 0 ? '-right-12' : '-left-12'
+                      } w-12 h-12 items-center justify-center`}
+                    >
                       <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-blue-500 shadow-lg shadow-blue-500/50"></div>
                     </div>
-                    <motion.div 
+                    <motion.div
                       className="bg-gray-800/80 backdrop-blur-sm p-5 sm:p-6 lg:p-8 rounded-xl border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 shadow-xl group"
                       whileHover={{ scale: 1.02 }}
                       initial={{ opacity: 0, y: 20 }}
@@ -95,9 +96,9 @@ const Roadmap = () => {
                       viewport={{ once: true }}
                       transition={{
                         duration: 0.6,
-                        ease: "easeOut"
+                        ease: 'easeOut',
                       }}
-                    > 
+                    >
                       <div className="flex items-center gap-3 sm:gap-4 mb-4">
                         <div className="p-2.5 sm:p-3 bg-blue-500/10 rounded-lg">
                           <project.icon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
@@ -112,35 +113,38 @@ const Roadmap = () => {
                             animate={{ opacity: 1 }}
                             transition={{
                               delay: 0.3,
-                              duration: 0.3
+                              duration: 0.3,
                             }}
                           >
                             <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400" />
-                            <span className="text-xs sm:text-sm text-blue-300">{project.timeline}</span>
+                            <span className="text-xs sm:text-sm text-blue-300">
+                              {project.timeline}
+                            </span>
                           </motion.div>
                         </div>
                       </div>
 
-                      <motion.p 
+                      <motion.p
                         className="text-sm sm:text-base text-gray-300 mb-4"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{
                           delay: 0.4,
-                          duration: 0.3
-                        }}>
-                          {project.description}
+                          duration: 0.3,
+                        }}
+                      >
+                        {project.description}
                       </motion.p>
-                      
-                      <motion.div 
+
+                      <motion.div
                         className="inline-flex items-center px-2.5 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium bg-blue-500/10 text-blue-400"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         transition={{
-                          duration: 0.3
-                        }} 
+                          duration: 0.3,
+                        }}
                       >
                         {project.status}
                       </motion.div>
@@ -153,8 +157,7 @@ const Roadmap = () => {
         </div>
       </div>
     </PageTransition>
-  );
-};
+  )
+}
 
-export default Roadmap;
-
+export default Roadmap

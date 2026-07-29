@@ -1,14 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useI18n } from '../i18n/context';
+import { Link } from 'react-router-dom'
+import { useI18n } from '../i18n/context'
 
 /**
  * Footer component - Site footer with links and copyright information
  * Displays contact information, legal links, and version information
  */
 const Footer = () => {
-  const { t } = useI18n();
-  
+  const { t } = useI18n()
+
   return (
     <footer className="bg-midnight-900">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -16,17 +15,11 @@ const Footer = () => {
           {/* Logo and tagline section */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/">
-              <img
-                className="h-14 w-auto"
-                src="/logo.png"
-                alt="SigHya"
-              />
+              <img className="h-14 w-auto" src="/logo.png" alt="SigHya" />
             </Link>
-            <p className="mt-4 text-gray-200 text-sm">
-              {t('roadmap.footer.tagline')}
-            </p>
+            <p className="mt-4 text-gray-200 text-sm">{t('roadmap.footer.tagline')}</p>
           </div>
-          
+
           {/* Contact information */}
           <div>
             <h3 className="text-white text-sm font-semibold uppercase tracking-wider mb-2">
@@ -34,18 +27,24 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2">
               <li>
-                <a href="mailto:contact@sighya.fr" className="text-gray-200 hover:text-white text-sm">
+                <a
+                  href="mailto:contact@sighya.fr"
+                  className="text-gray-200 hover:text-white text-sm"
+                >
                   {t('roadmap.footer.contact.email')}
                 </a>
               </li>
               <li>
-                <a href="https://discord.sighya.fr" className="text-gray-200 hover:text-white text-sm">
+                <a
+                  href="https://discord.sighya.fr"
+                  className="text-gray-200 hover:text-white text-sm"
+                >
                   {t('roadmap.footer.contact.support')}
                 </a>
               </li>
             </ul>
           </div>
-          
+
           {/* Legal links */}
           <div>
             <h3 className="text-white text-sm font-semibold uppercase tracking-wider mb-2">
@@ -53,25 +52,19 @@ const Footer = () => {
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link
-                  to="/legal"
-                  className="text-gray-200 hover:text-white text-sm"
-                >
+                <Link to="/legal" className="text-gray-200 hover:text-white text-sm">
                   {t('roadmap.footer.legal.terms')}
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/legal"
-                  className="text-gray-200 hover:text-white text-sm"
-                >
+                <Link to="/legal" className="text-gray-200 hover:text-white text-sm">
                   {t('roadmap.footer.legal.privacy')}
                 </Link>
               </li>
             </ul>
           </div>
         </div>
-        
+
         {/* Copyright and version information */}
         <div className="mt-6 md:mt-8 border-t border-midnight-800 pt-6 md:pt-8">
           <p className="text-center text-gray-300 text-sm">
@@ -85,7 +78,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

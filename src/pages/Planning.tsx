@@ -4,49 +4,58 @@
  * Data is fetched from Nautiljon with fallback to local JSON
  */
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, AlertCircle } from 'lucide-react';
-import PageTransition from '../components/PageTransition';
-import MangaCard from '../components/manga/MangaCard';
-import MangaFilters from '../components/manga/MangaFilters';
-import MangaPagination from '../components/manga/MangaPagination';
-import { useMangaPlanning } from '../hooks/useMangaPlanning';
-import { useI18n } from '../i18n/context';
-import { generateICS } from '../utils/icsGenerator';
-import { ITEMS_PER_PAGE } from '../constants/manga';
-import { SkeletonCard } from '../components/ui/Skeleton';
-import { doesMangaMatchIsoDate, getMangaSortTime, isMangaInDateWindow, parseEuroPrice } from '../utils/mangaDates';
+import { AnimatePresence, motion } from 'framer-motion'
+import { AlertCircle, Calendar } from 'lucide-react'
+import { useState } from 'react'
+import MangaCard from '../components/manga/MangaCard'
+import MangaFilters from '../components/manga/MangaFilters'
+import MangaPagination from '../components/manga/MangaPagination'
+import PageTransition from '../components/PageTransition'
+import { SkeletonCard } from '../components/ui/Skeleton'
+import { ITEMS_PER_PAGE } from '../constants/manga'
+import { useMangaPlanning } from '../hooks/useMangaPlanning'
+import { useI18n } from '../i18n/context'
+import { generateICS } from '../utils/icsGenerator'
+import {
+  doesMangaMatchIsoDate,
+  getMangaSortTime,
+  isMangaInDateWindow,
+  parseEuroPrice,
+} from '../utils/mangaDates'
 
 const Planning = () => {
-  const { t } = useI18n();
-  const { mangas, loading, error } = useMangaPlanning();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [selectedDate, setSelectedDate] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedPublisher, setSelectedPublisher] = useState<string>('');
-  const [sortBy, setSortBy] = useState<string>('date');
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
-  const [timeFilter, setTimeFilter] = useState<'all' | 'today' | 'week'>('all');
+  const { t } = useI18n()
+  const { mangas, loading, error } = useMangaPlanning()
+  const [searchTerm, setSearchTerm] = useState('')
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+  const [selectedDate, setSelectedDate] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [selectedPublisher, setSelectedPublisher] = useState<string>('')
+  const [sortBy, setSortBy] = useState<string>('date')
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc')
+  const [timeFilter, setTimeFilter] = useState<'all' | 'today' | 'week'>('all')
 
-  const publishers = [...new Set(mangas.map(manga => manga.editeur).filter(Boolean))];
+  const publishers = [...new Set(mangas.map((manga) => manga.editeur).filter(Boolean))]
 
   const getWeekDates = () => {
-    const now = new Date();
-    const startOfWeek = new Date(now);
-    startOfWeek.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1));
-    const endOfWeek = new Date(startOfWeek);
-    endOfWeek.setDate(startOfWeek.getDate() + 6);
+    const now = new Date()
+    const startOfWeek = new Date(now)
+    startOfWeek.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1))
+    const endOfWeek = new Date(startOfWeek)
+    endOfWeek.setDate(startOfWeek.getDate() + 6)
     return {
       start: startOfWeek,
-      end: endOfWeek
-    };
-  };
+      end: endOfWeek,
+    }
+  }
 
   const isDateInCurrentWeek = (dateStr: string) => {
-    const week = getWeekDates();
-    const weekEndExclusive = new Date(week.end.getFullYear(), week.end.getMonth(), week.end.getDate() + 1);
+    const week = getWeekDates()
+    const weekEndExclusive = new Date(
+      week.end.getFullYear(),
+      week.end.getMonth(),
+      week.end.getDate() + 1,
+    )
     return isMangaInDateWindow(
       {
         id: '',
@@ -58,79 +67,79 @@ const Planning = () => {
         image: '',
       },
       week.start,
-      weekEndExclusive
-    );
-  };
+      weekEndExclusive,
+    )
+  }
 
   const filteredMangas = mangas
-    .filter(manga => {
-      const matchesSearch = manga.nom_manga.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesPublisher = !selectedPublisher || manga.editeur === selectedPublisher;
-      
-      let matchesDate = true;
+    .filter((manga) => {
+      const matchesSearch = manga.nom_manga.toLowerCase().includes(searchTerm.toLowerCase())
+      const matchesPublisher = !selectedPublisher || manga.editeur === selectedPublisher
+
+      let matchesDate = true
       if (selectedDate) {
-        matchesDate = doesMangaMatchIsoDate(manga, selectedDate);
+        matchesDate = doesMangaMatchIsoDate(manga, selectedDate)
       }
 
-      let matchesTimeFilter = true;
+      let matchesTimeFilter = true
       switch (timeFilter) {
         case 'today':
-          matchesTimeFilter = doesMangaMatchIsoDate(manga, new Date().toISOString().slice(0, 10));
-          break;
+          matchesTimeFilter = doesMangaMatchIsoDate(manga, new Date().toISOString().slice(0, 10))
+          break
         case 'week':
-          matchesTimeFilter = isDateInCurrentWeek(manga.date_sortie);
-          break;
+          matchesTimeFilter = isDateInCurrentWeek(manga.date_sortie)
+          break
         default:
-          matchesTimeFilter = true;
+          matchesTimeFilter = true
       }
-      
-      return matchesSearch && matchesPublisher && matchesTimeFilter && matchesDate;
+
+      return matchesSearch && matchesPublisher && matchesTimeFilter && matchesDate
     })
     .sort((a, b) => {
-      let comparison = 0;
+      let comparison = 0
       switch (sortBy) {
         case 'date':
-          comparison = getMangaSortTime(a.date_sortie) - getMangaSortTime(b.date_sortie);
-          break;
+          comparison = getMangaSortTime(a.date_sortie) - getMangaSortTime(b.date_sortie)
+          break
         case 'price':
-          comparison = parseEuroPrice(a.prix) - parseEuroPrice(b.prix);
-          break;
+          comparison = parseEuroPrice(a.prix) - parseEuroPrice(b.prix)
+          break
         case 'name':
-          comparison = a.nom_manga.localeCompare(b.nom_manga);
-          break;
+          comparison = a.nom_manga.localeCompare(b.nom_manga)
+          break
       }
-      return sortDirection === 'asc' ? comparison : -comparison;
-    });
+      return sortDirection === 'asc' ? comparison : -comparison
+    })
 
-  const totalPages = Math.ceil(filteredMangas.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filteredMangas.length / ITEMS_PER_PAGE)
   const paginatedMangas = filteredMangas.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
+    currentPage * ITEMS_PER_PAGE,
+  )
 
   const downloadICS = () => {
-    const icsContent = generateICS(mangas);
-    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-    const filename = 'planning_manga.ics';
-    
-    const link = document.createElement('a');
-    const url = window.URL.createObjectURL(blob);
-    link.href = url;
-    link.setAttribute('download', filename);
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    
+    const icsContent = generateICS(mangas)
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' })
+    const filename = 'planning_manga.ics'
+
+    const link = document.createElement('a')
+    const url = window.URL.createObjectURL(blob)
+    link.href = url
+    link.setAttribute('download', filename)
+    link.style.display = 'none'
+    document.body.appendChild(link)
+    link.click()
+
     // Clean up
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
-  };
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(url)
+  }
 
   return (
     <PageTransition>
       <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 pt-20 sm:pt-24 md:pt-32 pb-8 sm:pb-12 md:pb-16 relative">
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
-        
+
         <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 relative">
           {/* Header */}
           <motion.div
@@ -150,7 +159,7 @@ const Planning = () => {
                 onClick={downloadICS}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto inline-flex items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-blue-500 text-white rounded-lg sm:rounded-xl font-medium shadow-lg shadow-blue-500/20 hover:bg-blue-600 transition-all duration-300"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 text-sm sm:text-base bg-blue-500 text-white rounded-lg sm:rounded-xl font-medium shadow-lg shadow-blue-500/20 hover:bg-blue-600 hover:shadow-[0_0_25px_-5px_rgba(59,130,246,0.4)] transition-all duration-500"
               >
                 <Calendar className="w-5 h-5 mr-2" />
                 {t('planning.actions.downloadCalendar')}
@@ -158,36 +167,46 @@ const Planning = () => {
 
               <motion.button
                 onClick={() => {
-                  setTimeFilter(timeFilter === 'today' ? 'all' : 'today');
-                  setCurrentPage(1);
+                  setTimeFilter(timeFilter === 'today' ? 'all' : 'today')
+                  setCurrentPage(1)
                 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`w-full sm:w-auto inline-flex items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl font-medium shadow-lg transition-all duration-300 ${
+                className={`w-full sm:w-auto inline-flex items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl font-medium shadow-lg transition-all duration-500 ${
                   timeFilter === 'today'
-                    ? 'bg-blue-500 text-white shadow-blue-500/20 hover:bg-blue-600'
-                    : 'bg-gray-800 text-blue-400 shadow-gray-900/20 hover:bg-gray-700'
+                    ? 'bg-blue-500 text-white shadow-blue-500/30 hover:bg-blue-600 hover:shadow-[0_0_25px_-5px_rgba(59,130,246,0.4)]'
+                    : 'bg-gray-800 text-blue-400 shadow-gray-900/20 hover:bg-gray-700 hover:border-blue-500/30 border border-gray-700/50'
                 }`}
               >
                 <Calendar className="w-5 h-5 mr-2" />
-                {timeFilter === 'today' ? t('planning.actions.showAll') : t('planning.actions.todayReleases')}
+                {timeFilter === 'today'
+                  ? t('planning.actions.showAll')
+                  : t('planning.actions.todayReleases')}
+                {timeFilter === 'today' && (
+                  <span className="ml-2 w-2 h-2 bg-white rounded-full animate-pulse" />
+                )}
               </motion.button>
 
               <motion.button
                 onClick={() => {
-                  setTimeFilter(timeFilter === 'week' ? 'all' : 'week');
-                  setCurrentPage(1);
+                  setTimeFilter(timeFilter === 'week' ? 'all' : 'week')
+                  setCurrentPage(1)
                 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`w-full sm:w-auto inline-flex items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl font-medium shadow-lg transition-all duration-300 ${
+                className={`w-full sm:w-auto inline-flex items-center justify-center px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl font-medium shadow-lg transition-all duration-500 ${
                   timeFilter === 'week'
-                    ? 'bg-blue-500 text-white shadow-blue-500/20 hover:bg-blue-600'
-                    : 'bg-gray-800 text-blue-400 shadow-gray-900/20 hover:bg-gray-700'
+                    ? 'bg-blue-500 text-white shadow-blue-500/30 hover:bg-blue-600 hover:shadow-[0_0_25px_-5px_rgba(59,130,246,0.4)]'
+                    : 'bg-gray-800 text-blue-400 shadow-gray-900/20 hover:bg-gray-700 hover:border-blue-500/30 border border-gray-700/50'
                 }`}
               >
                 <Calendar className="w-5 h-5 mr-2" />
-                {timeFilter === 'week' ? t('planning.actions.showAll') : t('planning.actions.weekReleases')}
+                {timeFilter === 'week'
+                  ? t('planning.actions.showAll')
+                  : t('planning.actions.weekReleases')}
+                {timeFilter === 'week' && (
+                  <span className="ml-2 w-2 h-2 bg-white rounded-full animate-pulse" />
+                )}
               </motion.button>
             </div>
           </motion.div>
@@ -234,11 +253,11 @@ const Planning = () => {
           )}
 
           {/* Manga Grid */}
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6"
             layout
           >
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="popLayout">
               {paginatedMangas.map((manga, index) => (
                 <MangaCard
                   key={`${manga.id}-${manga.nom_manga}-${index}`}
@@ -249,21 +268,81 @@ const Planning = () => {
               ))}
             </AnimatePresence>
           </motion.div>
-          
+
           {/* Empty State */}
           {!loading && paginatedMangas.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-gray-400">{t('planning.empty')}</p>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center py-16"
+            >
+              <div className="inline-flex items-center justify-center p-4 bg-gray-800/50 rounded-full mb-4">
+                <Calendar className="w-8 h-8 text-blue-400" />
+              </div>
+              {timeFilter === 'today' ? (
+                <>
+                  <p className="text-gray-400 text-lg mb-2">
+                    {t('planning.emptyToday') || 'Aucune sortie prévue pour aujourd\'hui'}
+                  </p>
+                  <p className="text-gray-500 text-sm mb-4">
+                    {filteredMangas.length === 0
+                      ? t('planning.emptyTodayHint') || 'Vous pouvez consulter les prochaines sorties en désactivant le filtre'
+                      : ''}
+                  </p>
+                </>
+              ) : timeFilter === 'week' ? (
+                <>
+                  <p className="text-gray-400 text-lg mb-2">
+                    {t('planning.emptyWeek') || 'Aucune sortie prévue cette semaine'}
+                  </p>
+                  <p className="text-gray-500 text-sm mb-4">
+                    {t('planning.emptyWeekHint') || 'Revenez plus tard ou consultez tout le planning'}
+                  </p>
+                </>
+              ) : (
+                <p className="text-gray-400 text-lg">{t('planning.empty')}</p>
+              )}
+              {(timeFilter !== 'all' || selectedDate || selectedPublisher || searchTerm) && (
+                <motion.button
+                  onClick={() => {
+                    setTimeFilter('all')
+                    setSelectedDate('')
+                    setSelectedPublisher('')
+                    setSearchTerm('')
+                    setCurrentPage(1)
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="mt-4 px-6 py-2.5 bg-blue-500/20 text-blue-400 rounded-xl border border-blue-500/30 hover:bg-blue-500/30 transition-all duration-500"
+                >
+                  {t('planning.filters.clearAllFilters') || 'Effacer tous les filtres'}
+                </motion.button>
+              )}
+            </motion.div>
           )}
 
           {/* Results Count */}
           {filteredMangas.length > 0 && (
-            <div className="mt-4 text-center text-gray-400">
-              {filteredMangas.length} {t(`planning.filters.${filteredMangas.length === 1 ? 'results' : 'results_plural'}`)}
-            </div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="mt-6 text-center"
+            >
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-gray-800/50 rounded-full text-sm text-gray-400 border border-gray-700/50">
+                <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+                {filteredMangas.length}{' '}
+                {t(`planning.filters.${filteredMangas.length === 1 ? 'results' : 'results_plural'}`)}
+                {timeFilter !== 'all' && (
+                  <span className="text-blue-400">
+                    — {timeFilter === 'today'
+                      ? (t('planning.actions.todayReleases') || 'Sorties du jour')
+                      : (t('planning.actions.weekReleases') || 'Sorties de la semaine')}
+                  </span>
+                )}
+              </span>
+            </motion.div>
           )}
-          
+
           {/* Pagination */}
           <MangaPagination
             currentPage={currentPage}
@@ -273,7 +352,7 @@ const Planning = () => {
         </div>
       </div>
     </PageTransition>
-  );
-};
+  )
+}
 
-export default Planning;
+export default Planning

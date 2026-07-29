@@ -1,10 +1,9 @@
-import React from 'react';
-import { Shield, Lock, Server, Copyright, Mail, AlertCircle } from 'lucide-react';
-import PageTransition from '../components/PageTransition';
-import { useI18n } from '../i18n/context';
+import { AlertCircle, Copyright, Lock, Mail, Server, Shield } from 'lucide-react'
+import PageTransition from '../components/PageTransition'
+import { useI18n } from '../i18n/context'
 
 const Legal = () => {
-  const { t } = useI18n();
+  const { t } = useI18n()
 
   const sections = [
     {
@@ -15,11 +14,15 @@ const Legal = () => {
           subtitle: t('legal.sections.legal.publisher.title'),
           text: t('legal.sections.legal.publisher.description'),
           details: [
-            { label: t('legal.sections.legal.publisher.director'), value: "SaoriYuki" },
-            { label: t('legal.sections.legal.publisher.contact'), value: "contact@sighya.fr", isEmail: true }
-          ]
-        }
-      ]
+            { label: t('legal.sections.legal.publisher.director'), value: 'SaoriYuki' },
+            {
+              label: t('legal.sections.legal.publisher.contact'),
+              value: 'contact@sighya.fr',
+              isEmail: true,
+            },
+          ],
+        },
+      ],
     },
     {
       icon: Lock,
@@ -27,17 +30,17 @@ const Legal = () => {
       content: [
         {
           subtitle: t('legal.sections.privacy.dataCollection.title'),
-          text: t('legal.sections.privacy.dataCollection.description')
+          text: t('legal.sections.privacy.dataCollection.description'),
         },
         {
           subtitle: t('legal.sections.privacy.cookies.title'),
-          text: t('legal.sections.privacy.cookies.description')
+          text: t('legal.sections.privacy.cookies.description'),
         },
         {
           subtitle: t('legal.sections.privacy.dataProtection.title'),
-          text: t('legal.sections.privacy.dataProtection.description')
-        }
-      ]
+          text: t('legal.sections.privacy.dataProtection.description'),
+        },
+      ],
     },
     {
       icon: Server,
@@ -47,11 +50,14 @@ const Legal = () => {
           subtitle: t('legal.sections.hosting.provider.title'),
           text: t('legal.sections.hosting.provider.description'),
           details: [
-            { label: t('legal.sections.hosting.provider.country'), value: "France" },
-            { label: t('legal.sections.hosting.provider.type'), value: t('legal.sections.hosting.provider.shared') }
-          ]
-        }
-      ]
+            { label: t('legal.sections.hosting.provider.country'), value: 'France' },
+            {
+              label: t('legal.sections.hosting.provider.type'),
+              value: t('legal.sections.hosting.provider.shared'),
+            },
+          ],
+        },
+      ],
     },
     {
       icon: Copyright,
@@ -59,15 +65,15 @@ const Legal = () => {
       content: [
         {
           subtitle: t('legal.sections.intellectual.license.title'),
-          text: t('legal.sections.intellectual.license.description')
+          text: t('legal.sections.intellectual.license.description'),
         },
         {
           subtitle: t('legal.sections.intellectual.usage.title'),
-          text: t('legal.sections.intellectual.usage.description')
-        }
-      ]
-    }
-  ];
+          text: t('legal.sections.intellectual.usage.description'),
+        },
+      ],
+    },
+  ]
 
   return (
     <PageTransition>
@@ -93,17 +99,13 @@ const Legal = () => {
                 <div className="space-y-6">
                   {section.content.map((item, i) => (
                     <div key={i} className="border-l-2 border-blue-500 pl-4">
-                      <h3 className="text-lg font-medium text-blue-400 mb-2">
-                        {item.subtitle}
-                      </h3>
+                      <h3 className="text-lg font-medium text-blue-400 mb-2">{item.subtitle}</h3>
                       <p className="text-gray-300 mb-4">{item.text}</p>
                       {item.details && (
                         <div className="grid grid-cols-1 gap-2 mt-2">
                           {item.details.map((detail, j) => (
                             <div key={j} className="flex items-center text-gray-300">
-                              <span className="font-medium text-white mr-2">
-                                {detail.label} :
-                              </span>
+                              <span className="font-medium text-white mr-2">{detail.label} :</span>
                               {detail.isEmail ? (
                                 <a
                                   href={`mailto:${detail.value}`}
@@ -135,7 +137,7 @@ const Legal = () => {
         </div>
       </div>
     </PageTransition>
-  );
-};
+  )
+}
 
-export default Legal;
+export default Legal

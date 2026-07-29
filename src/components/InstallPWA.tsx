@@ -1,62 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import { Download } from 'lucide-react';
-import { useMediaQuery } from '../hooks/useMediaQuery';
-import { useI18n } from '../i18n/context';
+import { Download } from 'lucide-react'
+import type React from 'react'
+import { useEffect, useState } from 'react'
+import { useMediaQuery } from '../hooks/useMediaQuery'
+import { useI18n } from '../i18n/context'
 
 interface BeforeInstallPromptEvent extends Event {
-  prompt(): Promise<void>;
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+  prompt(): Promise<void>
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
 }
 
 const InstallPWA: React.FC = () => {
-  const { t } = useI18n();
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [showInstallButton, setShowInstallButton] = useState(false);
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const { t } = useI18n()
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
+  const [showInstallButton, setShowInstallButton] = useState(false)
+  const isMobile = useMediaQuery('(max-width: 768px)')
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e as BeforeInstallPromptEvent);
-      setShowInstallButton(true);
-    };
+      e.preventDefault()
+      setDeferredPrompt(e as BeforeInstallPromptEvent)
+      setShowInstallButton(true)
+    }
 
     const handleAppInstalled = () => {
-      setShowInstallButton(false);
-      setDeferredPrompt(null);
-      console.log('PWA was installed');
-    };
+      setShowInstallButton(false)
+      setDeferredPrompt(null)
+    }
 
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    window.addEventListener('appinstalled', handleAppInstalled);
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+    window.addEventListener('appinstalled', handleAppInstalled)
 
     if (window.matchMedia('(display-mode: standalone)').matches) {
-      setShowInstallButton(false);
+      setShowInstallButton(false)
     }
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-      window.removeEventListener('appinstalled', handleAppInstalled);
-    };
-  }, []);
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+      window.removeEventListener('appinstalled', handleAppInstalled)
+    }
+  }, [])
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) return;
+    if (!deferredPrompt) return
 
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    
+    deferredPrompt.prompt()
+    const { outcome } = await deferredPrompt.userChoice
+
     if (outcome === 'accepted') {
-      console.log('User accepted the install prompt');
     } else {
-      console.log('User dismissed the install prompt');
     }
 
-    setDeferredPrompt(null);
-    setShowInstallButton(false);
-  };
+    setDeferredPrompt(null)
+    setShowInstallButton(false)
+  }
 
-  if (!showInstallButton || isMobile) return null;
+  if (!showInstallButton || isMobile) return null
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
@@ -68,7 +66,7 @@ const InstallPWA: React.FC = () => {
         <span>{t('common.installApp')}</span>
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default InstallPWA; 
+export default InstallPWA

@@ -4,11 +4,11 @@
 
 <div align="center">
 
-[![Version](https://img.shields.io/badge/version-2.3.0-blue.svg)](https://github.com/THZoria/SigHya)
-[![React](https://img.shields.io/badge/React-18.3.1-blue.svg)](https://reactjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.5.3-blue.svg)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-6.3.2-purple.svg)](https://vitejs.dev/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4.1-38B2AC.svg)](https://tailwindcss.com/)
+[![Version](https://img.shields.io/badge/version-2.4.0-blue.svg)](https://github.com/THZoria/SigHya)
+[![React](https://img.shields.io/badge/React-19.2.8-blue.svg)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-7.0.2-blue.svg)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-8.1.5-purple.svg)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.3.3-38B2AC.svg)](https://tailwindcss.com/)
 [![Discord](https://img.shields.io/discord/454099185416011776?label=Rejoindre%20le%20Discord&logo=discord&logoColor=white&style=for-the-badge)](https://discord.sighya.fr) <br>
 [![Téléchargements](https://img.shields.io/github/downloads/THZoria/SigHya/total?label=Téléchargements&color=blue&style=for-the-badge)](https://github.com/THZoria/SigHya)
 
@@ -72,8 +72,8 @@ npm run build        # Build for production
 npm run typecheck    # Run TypeScript type checking
 
 # Code Quality
-npm run lint         # Run ESLint
-npm run format       # Format code with Prettier
+npm run lint         # Run Biome linter
+npm run lint:fix     # Run Biome with auto-fix
 ```
 
 ## 🛠️ Development
@@ -108,18 +108,18 @@ src/
 
 - **Comments**: All comments are in English for consistency
 - **TypeScript**: Strict type checking enabled
-- **ESLint**: Configured for React and TypeScript best practices
-- **Prettier**: Automatic code formatting
+- **Biome**: Linting and formatting (replaces ESLint + Prettier)
 
 ## 🛠️ Built With
 
-- ⚛️ **React 18** - A JavaScript library for building user interfaces
-- 📘 **TypeScript** - JavaScript with syntax for types
-- ⚡ **Vite** - Next generation frontend tooling
-- 🎨 **Tailwind CSS** - A utility-first CSS framework
+- ⚛️ **React 19** - A JavaScript library for building user interfaces
+- 📘 **TypeScript 7** - JavaScript with syntax for types
+- ⚡ **Vite 8** - Next generation frontend tooling
+- 🎨 **Tailwind CSS 4** - A utility-first CSS framework
 - 🎭 **Framer Motion** - A production-ready motion library
 - 🎯 **Lucide Icons** - Beautiful & consistent icons
 - 🌐 **React Router** - Client-side routing for React applications
+- 🔧 **Biome** - Linting and formatting
 
 ## 🤝 Contributing
 

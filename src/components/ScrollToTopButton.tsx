@@ -1,74 +1,75 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronUp } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion'
+import { ChevronUp } from 'lucide-react'
+import type React from 'react'
+import { useEffect, useState } from 'react'
 
 interface ScrollToTopButtonProps {
-  threshold?: number;
-  position?: 'bottom-right' | 'bottom-left' | 'bottom-center';
-  size?: 'sm' | 'md' | 'lg';
-  showTooltip?: boolean;
+  threshold?: number
+  position?: 'bottom-right' | 'bottom-left' | 'bottom-center'
+  size?: 'sm' | 'md' | 'lg'
+  showTooltip?: boolean
 }
 
 const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({
   threshold = 300,
   position = 'bottom-right',
   size = 'md',
-  showTooltip = true
+  showTooltip = true,
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     const toggleVisibility = () => {
       if (window.scrollY > threshold) {
-        setIsVisible(true);
+        setIsVisible(true)
       } else {
-        setIsVisible(false);
+        setIsVisible(false)
       }
-    };
+    }
 
-    window.addEventListener('scroll', toggleVisibility, { passive: true });
-    return () => window.removeEventListener('scroll', toggleVisibility);
-  }, [threshold]);
+    window.addEventListener('scroll', toggleVisibility, { passive: true })
+    return () => window.removeEventListener('scroll', toggleVisibility)
+  }, [threshold])
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
-    });
-  };
+      behavior: 'smooth',
+    })
+  }
 
   const getPositionClass = () => {
     switch (position) {
       case 'bottom-left':
-        return 'bottom-6 left-6';
+        return 'bottom-6 left-6'
       case 'bottom-center':
-        return 'bottom-6 left-1/2 transform -translate-x-1/2';
+        return 'bottom-6 left-1/2 transform -translate-x-1/2'
       default:
-        return 'bottom-6 right-20';
+        return 'bottom-6 right-20'
     }
-  };
+  }
 
   const getSizeClass = () => {
     switch (size) {
       case 'sm':
-        return 'p-2';
+        return 'p-2'
       case 'lg':
-        return 'p-4';
+        return 'p-4'
       default:
-        return 'p-3';
+        return 'p-3'
     }
-  };
+  }
 
   const getIconSize = () => {
     switch (size) {
       case 'sm':
-        return 'w-4 h-4';
+        return 'w-4 h-4'
       case 'lg':
-        return 'w-6 h-6';
+        return 'w-6 h-6'
       default:
-        return 'w-5 h-5';
+        return 'w-5 h-5'
     }
-  };
+  }
 
   return (
     <AnimatePresence>
@@ -85,10 +86,10 @@ const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({
           whileTap={{ scale: 0.95 }}
         >
           <ChevronUp className={getIconSize()} />
-          
+
           {/* Tooltip */}
           {showTooltip && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 5 }}
               whileHover={{ opacity: 1, y: 0 }}
               className="absolute bottom-full right-0 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded whitespace-nowrap pointer-events-none"
@@ -99,7 +100,7 @@ const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({
         </motion.button>
       )}
     </AnimatePresence>
-  );
-};
+  )
+}
 
-export default ScrollToTopButton; 
+export default ScrollToTopButton
