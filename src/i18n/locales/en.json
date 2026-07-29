@@ -1,0 +1,444 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "closeMenu": "Close menu",
+    "openMenu": "Open menu",
+    "installApp": "Install app",
+    "downloadAtmoPack": "Download AtmoPack",
+    "downloadAtmoPackAria": "Download AtmoPack (opens in a new tab)",
+    "notFound": {
+      "title": "Page Not Found",
+      "subtitle": "Oops! The page you're looking for seems to have drifted into space...",
+      "returnHome": "Return Home",
+      "countdown": "Launching in {seconds} seconds...",
+      "problem": "Houston, we have a problem! This page seems to be lost in space..."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "tools": "Tools",
+    "partners": "Partners",
+    "roadmap": "Roadmap",
+    "manga": "Manga",
+    "nxProjects": "NX Projects",
+    "legal": "Legal",
+    "language": "Language",
+    "ariaLabel": "Main navigation",
+    "homeAria": "Return to home"
+  },
+  "tools": {
+    "title": "Modding Tools",
+    "subtitle": "Discover our tools to help you with your modding projects",
+    "items": {
+      "nxChecker": {
+        "title": "Nintendo Switch Checker",
+        "description": "Check your Nintendo Switch compatibility with modding."
+      },
+      "nxDevice": {
+        "title": "Device ID Extractor",
+        "description": "Extract your Device ID from your PRODINFO.bin file."
+      },
+      "ps5": {
+        "title": "PS5 UART Checker",
+        "description": "Analyze UART error codes from your PlayStation 5."
+      },
+      "nspForwarder": {
+        "title": "NSP Forwarder Generator",
+        "description": "Create NSP forwarders to launch your homebrews from the HOME menu."
+      },
+      "action": "Access Tool"
+    }
+  },
+  "nxChecker": {
+    "title": "Nintendo Switch Checker",
+    "subtitle": "Check your console's compatibility",
+    "serialNumber": {
+      "label": "Serial Number",
+      "placeholder": "Ex: XAW10012345678"
+    },
+    "help": {
+      "title": "How to find your serial number?",
+      "description": "The serial number is located under your Nintendo Switch. It's a series of characters starting with XAW, XAJ, XKJ, XKW, HAE or HAW."
+    },
+    "button": "Check Compatibility",
+    "results": {
+      "title": "Check Result",
+      "success": "Unpatched Legacy Switch\nModel: Original Switch (Legacy)\nYou can install the hack",
+      "warning": "Potentially Patched Legacy Switch\nModel: Original Switch (Legacy)\nReason: Serial number is in an indeterminate range. The console might be hackable via RCM, but it's unlikely.",
+      "mariko": "Patched Switch\nModel: Switch Mariko\nReason: Mariko console, modding impossible.",
+      "oled": "Not compatible\nModel: Switch OLED Mariko\nReason: OLED Mariko console, modding impossible.",
+      "lite": "Not compatible\nModel: Switch Lite Mariko\nReason: Lite Mariko console, modding impossible.",
+      "unknown": "Error\nReason: Unknown serial number",
+      "error": "Not compatible\nModel: Legacy Switch\nReason: Patched Legacy console, modding impossible.",
+      "hae": "Not compatible\nModel: Switch 2 (HAE/HAW)\nReason: 2025 Switch 2 model detected. This console is patched.",
+      "indeterminate": "Indeterminate"
+    },
+    "importantInfo": {
+      "title": "Important Information",
+      "preJune2018": "Nintendo Switch consoles released before June 2018 are potentially compatible with modding.",
+      "incompatibleModels": "Mariko, OLED and Lite models as well as Switch 2 are not compatible with current modding methods.",
+      "disclaimer": "This checker is provided for informational purposes only. If in doubt, please consult our Discord server for more information."
+    }
+  },
+  "nxDevice": {
+    "title": "NX Device ID Checker",
+    "subtitle": "Analyze your PRODINFO.bin file to get your Device ID",
+    "warning": {
+      "local": "Your PRODINFO.bin file is processed locally in your browser.",
+      "noServer": "No data is sent to a remote server."
+    },
+    "upload": {
+      "title": "Drag and drop your PRODINFO.bin file here",
+      "subtitle": "or click to select a file"
+    },
+    "processing": "Analyzing file...",
+    "success": "Device ID successfully extracted!",
+    "fileInfo": {
+      "deviceId": "Device ID",
+      "fileSize": "File Size",
+      "markers": "Marker Indices",
+      "start": "Start",
+      "end": "End",
+      "rawData": "Extracted Data (hex)"
+    },
+    "instructions": {
+      "title": "Instructions",
+      "selectFile": "Select your PRODINFO.bin file",
+      "format": "Make sure the file is in .bin format",
+      "warning": "Never share your complete PRODINFO.bin file"
+    },
+    "errors": {
+      "invalidFormat": "The file must be in .bin format",
+      "analysisError": "An error occurred while analyzing the file"
+    }
+  },
+  "ps5": {
+    "title": "PS5 UART Checker",
+    "subtitle": "Analyze UART error codes from your PlayStation 5",
+    "importantInfo": {
+      "title": "Important Information",
+      "local": "Error code analysis is performed locally",
+      "disclaimer": "This tool is provided for informational purposes only"
+    },
+    "search": {
+      "title": "Error Code Search",
+      "description": "Enter a UART error code to get detailed information about the issue.",
+      "placeholder": "Ex: 80050000",
+      "button": "Search"
+    },
+    "results": {
+      "found": "result found",
+      "found_plural": "results found",
+      "page": "Page",
+      "of": "of",
+      "noResults": "No results found for \"{query}\"",
+      "loading": "Loading results...",
+      "error": "An error occurred while searching",
+      "fetchError": "Error loading error codes. Please try again later.",
+      "priorityLabel": "Priority",
+      "priority": {
+        "critical": "Critical",
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+      },
+      "status": {
+        "title": "Status",
+        "description": "Description",
+        "solution": "Suggested Solution"
+      }
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "SigHya Discord Server",
+      "subtitle": "Join our passionate console modding community. Share, learn and evolve with us!",
+      "joinDiscord": "Join Discord",
+      "checkSwitch": "Check my Switch"
+    },
+    "features": {
+      "title": "Why join us?",
+      "subtitle": "An active community dedicated to console modding",
+      "items": {
+        "community": {
+          "title": "Active Community",
+          "description": "Join a dynamic community of modding enthusiasts, always ready to share and help. Benefit from constant support and enriching exchanges."
+        },
+        "expertise": {
+          "title": "Technical Expertise",
+          "description": "Benefit from expert advice and detailed guides for all levels. Access comprehensive and up-to-date technical resources."
+        },
+        "projects": {
+          "title": "Community Projects",
+          "description": "Participate in innovative projects and contribute to the evolution of the modding scene. Develop your skills by collaborating on exciting projects."
+        },
+        "events": {
+          "title": "Exclusive Events",
+          "description": "Enjoy special events, contests and live sessions with the community. Take part in unique and enriching moments."
+        }
+      }
+    }
+  },
+  "legal": {
+    "title": "Legal Notice",
+    "subtitle": "Legal information and terms of use",
+    "sections": {
+      "legal": {
+        "title": "Legal Information",
+        "publisher": {
+          "title": "Website Publisher",
+          "description": "SigHya is an open source entity dedicated to console modding.",
+          "director": "Publication Director",
+          "contact": "Contact"
+        }
+      },
+      "privacy": {
+        "title": "Privacy Policy",
+        "dataCollection": {
+          "title": "Data Collection",
+          "description": "We use Cloudflare services only for security and traffic statistics. No IP addresses are stored by SigHya."
+        },
+        "cookies": {
+          "title": "Cookies",
+          "description": "Only one cookie is kept to remember your display preferences (night mode)."
+        },
+        "dataProtection": {
+          "title": "Data Protection",
+          "description": "We are committed to protecting your personal data and respecting your privacy in accordance with GDPR."
+        }
+      },
+      "hosting": {
+        "title": "Hosting",
+        "provider": {
+          "title": "Provider",
+          "description": "Website hosting is provided by LWS, located in FRANCE.",
+          "country": "Hosting Country",
+          "type": "Hosting Type",
+          "shared": "Shared"
+        }
+      },
+      "intellectual": {
+        "title": "Intellectual Property",
+        "license": {
+          "title": "License",
+          "description": "All content present on the site excluding manga (texts, images, graphics, logo, icons, etc.) is under open source license, unless otherwise stated."
+        },
+        "usage": {
+          "title": "Content Usage",
+          "description": "Any reproduction, distribution, modification, adaptation, retransmission or publication, even partial, of these different elements is authorized in compliance with the terms of the applicable open source license."
+        }
+      }
+    },
+    "contact": {
+      "questions": "For any questions regarding this legal notice, please don't hesitate to contact us."
+    }
+  },
+  "planning": {
+    "title": "Manga Schedule",
+    "subtitle": "Discover upcoming manga releases",
+    "empty": "No manga found",
+    "error": "Error loading manga",
+    "loading": "Loading manga...",
+    "actions": {
+      "downloadCalendar": "Download Calendar",
+      "showAll": "Show All",
+      "todayReleases": "Today's Releases",
+      "weekReleases": "This Week's Releases",
+      "buy": "Buy",
+      "downloadIcs": "Download ICS"
+    },
+    "filters": {
+      "search": "Search for a manga...",
+      "publisher": "All publishers",
+      "date": "Date",
+      "viewMode": {
+        "grid": "Grid",
+        "list": "List"
+      },
+      "sort": {
+        "date": "Release Date",
+        "price": "Price",
+        "name": "Name"
+      },
+      "results": "result found",
+      "results_plural": "results found",
+      "page": "Page",
+      "of": "of"
+    }
+  },
+  "roadmap": {
+    "title": "Roadmap 2025",
+    "description": "SigHya is a non-profit project dedicated to computing, retro and modern gaming consoles, and modding. Discover our upcoming projects!",
+    "footer": {
+      "tagline": "Console Modding Expert",
+      "contact": {
+        "title": "Contact",
+        "email": "Contact Us",
+        "support": "Support"
+      },
+      "legal": {
+        "title": "Legal",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy"
+      }
+    },
+    "projects": {
+      "website": {
+        "title": "Website Redesign",
+        "description": "A new, more modern and intuitive user experience to better serve our community.",
+        "status": "In Progress"
+      },
+      "infrastructure": {
+        "title": "Global Infrastructure Overhaul",
+        "description": "Complete modernization of our infrastructure for better performance and security.",
+        "status": "Planned"
+      },
+      "lanplay": {
+        "title": "Switch LAN Play Server",
+        "description": "Setting up a dedicated server for local network gaming on Nintendo Switch.",
+        "status": "Coming Soon"
+      }
+    }
+  },
+  "nspForwarder": {
+    "title": "NSP Forwarder Generator",
+    "subtitle": "Create NSP forwarders for your homebrews and RetroArch games",
+    "warning": {
+      "title": "Local Processing",
+      "local": "All files are processed locally in your browser. No data is sent to a server."
+    },
+    "credit": "Based on the original project by TooTallNate - https://github.com/TooTallNate/switch-tools",
+    "tabs": {
+      "nro": "NRO Forwarder",
+      "retroarch": "RetroArch Forwarder",
+      "advanced": "Advanced Mode"
+    },
+    "upload": {
+      "selectNro": "Click to select NRO or image file...",
+      "selectImage": "Click to select image file...",
+      "selectBoxArt": "Click to select game box art image file...",
+      "nroOrImage": ".nro files or images accepted",
+      "clickToChangeImage": "Click to change image",
+      "clickToChangeBoxArt": "Click to change box art"
+    },
+    "form": {
+      "appTitle": {
+        "label": "App Title",
+        "placeholder": "HB App Store"
+      },
+      "gameTitle": {
+        "label": "Game Title",
+        "placeholder": "Super Mario World"
+      },
+      "publisher": {
+        "label": "Publisher",
+        "placeholder": "4TU Team"
+      },
+      "nroPath": {
+        "label": "NRO Path"
+      },
+      "corePath": {
+        "label": "Core Path"
+      },
+      "romPath": {
+        "label": "ROM Path"
+      },
+      "prodKeys": {
+        "label": "Prod Keys",
+        "select": "Click to select your 'prod.keys' file...",
+        "help": "prod.keys file required to generate NSP"
+      },
+      "version": {
+        "label": "Version"
+      },
+      "titleId": {
+        "label": "Title ID",
+        "random": "Generate random ID"
+      },
+      "logoType": {
+        "label": "Logo Type",
+        "textAbove": "Text above logo...",
+        "custom": "Custom logo"
+      },
+      "logo": {
+        "label": "Custom Logo",
+        "select": "Select logo..."
+      },
+      "animation": {
+        "label": "Startup Animation",
+        "select": "Select startup animation..."
+      },
+      "options": {
+        "screenshots": "Enable screenshots",
+        "videoCapture": "Enable video capture",
+        "profileSelector": "Enable profile selector",
+        "svcDebug": "Enable svcdebug flag"
+      }
+    },
+    "buttons": {
+      "generate": "Generate NSP",
+      "generating": "Generating..."
+    },
+    "errors": {
+      "missingFields": "Please fill in all required fields",
+      "invalidImageFormat": "Invalid image format. Use PNG, JPG or WebP",
+      "imageTooLarge": "Image is too large. Maximum 2MB",
+      "generationFailed": "NSP generation failed",
+      "invalidMode": "Invalid mode selected"
+    },
+    "instructions": {
+      "title": "Instructions",
+      "step1": "NRO Forwarder: Create a forwarder to launch a .nro file from the HOME menu",
+      "step2": "RetroArch Forwarder: Create a forwarder to launch a ROM directly with RetroArch",
+      "step3": "Advanced Mode: Enable to access advanced options (Title ID, logo, animation, etc.)",
+      "step4": "The prod.keys file is required and must contain your Switch encryption keys"
+    }
+  },
+  "nxProjects": {
+    "title": "Nintendo Switch Projects",
+    "subtitle": "Discover the latest versions of essential projects for modding your Nintendo Switch",
+    "warning": "These projects are intended for educational and development purposes. Make sure to respect your console's terms of use.",
+    "projectCard": {
+      "version": "Version:",
+      "requiredFirmware": "Compatible Firmware:",
+      "releaseDate": "Release Date:",
+      "viewProject": "View Project",
+      "download": "Download"
+    },
+    "about": {
+      "title": "About these projects",
+      "atmosphere": "The most popular CFW (Custom Firmware) for Nintendo Switch, providing a solid foundation for homebrew and modifications.",
+      "hekate": "Custom bootloader that allows you to boot different payloads and manage your Switch's partitions.",
+      "lockpick": "Tool to extract encryption keys from your console, necessary for certain development tools.",
+      "tegraExplorer": "File explorer for RCM, allowing you to navigate and modify your Switch's system files."
+    },
+    "actions": {
+      "viewOnGithub": "View on GitHub",
+      "installationGuide": "Installation Guide"
+    },
+    "filters": {
+      "searchPlaceholder": "Search projects, authors, or descriptions...",
+      "allLanguages": "All Languages",
+      "allFirmware": "All Firmware",
+      "clearFilters": "Clear Filters",
+      "showingResults": "Showing {count} of {total} projects",
+      "noResults": "No projects found matching your criteria",
+      "clearAllFilters": "Clear all filters",
+    "pagination": {
+      "show": "Show",
+      "perPage": "per page",
+      "showAll": "Show all",
+      "showing": "Showing {start} to {end} of {total} results"
+    }
+    },
+    "sort": {
+      "stars": "Stars",
+      "forks": "Forks",
+      "name": "Name",
+      "author": "Author",
+      "latestRelease": "Latest Release",
+      "lastUpdated": "Last Updated"
+    }
+  }
+}

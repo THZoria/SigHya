@@ -1,0 +1,178 @@
+/**
+ * NACP (Nintendo Application Control Property) class
+ * Based on: https://github.com/TooTallNate/switch-tools/tree/main/packages/nacp
+ * Reference: https://switchbrew.org/wiki/NACP
+ */
+
+const encoder = new TextEncoder();
+const decoder = new TextDecoder();
+
+export enum VideoCapture {
+	Disabled = 0,
+	Enabled = 1,
+	Automatic = 2,
+}
+
+function encodeWithSize(v: string, size: number, name: string): Uint8Array {
+	const buf = encoder.encode(v);
+	if (buf.length >= size) {
+		throw new TypeError(
+			`"${name}" length must be <= ${size - 1} bytes, got ${buf.length}`
+		);
+	}
+	const bufWithZeros = new Uint8Array(size);
+	bufWithZeros.set(buf);
+	return bufWithZeros;
+}
+
+function parseU64(v: string | bigint): bigint {
+	let id = v;
+	if (typeof id === 'string') {
+		if (id.length > 16) {
+			throw new TypeError(`"id" length must be 16, got ${id.length}`);
+		}
+		id = BigInt(`0x${v}`);
+	}
+	return id;
+}
+
+export class NACP {
+	buffer: ArrayBuffer;
+	#dataView: DataView;
+
+	constructor(buffer?: ArrayBuffer) {
+		if (buffer) {
+			this.buffer = buffer;
+			this.#dataView = new DataView(this.buffer);
+		} else {
+			this.buffer = new ArrayBuffer(0x4000);
+			this.#dataView = new DataView(this.buffer);
+
+			this.#dataView.setUint32(0x3024, 0x100, true);
+			this.#dataView.setUint32(0x302c, 0xbff, true);
+			this.#dataView.setUint32(0x3034, 0x10000, true);
+
+			const unkData = new Uint8Array([
+				0x0c, 0xff, 0xff, 0x0a, 0xff, 0x0c, 0x0c, 0x0c, 0x0c, 0x0c,
+				0x0d, 0x0d, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+				0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+				0xff, 0xff,
+			]);
+			new Uint8Array(this.buffer, 0x3040, unkData.length).set(unkData);
+
+			this.#dataView.setUint32(0x3080, 0x3e00000, true);
+			this.#dataView.setUint32(0x3088, 0x180000, true);
+			this.#dataView.setUint32(0x30f0, 0x102, true);
+		}
+	}
+
+	get title(): string {
+		const data = new Uint8Array(this.buffer, 0, 0x200);
+		return decoder.decode(data).replace(/\0*$/, '');
+	}
+
+	set title(v: string) {
+		const buf = encodeWithSize(v, 0x200, 'title');
+		for (let i = 0; i < 12; i++) {
+			new Uint8Array(this.buffer, i * 0x300, buf.length).set(buf);
+		}
+	}
+
+	get author(): string {
+		const data = new Uint8Array(this.buffer, 0x200, 0x100);
+		return decoder.decode(data).replace(/\0*$/, '');
+	}
+
+	set author(v: string) {
+		const buf = encodeWithSize(v, 0x100, 'author');
+		for (let i = 0; i < 12; i++) {
+			new Uint8Array(this.buffer, i * 0x300 + 0x200, buf.length).set(buf);
+		}
+	}
+
+	set id(v: string | bigint) {
+		const val = parseU64(v);
+
+		// NACP structure requires Title ID to be set at multiple offsets:
+		// - PresenceGroupId (0x3038): Used for presence/online features
+		// - SaveDataOwnerId (0x3078): Identifies save data ownership
+		// - AddOnContentBaseId (0x3070): DLC base ID = Title ID + 0x1000 (Nintendo convention)
+		// - LocalCommunicationId (0x30b0, 8 entries): Local wireless communication IDs
+		this.#dataView.setBigUint64(0x3038, val, true);
+		this.#dataView.setBigUint64(0x3078, val, true);
+		this.#dataView.setBigUint64(0x3070, val + 0x1000n, true);
+		for (let x = 0; x < 8; x++) {
+			this.#dataView.setBigUint64(0x30b0 + x * 0x8, val, true);
+		}
+	}
+
+	get id(): bigint {
+		return this.#dataView.getBigUint64(0x3038, true);
+	}
+
+	/**
+	 * Whether or not to display the user account picker
+	 * when booting up the application.
+	 */
+	set startupUserAccount(v: number) {
+		this.#dataView.setUint8(0x3025, v);
+	}
+	get startupUserAccount(): number {
+		return this.#dataView.getUint8(0x3025);
+	}
+
+	/**
+	 * Whether or not pressing the screenshot button will capture a screenshot.
+	 *   - Value of `0`: Enabled
+	 *   - Value of `1`: Disabled
+	 */
+	set screenshot(v: number) {
+		this.#dataView.setUint8(0x3034, v);
+	}
+	get screenshot(): number {
+		return this.#dataView.getUint8(0x3034);
+	}
+
+	/**
+	 * Whether or not holding the screenshot button will capture a video.
+	 *   - Value of `0`: Disabled
+	 *   - Value of `1`: Only enabled if app invokes `appletInitializeGamePlayRecording()`
+	 *   - Value of `2`: Always enabled
+	 */
+	set videoCapture(v: VideoCapture) {
+		this.#dataView.setUint8(0x3035, v);
+	}
+	get videoCapture(): VideoCapture {
+		return this.#dataView.getUint8(0x3035);
+	}
+
+	get version(): string {
+		const data = new Uint8Array(this.buffer, 0x3060, 0x10);
+		return decoder.decode(data).replace(/\0*$/, '');
+	}
+	set version(v: string) {
+		const buf = encodeWithSize(v, 0x10, 'version');
+		new Uint8Array(this.buffer, 0x3060, buf.length).set(buf);
+	}
+
+	/**
+	 * Text shown above logo during boot-up.
+	 *   - Value of 0: "Licensed by"
+	 *   - Value of 1: "Distributed by"
+	 *   - Anything else: no text shown
+	 */
+	set logoType(v: number) {
+		this.#dataView.setUint8(0x30f0, v);
+	}
+	get logoType(): number {
+		return this.#dataView.getUint8(0x30f0);
+	}
+
+	set logoHandling(v: number) {
+		this.#dataView.setUint8(0x30f1, v);
+	}
+	get logoHandling(): number {
+		return this.#dataView.getUint8(0x30f1);
+	}
+}
+

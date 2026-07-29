@@ -1,0 +1,444 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Se produjo un error",
+    "closeMenu": "Cerrar menú",
+    "openMenu": "Abrir menú",
+    "installApp": "Instalar app",
+    "downloadAtmoPack": "Descargar AtmoPack",
+    "downloadAtmoPackAria": "Descargar AtmoPack (se abre en una nueva pestaña)",
+    "notFound": {
+      "title": "Página No Encontrada",
+      "subtitle": "¡Ups! La página que buscas parece haberse perdido en el espacio...",
+      "returnHome": "Volver al Inicio",
+      "countdown": "Despegando en {seconds} segundos...",
+      "problem": "¡Houston, tenemos un problema! Esta página parece haberse perdido en el espacio..."
+    }
+  },
+  "nav": {
+    "home": "Inicio",
+    "tools": "Herramientas",
+    "partners": "Socios",
+    "roadmap": "Roadmap",
+    "manga": "Manga",
+    "nxProjects": "Proyectos NX",
+    "legal": "Legal",
+    "language": "Idioma",
+    "ariaLabel": "Navegación principal",
+    "homeAria": "Volver al inicio"
+  },
+  "tools": {
+    "title": "Herramientas de Modding",
+    "subtitle": "Descubre nuestras herramientas para ayudarte con tus proyectos de modding",
+    "items": {
+      "nxChecker": {
+        "title": "Nintendo Switch Checker",
+        "description": "Verifica la compatibilidad de tu Nintendo Switch con el modding."
+      },
+      "nxDevice": {
+        "title": "Device ID Extractor",
+        "description": "Extrae tu Device ID desde tu archivo PRODINFO.bin."
+      },
+      "ps5": {
+        "title": "PS5 UART Checker",
+        "description": "Analiza los códigos de error UART de tu PlayStation 5."
+      },
+      "nspForwarder": {
+        "title": "NSP Forwarder Generator",
+        "description": "Crea forwarders NSP para lanzar tus homebrews desde el menú HOME."
+      },
+      "action": "Acceder a la Herramienta"
+    }
+  },
+  "nxChecker": {
+    "title": "Nintendo Switch Checker",
+    "subtitle": "Verifica la compatibilidad de tu consola",
+    "serialNumber": {
+      "label": "Número de serie",
+      "placeholder": "Ej: XAW10012345678"
+    },
+    "help": {
+      "title": "¿Cómo encontrar tu número de serie?",
+      "description": "El número de serie se encuentra en la parte inferior de tu Nintendo Switch. Es una serie de caracteres que empiezan por XAW, XAJ, XKJ, XKW, HAE o HAW."
+    },
+    "button": "Verificar Compatibilidad",
+    "results": {
+      "title": "Resultado de la verificación",
+      "success": "Switch Legacy No Parcheada\nModelo: Switch Original (Legacy)\nPuedes instalar el hack",
+      "warning": "Switch Legacy Potencialmente Parcheada\nModelo: Switch Original (Legacy)\nRazón: Número de serie en un rango indeterminado. La consola podría ser hackeable via RCM, pero es poco probable.",
+      "mariko": "Switch Parcheada\nModelo: Switch Mariko\nRazón: Consola Mariko, modding imposible.",
+      "oled": "No compatible\nModelo: Switch OLED Mariko\nRazón: Consola OLED Mariko, modding imposible.",
+      "lite": "No compatible\nModelo: Switch Lite Mariko\nRazón: Consola Lite Mariko, modding imposible.",
+      "unknown": "Error\nRazón: Número de serie desconocido",
+      "error": "No compatible\nModelo: Switch Legacy\nRazón: Consola Legacy parcheada, modding imposible.",
+      "hae": "No compatible\nModelo: Switch 2 (HAE/HAW)\nRazón: Modelo Switch 2 de 2025 detectado. Esta consola está parcheada.",
+      "indeterminate": "Indeterminado"
+    },
+    "importantInfo": {
+      "title": "Información Importante",
+      "preJune2018": "Las consolas Nintendo Switch lanzadas antes de junio de 2018 son potencialmente compatibles con el modding.",
+      "incompatibleModels": "Los modelos Mariko, OLED y Lite, así como Switch 2, no son compatibles con los métodos de modificación actuales.",
+      "disclaimer": "Este verificador se proporciona solo con fines informativos. En caso de duda, consulte nuestro servidor de Discord para obtener más información."
+    }
+  },
+  "nxDevice": {
+    "title": "NX Device ID Checker",
+    "subtitle": "Analiza tu archivo PRODINFO.bin para obtener tu Device ID",
+    "warning": {
+      "local": "Tu archivo PRODINFO.bin se procesa localmente en tu navegador.",
+      "noServer": "No se envían datos a ningún servidor remoto."
+    },
+    "upload": {
+      "title": "Arrastra y suelta tu archivo PRODINFO.bin aquí",
+      "subtitle": "o haz clic para seleccionar un archivo"
+    },
+    "processing": "Analizando archivo...",
+    "success": "¡Device ID extraído con éxito!",
+    "fileInfo": {
+      "deviceId": "Device ID",
+      "fileSize": "Tamaño del archivo",
+      "markers": "Índices de marcadores",
+      "start": "Inicio",
+      "end": "Fin",
+      "rawData": "Datos extraídos (hex)"
+    },
+    "instructions": {
+      "title": "Instrucciones",
+      "selectFile": "Selecciona tu archivo PRODINFO.bin",
+      "format": "Asegúrate de que el archivo esté en formato .bin",
+      "warning": "Nunca compartas tu archivo PRODINFO.bin completo"
+    },
+    "errors": {
+      "invalidFormat": "El archivo debe estar en formato .bin",
+      "analysisError": "Ocurrió un error al analizar el archivo"
+    }
+  },
+  "ps5": {
+    "title": "PS5 UART Checker",
+    "subtitle": "Analiza códigos de error UART de tu PlayStation 5",
+    "importantInfo": {
+      "title": "Información Importante",
+      "local": "El análisis de códigos de error se realiza localmente",
+      "disclaimer": "Esta herramienta se proporciona solo con fines informativos"
+    },
+    "search": {
+      "title": "Búsqueda de códigos de error",
+      "description": "Ingresa un código de error UART para obtener información detallada sobre el problema.",
+      "placeholder": "Ej: 80050000",
+      "button": "Buscar"
+    },
+    "results": {
+      "found": "resultado encontrado",
+      "found_plural": "resultados encontrados",
+      "page": "Página",
+      "of": "de",
+      "noResults": "No se encontraron resultados para \"{query}\"",
+      "loading": "Cargando resultados...",
+      "error": "Ocurrió un error durante la búsqueda",
+      "fetchError": "Error al cargar los códigos de error. Por favor, inténtalo de nuevo más tarde.",
+      "priorityLabel": "Prioridad",
+      "priority": {
+        "critical": "Crítico",
+        "high": "Alto",
+        "medium": "Medio",
+        "low": "Bajo"
+      },
+      "status": {
+        "title": "Estado",
+        "description": "Descripción",
+        "solution": "Solución Sugerida"
+      }
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Servidor Discord SigHya",
+      "subtitle": "Únete a nuestra apasionada comunidad de modding de consolas. ¡Comparte, aprende y evoluciona con nosotros!",
+      "joinDiscord": "Unirse a Discord",
+      "checkSwitch": "Verificar mi Switch"
+    },
+    "features": {
+      "title": "¿Por qué unirse?",
+      "subtitle": "Una comunidad activa dedicada al modding de consolas",
+      "items": {
+        "community": {
+          "title": "Comunidad Activa",
+          "description": "Únete a una comunidad dinámica de entusiastas del modding, siempre dispuesta a compartir y ayudar. Disfruta de apoyo constante e intercambios enriquecedores."
+        },
+        "expertise": {
+          "title": "Experiencia Técnica",
+          "description": "Benefíciate de consejos de expertos y guías detalladas para todos los niveles. Accede a recursos técnicos completos y actualizados."
+        },
+        "projects": {
+          "title": "Proyectos Comunitarios",
+          "description": "Participa en proyectos innovadores y contribuye a la evolución de la escena del modding. Desarrolla tus habilidades colaborando en proyectos emocionantes."
+        },
+        "events": {
+          "title": "Eventos Exclusivos",
+          "description": "Disfruta de eventos especiales, concursos y sesiones en vivo con la comunidad. Participa en momentos únicos y enriquecedores."
+        }
+      }
+    }
+  },
+  "legal": {
+    "title": "Aviso Legal",
+    "subtitle": "Información legal y condiciones de uso",
+    "sections": {
+      "legal": {
+        "title": "Información Legal",
+        "publisher": {
+          "title": "Editor del sitio",
+          "description": "SigHya es una entidad de código abierto dedicada al modding de consolas.",
+          "director": "Director de publicación",
+          "contact": "Contacto"
+        }
+      },
+      "privacy": {
+        "title": "Política de Privacidad",
+        "dataCollection": {
+          "title": "Recopilación de datos",
+          "description": "Utilizamos los servicios de Cloudflare únicamente para seguridad y estadísticas de tráfico. SigHya no almacena direcciones IP."
+        },
+        "cookies": {
+          "title": "Cookies",
+          "description": "Solo se guarda una cookie para recordar sus preferencias de visualización (modo nocturno)."
+        },
+        "dataProtection": {
+          "title": "Protección de datos",
+          "description": "Nos comprometemos a proteger sus datos personales y respetar su privacidad de acuerdo con el RGPD."
+        }
+      },
+      "hosting": {
+        "title": "Alojamiento",
+        "provider": {
+          "title": "Proveedor",
+          "description": "El alojamiento del sitio web es proporcionado por LWS, ubicado en FRANCIA.",
+          "country": "País de alojamiento",
+          "type": "Tipo de alojamiento",
+          "shared": "Compartido"
+        }
+      },
+      "intellectual": {
+        "title": "Propiedad Intelectual",
+        "license": {
+          "title": "Licencia",
+          "description": "Todo el contenido presente en el sitio excluyendo manga (textos, imágenes, gráficos, logo, iconos, etc.) está bajo licencia de código abierto, salvo que se indique lo contrario."
+        },
+        "usage": {
+          "title": "Uso del contenido",
+          "description": "Cualquier reproducción, distribución, modificación, adaptación, retransmisión o publicación, incluso parcial, de estos diferentes elementos está autorizada cumpliendo con los términos de la licencia de código abierto aplicable."
+        }
+      }
+    },
+    "contact": {
+      "questions": "Para cualquier pregunta sobre este aviso legal, no dude en contactarnos."
+    }
+  },
+  "planning": {
+    "title": "Calendario Manga",
+    "subtitle": "Descubre los próximos lanzamientos de manga",
+    "empty": "No se encontraron mangas",
+    "error": "Error al cargar los mangas",
+    "loading": "Cargando mangas...",
+    "actions": {
+      "downloadCalendar": "Descargar Calendario",
+      "showAll": "Mostrar Todo",
+      "todayReleases": "Lanzamientos de Hoy",
+      "weekReleases": "Lanzamientos de la Semana",
+      "buy": "Comprar",
+      "downloadIcs": "Descargar ICS"
+    },
+    "filters": {
+      "search": "Buscar un manga...",
+      "publisher": "Todas las editoriales",
+      "date": "Fecha",
+      "viewMode": {
+        "grid": "Cuadrícula",
+        "list": "Lista"
+      },
+      "sort": {
+        "date": "Fecha de lanzamiento",
+        "price": "Precio",
+        "name": "Nombre"
+      },
+      "results": "resultado encontrado",
+      "results_plural": "resultados encontrados",
+      "page": "Página",
+      "of": "de"
+    }
+  },
+  "roadmap": {
+    "title": "Roadmap 2025",
+    "description": "SigHya es un proyecto sin fines de lucro dedicado a la informática, consolas de juegos retro y modernas, y modding. ¡Descubre nuestros próximos proyectos!",
+    "footer": {
+      "tagline": "Experto en Modding de consolas",
+      "contact": {
+        "title": "Contacto",
+        "email": "Contáctanos",
+        "support": "Soporte"
+      },
+      "legal": {
+        "title": "Legal",
+        "terms": "Términos de servicio",
+        "privacy": "Política de privacidad"
+      }
+    },
+    "projects": {
+      "website": {
+        "title": "Rediseño del Sitio Web",
+        "description": "Una experiencia de usuario nueva, más moderna e intuitiva para servir mejor a nuestra comunidad.",
+        "status": "En Progreso"
+      },
+      "infrastructure": {
+        "title": "Renovación Global de Infraestructura",
+        "description": "Modernización completa de nuestra infraestructura para un mejor rendimiento y seguridad.",
+        "status": "Planificado"
+      },
+      "lanplay": {
+        "title": "Servidor LAN Play Switch",
+        "description": "Configuración de un servidor dedicado para juegos en red local en Nintendo Switch.",
+        "status": "Próximamente"
+      }
+    }
+  },
+  "nspForwarder": {
+    "title": "NSP Forwarder Generator",
+    "subtitle": "Crea forwarders NSP para tus homebrews y juegos de RetroArch",
+    "warning": {
+      "title": "Procesamiento Local",
+      "local": "Todos los archivos se procesan localmente en tu navegador. No se envían datos a ningún servidor."
+    },
+    "credit": "Basado en el proyecto original de TooTallNate - https://github.com/TooTallNate/switch-tools",
+    "tabs": {
+      "nro": "NRO Forwarder",
+      "retroarch": "RetroArch Forwarder",
+      "advanced": "Advanced Mode"
+    },
+    "upload": {
+      "selectNro": "Haz clic para seleccionar un archivo NRO o imagen...",
+      "selectImage": "Haz clic para seleccionar una imagen...",
+      "selectBoxArt": "Haz clic para seleccionar la imagen de la caja del juego...",
+      "nroOrImage": "Archivos .nro o imágenes aceptados",
+      "clickToChangeImage": "Haz clic para cambiar la imagen",
+      "clickToChangeBoxArt": "Haz clic para cambiar la caja del juego"
+    },
+    "form": {
+      "appTitle": {
+        "label": "App Title",
+        "placeholder": "HB App Store"
+      },
+      "gameTitle": {
+        "label": "Game Title",
+        "placeholder": "Super Mario World"
+      },
+      "publisher": {
+        "label": "Publisher",
+        "placeholder": "4TU Team"
+      },
+      "nroPath": {
+        "label": "NRO Path"
+      },
+      "corePath": {
+        "label": "Core Path"
+      },
+      "romPath": {
+        "label": "ROM Path"
+      },
+      "prodKeys": {
+        "label": "Prod Keys",
+        "select": "Haz clic para seleccionar tu archivo 'prod.keys'...",
+        "help": "Archivo prod.keys requerido para generar NSP"
+      },
+      "version": {
+        "label": "Versión"
+      },
+      "titleId": {
+        "label": "Title ID",
+        "random": "Generar ID aleatorio"
+      },
+      "logoType": {
+        "label": "Tipo de Logo",
+        "textAbove": "Texto encima del logo...",
+        "custom": "Logo personalizado"
+      },
+      "logo": {
+        "label": "Logo Personalizado",
+        "select": "Seleccionar logo..."
+      },
+      "animation": {
+        "label": "Animación de Inicio",
+        "select": "Seleccionar animación de inicio..."
+      },
+      "options": {
+        "screenshots": "Habilitar capturas de pantalla",
+        "videoCapture": "Habilitar captura de video",
+        "profileSelector": "Habilitar selector de perfil",
+        "svcDebug": "Habilitar flag svcdebug"
+      }
+    },
+    "buttons": {
+      "generate": "Generar NSP",
+      "generating": "Generando..."
+    },
+    "errors": {
+      "missingFields": "Por favor completa todos los campos obligatorios",
+      "invalidImageFormat": "Formato de imagen inválido. Usa PNG, JPG o WebP",
+      "imageTooLarge": "La imagen es demasiado grande. Máximo 2MB",
+      "generationFailed": "Falló la generación del NSP",
+      "invalidMode": "Modo inválido seleccionado"
+    },
+    "instructions": {
+      "title": "Instrucciones",
+      "step1": "NRO Forwarder: Crea un forwarder para lanzar un archivo .nro desde el menú HOME",
+      "step2": "RetroArch Forwarder: Crea un forwarder para lanzar directamente una ROM con RetroArch",
+      "step3": "Advanced Mode: Activa para acceder a opciones avanzadas (Title ID, logo, animación, etc.)",
+      "step4": "El archivo prod.keys es requerido y debe contener tus claves de cifrado de Switch"
+    }
+  },
+  "nxProjects": {
+    "title": "Proyectos Nintendo Switch",
+    "subtitle": "Descubre las últimas versiones de proyectos esenciales para el modding de tu Nintendo Switch",
+    "warning": "Estos proyectos están destinados a fines educativos y de desarrollo. Asegúrate de respetar los términos de uso de tu consola.",
+    "projectCard": {
+      "version": "Versión:",
+      "requiredFirmware": "Firmware Compatible:",
+      "releaseDate": "Fecha de lanzamiento:",
+      "viewProject": "Ver Proyecto",
+      "download": "Descargar"
+    },
+    "about": {
+      "title": "Acerca de estos proyectos",
+      "atmosphere": "El CFW (Custom Firmware) más popular para Nintendo Switch, proporcionando una base sólida para homebrew y modificaciones.",
+      "hekate": "Bootloader personalizado que te permite iniciar diferentes payloads y gestionar las particiones de tu Switch.",
+      "lockpick": "Herramienta para extraer claves de cifrado de tu consola, necesarias para ciertas herramientas de desarrollo.",
+      "tegraExplorer": "Explorador de archivos para RCM, permitiendo navegar y modificar los archivos del sistema de tu Switch."
+    },
+    "actions": {
+      "viewOnGithub": "Ver en GitHub",
+      "installationGuide": "Guía de Instalación"
+    },
+    "filters": {
+      "searchPlaceholder": "Buscar proyectos, autores o descripciones...",
+      "allLanguages": "Todos los lenguajes",
+      "allFirmware": "Todos los firmware",
+      "clearFilters": "Limpiar filtros",
+      "showingResults": "Mostrando {count} de {total} proyectos",
+      "noResults": "No se encontraron proyectos que coincidan con tus criterios",
+      "clearAllFilters": "Limpiar todos los filtros",
+    "pagination": {
+      "show": "Mostrar",
+      "perPage": "por página",
+      "showAll": "Mostrar todo",
+      "showing": "Mostrando {start} a {end} de {total} resultados"
+    }
+    },
+    "sort": {
+      "stars": "Estrellas",
+      "forks": "Forks",
+      "name": "Nombre",
+      "author": "Autor",
+      "latestRelease": "Última versión",
+      "lastUpdated": "Última actualización"
+    }
+  }
+}
