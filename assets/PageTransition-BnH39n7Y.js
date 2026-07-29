@@ -1,0 +1,1 @@
+import{a as e,s as t}from"./framer-motion-BumTqzAu.js";var n=t(),r=({children:t})=>(0,n.jsx)(e.div,{initial:`initial`,animate:`animate`,exit:`exit`,variants:{initial:{opacity:0,y:20,scale:.98},animate:{opacity:1,y:0,scale:1},exit:{opacity:0,y:-20,scale:.98}},transition:{type:`tween`,ease:`anticipate`,duration:.4},className:`w-full`,children:t});export{r as t};
