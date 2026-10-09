@@ -4,7 +4,7 @@
 
 <div align="center">
 
-[![Version](https://img.shields.io/badge/version-2.4.0-blue.svg)](https://github.com/THZoria/SigHya)
+[![Version](https://img.shields.io/badge/version-2.5.0-blue.svg)](https://github.com/THZoria/SigHya)
 [![React](https://img.shields.io/badge/React-19.2.8-blue.svg)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-7.0.2-blue.svg)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-8.1.5-purple.svg)](https://vitejs.dev/)
@@ -41,8 +41,9 @@
 
 ### Prerequisites
 
-- Node.js (version 18 or higher)
-- npm or yarn package manager
+- Node.js 18+ (npm) or [Bun](https://bun.sh) 1.2+
+- Bun is required at runtime (dev API server + production)
+- PM2 (production only)
 
 ### Installation
 
@@ -54,7 +55,7 @@ cd SigHya
 # Install dependencies
 npm install
 
-# Start development server
+# Start development (Vite + Bun API server)
 npm run dev
 
 # Open your browser and navigate to http://localhost:5173
@@ -64,17 +65,31 @@ npm run dev
 
 ```bash
 # Development
-npm run dev          # Start development server
-npm run preview      # Preview production build
+npm run dev          # Vite (5173) + Bun API server (3000)
+npm run preview      # Preview production build (static only)
 
-# Building
-npm run build        # Build for production
-npm run typecheck    # Run TypeScript type checking
+# Building / Production
+npm run build        # Assemble upload-ready .prod/
+npm run start        # Run .prod/ locally
+cd .prod && pm2 start ecosystem.config.cjs
 
 # Code Quality
+npm run typecheck    # Run TypeScript type checking
 npm run lint         # Run Biome linter
 npm run lint:fix     # Run Biome with auto-fix
 ```
+
+### Production deploy
+
+```bash
+npm run build
+# Upload the entire .prod/ folder, then:
+cd .prod
+pm2 start ecosystem.config.cjs
+pm2 save
+```
+
+`.prod/` is the only deploy artifact (frontend + `server/` + `ecosystem.config.cjs`). The Bun server serves the site, exposes `/api/feeds/*`, and refreshes remote feeds every hour. If a remote is unreachable, the previous cache is kept.
 
 ## 🛠️ Development
 

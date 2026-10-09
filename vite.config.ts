@@ -1,14 +1,11 @@
-import { readFileSync } from 'node:fs';
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
-import { VitePWA } from 'vite-plugin-pwa';
+import { readFileSync } from 'node:fs'
+import tailwindcss from '@tailwindcss/vite'
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
+import { VitePWA } from 'vite-plugin-pwa'
 
-const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'));
+const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'))
 
-/**
- * Vite configuration for the SigHya application
- */
 export default defineConfig({
   plugins: [
     react(),
@@ -17,15 +14,20 @@ export default defineConfig({
       registerType: 'autoUpdate',
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+        navigateFallbackDenylist: [/^\/api\//],
         runtimeCaching: [
           {
-            urlPattern: /^https:\/\/nxhub\.pw\/.*/i,
+            urlPattern: /\/api\/feeds\/.*/i,
             handler: 'NetworkFirst',
             options: {
-              cacheName: 'nxhub-api-cache',
+              cacheName: 'sighya-feeds-cache',
+              networkTimeoutSeconds: 5,
               expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24,
+                maxEntries: 20,
+                maxAgeSeconds: 60 * 60,
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
               },
             },
           },
@@ -35,7 +37,8 @@ export default defineConfig({
       manifest: {
         name: 'SigHya - Modding de consoles',
         short_name: 'SigHya',
-        description: 'Communaut\u00e9 fran\u00e7aise de modding de consoles. Guides, tutoriels et entraide pour le modding de Nintendo Switch, PS5 et plus encore.',
+        description:
+          'Communauté française de modding de consoles. Guides, tutoriels et entraide pour le modding de Nintendo Switch, PS5 et plus encore.',
         theme_color: '#1a1a1a',
         background_color: '#111827',
         display: 'standalone',
@@ -47,58 +50,66 @@ export default defineConfig({
             src: '/logo.png',
             sizes: '192x192',
             type: 'image/png',
-            purpose: 'any maskable'
+            purpose: 'any maskable',
           },
           {
             src: '/logo.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable'
-          }
-        ]
-      }
-    })
+            purpose: 'any maskable',
+          },
+        ],
+      },
+    }),
   ],
-  
+
   define: {
-    __APP_VERSION__: JSON.stringify(pkg.version)
+    __APP_VERSION__: JSON.stringify(pkg.version),
   },
-  
+
   server: {
     port: 5173,
     host: true,
     proxy: {
-      '/proxy/rss': {
-        target: 'https://api.allorigins.win',
+      '/api': {
+        target: 'http://127.0.0.1:3000',
         changeOrigin: true,
-        rewrite: () => `/raw?url=${encodeURIComponent('https://hacktuality.com/rss.xml')}`,
+        configure: (proxy) => {
+          proxy.on('proxyReq', (proxyReq, req) => {
+            if (req.headers.host) proxyReq.setHeader('x-forwarded-host', req.headers.host)
+            if (req.headers.origin) proxyReq.setHeader('origin', req.headers.origin)
+            if (req.headers.referer) proxyReq.setHeader('referer', req.headers.referer)
+          })
+        },
       },
     },
   },
-  
+
   build: {
+    outDir: '.prod',
+    emptyOutDir: true,
     target: 'esnext',
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules/react-dom') || id.includes('node_modules/react/') || id.includes('node_modules/react-router-dom')) {
-            return 'react-vendor';
+          if (
+            id.includes('node_modules/react-dom') ||
+            id.includes('node_modules/react/') ||
+            id.includes('node_modules/react-router-dom')
+          ) {
+            return 'react-vendor'
           }
-          if (id.includes('node_modules/framer-motion')) {
-            return 'framer-motion';
-          }
-          if (id.includes('node_modules/lucide-react')) {
-            return 'lucide-icons';
-          }
+          if (id.includes('node_modules/framer-motion')) return 'framer-motion'
+          if (id.includes('node_modules/lucide-react')) return 'lucide-icons'
         },
       },
     },
     chunkSizeWarningLimit: 1000,
   },
-  
+
   resolve: {
     alias: {
       '@': '/src',
     },
   },
-});
+})

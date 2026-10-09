@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { fetchFeed } from '../api/feeds'
 
 export interface NXProject {
   name: string
@@ -276,12 +277,8 @@ export const useNXProjects = () => {
         setLoading(true)
         setError(null)
 
-        const response = await fetch('https://nxhub.pw/data/projects.json')
-        if (!response.ok) {
-          throw new Error('Failed to fetch projects data from nxhub.pw/data/projects.json')
-        }
-
-        const data = normalizeProjectsPayload(await response.json())
+        const feed = await fetchFeed<unknown>('nx-projects')
+        const data = normalizeProjectsPayload(feed.data)
 
         const endTime = performance.now()
         const _totalTime = ((endTime - startTime) / 1000).toFixed(2)

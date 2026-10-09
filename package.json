@@ -1,7 +1,7 @@
 {
   "name": "sighya-fr",
   "private": true,
-  "version": "2.4.0",
+  "version": "2.5.0",
   "type": "module",
   "description": "French community platform for console modding",
   "author": "SigHya",
@@ -14,8 +14,11 @@
     "community"
   ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "bun scripts/dev.ts",
+    "dev:server": "NODE_ENV=development bun --hot server/index.ts",
+    "dev:web": "vite",
+    "build": "bun scripts/build.ts",
+    "start": "NODE_ENV=production bun .prod/server/index.ts",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
@@ -29,7 +32,7 @@
     "lucide-react": "^1.27.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "react-router-dom": "^6.30.4"
+    "react-router-dom": "^7.18.4"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.6",

@@ -19,6 +19,7 @@ import {
 } from 'lucide-react'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { fetchFeed } from '../api/feeds'
 import PageTransition from '../components/PageTransition'
 import { SkeletonCard } from '../components/ui/Skeleton'
 import { useI18n } from '../i18n/context'
@@ -127,16 +128,12 @@ const PS5 = () => {
       }
 
       try {
-        const response = await fetch(
-          'https://raw.githubusercontent.com/amoamare/Console-Service-Tool/master/Resources/ErrorCodes.json',
-        )
-        if (!response.ok) throw new Error('Failed to fetch error codes')
-        const data = await response.json()
-        const normalizedCodes = normalizeErrorCodes(data)
+        const feed = await fetchFeed<unknown>('ps5-errors')
+        const normalizedCodes = normalizeErrorCodes(feed.data)
 
         if (normalizedCodes.length > 0) {
           const timestamp = Date.now()
-          localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp }))
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ data: feed.data, timestamp }))
           setErrorCodes(normalizedCodes)
           filterResults(query, normalizedCodes)
         } else {

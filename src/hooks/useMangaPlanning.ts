@@ -1,9 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { fetchFeed } from '../api/feeds'
 import { MAX_RETRIES } from '../constants/manga'
 import type { Manga } from '../types/manga'
-
-const PLANNING_URL =
-  'https://raw.githubusercontent.com/THZoria/MangaPlanner/refs/heads/main/planning.json'
 
 const isValidManga = (
   value: unknown,
@@ -53,17 +51,8 @@ export const useMangaPlanning = () => {
     const fetchMangas = async () => {
       try {
         setLoading(true)
-        const response = await fetch(PLANNING_URL, {
-          signal: controller.signal,
-          headers: { Accept: 'application/json' },
-        })
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch planning data (${response.status})`)
-        }
-
-        const payload = await response.json()
-        const normalized = normalizeMangas(payload)
+        const feed = await fetchFeed<unknown>('manga', controller.signal)
+        const normalized = normalizeMangas(feed.data)
 
         if (normalized.length === 0) {
           throw new Error('Planning data is empty')
