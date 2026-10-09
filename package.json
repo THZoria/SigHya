@@ -1,0 +1,12 @@
+{
+  "name": "sighya-fr",
+  "version": "2.5.0",
+  "private": true,
+  "type": "module",
+  "description": "French community platform for console modding",
+  "license": "MIT",
+  "scripts": {
+    "start": "NODE_ENV=production bun server/index.ts"
+  },
+  "dependencies": {}
+}
