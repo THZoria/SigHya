@@ -1,10 +1,8 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { decodeHTMLEntities } from '../utils/htmlEntities'
+import { fetchFeed } from '../api/feeds'
 
-/**
- * Interface for RSS feed items with custom fields
- */
+/** RSS item shape returned by `/api/feeds/news`. */
 interface CustomItem {
   title: string
   description: string
@@ -19,78 +17,11 @@ interface CustomItem {
   image?: string
 }
 
-const toSafeUrl = (value: string): string => {
-  try {
-    const url = new URL(value)
-    return url.protocol === 'http:' || url.protocol === 'https:' ? url.toString() : ''
-  } catch {
-    return ''
-  }
-}
-
-/**
- * Simple RSS parser for browser environment
- * Parses XML RSS feed without Node.js dependencies
- */
-const parseRSSFeed = (xmlText: string): CustomItem[] => {
-  try {
-    const parser = new DOMParser()
-    const doc = parser.parseFromString(xmlText, 'text/xml')
-
-    // Check for parsing errors
-    const parseError = doc.querySelector('parsererror')
-    if (parseError) {
-      throw new Error('Failed to parse RSS XML')
-    }
-
-    const items = doc.querySelectorAll('item')
-    const processedItems: CustomItem[] = []
-
-    items.forEach((item, index) => {
-      if (index >= 6) return // Limit to 6 items
-
-      const title = item.querySelector('title')?.textContent || ''
-      const description = item.querySelector('description')?.textContent || ''
-      const link = item.querySelector('link')?.textContent || ''
-      const guid = item.querySelector('guid')?.textContent || `item-${index}`
-      const pubDate = item.querySelector('pubDate')?.textContent || ''
-      const author = item.querySelector('author')?.textContent || ''
-
-      // Handle enclosure (article image)
-      const enclosure = item.querySelector('enclosure')
-      const enclosureUrl = enclosure?.getAttribute('url') || ''
-      const enclosureType = enclosure?.getAttribute('type') || ''
-
-      // Handle author image (specific to this RSS structure)
-      const authorImage = item.querySelector('image')?.textContent || ''
-
-      processedItems.push({
-        title: decodeHTMLEntities(title),
-        description: decodeHTMLEntities(description),
-        link: toSafeUrl(link),
-        guid,
-        pubDate,
-        author: decodeHTMLEntities(author),
-        enclosure: enclosureUrl ? { url: toSafeUrl(enclosureUrl), type: enclosureType } : undefined,
-        image: authorImage ? toSafeUrl(authorImage) : undefined,
-      })
-    })
-
-    return processedItems
-  } catch (_error) {
-    return []
-  }
-}
-
-/**
- * News component - Displays latest news from RSS feed
- * Fetches and displays news articles with loading states and error handling
- */
+/** Latest news from the server-side RSS cache. */
 const News = () => {
   const [news, setNews] = useState<CustomItem[]>([])
   const [loading, setLoading] = useState(true)
 
-  // Animation variants for staggered list animations
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -107,37 +38,31 @@ const News = () => {
   }
 
   useEffect(() => {
-    const RSS_URL = 'https://hacktuality.com/rss.xml'
-    const PROXIES = [
-      `/proxy/rss`,
-      `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(RSS_URL)}`,
-      `https://api.allorigins.win/raw?url=${encodeURIComponent(RSS_URL)}`,
-    ]
+    const controller = new AbortController()
 
-    const fetchNews = async () => {
-      for (const proxyUrl of PROXIES) {
-        try {
-          const response = await fetch(proxyUrl)
-          if (!response.ok) continue
-
-          const xmlText = await response.text()
-          const processedItems = parseRSSFeed(xmlText)
-
-          if (processedItems.length > 0) {
-            setNews(processedItems)
-            setLoading(false)
-            return
-          }
-        } catch {}
+    const loadNews = async () => {
+      try {
+        const feed = await fetchFeed<CustomItem[]>('news', controller.signal)
+        if (Array.isArray(feed.data) && feed.data.length > 0) {
+          setNews(feed.data)
+        } else {
+          setNews([])
+        }
+      } catch {
+        if (!controller.signal.aborted) {
+          setNews([])
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false)
+        }
       }
-      setLoading(false)
-      setNews([])
     }
 
-    fetchNews()
+    void loadNews()
+    return () => controller.abort()
   }, [])
 
-  // Loading skeleton component
   if (loading) {
     return (
       <div className="py-16 bg-gray-800">

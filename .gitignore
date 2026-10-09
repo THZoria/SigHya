@@ -7,9 +7,12 @@ node_modules
 coverage
 
 # Production
+.prod
 dist
 dist-ssr
+release
 *.local
+*.tar.*
 
 # Editor directories and files
 .vscode/*
@@ -43,3 +46,7 @@ lerna-debug.log*
 .eslintcache
 .npm
 .parcel-cache
+cache/feeds
+
+# PM2
+logs/
